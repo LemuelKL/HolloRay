@@ -10,13 +10,11 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
 
   @Override
   public String name() {
-      return "Adrian's example ValueUserPlugin for demonstrating JavaFX";
+    return "Adrian's example ValueUserPlugin for demonstrating JavaFX";
   }
 
   @Override
   public Value user(Value... args) throws ARTException {
-    System.out.println("Hello from JavaFX example plugin");
-    
     Group root = new Group();
     root.getChildren().add(new Label(args[0].toString()));
 

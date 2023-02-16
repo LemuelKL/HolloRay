@@ -2,4 +2,5 @@
 ---
 backend(_P1, _P2, _P3),_sig -> __user(_P1, _P2, _P3)
 
-!try backend(1,2,3), __map
+!trace 5
+!try backend(3,2,3), __map
