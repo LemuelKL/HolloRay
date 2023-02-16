@@ -91,7 +91,7 @@ backend(_P1, _P2, _P3),_sig -> __user(_P1, _P2, _P3)
 -cube
 _d |> __real64(_)
 ---
-cube(_d),_sig ->  __cube(_d),_sig
+cube(_d),_sig ->  __user("cube", _d, __),_sig
 
 -cylinder
 _r |> __real64(_)  _h |> __real64(_)
@@ -118,5 +118,21 @@ _E1, _sig -> _I1, _sigP
 ---
 difference(_E1, _E2),_sig -> __difference(_I1, _E2), _sigP
 
-!try backend(1,2,3), __map
+-initialise
+---
+init,_sig -> __user("init", __, __),_sig
+
+-paint
+---
+paint,_sig -> __user("paint", __, __),_sig
+
+
+!try
+seq(init(),
+seq(cube(100.0),
+seq(cube(50.0),
+seq(paint(),
+
+, __done
+)))), __map
 

@@ -94,19 +94,13 @@
 
 \begin{equation}
 \tag*{[\artConstructor{\sf cube}]}
-\begin{split}\frac{ \artVariable{d}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{d}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cube}(\artVariable{d}), \artVariable{$\sigma$}\,\rangle }
+\begin{split}\frac{ \artVariable{d}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{d}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cube})\ \artVariable{d}\ \_\_), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
 \tag*{[\artConstructor{\sf while}]}
 \begin{split}\langle\, \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E}\ \artConstructor{\sf seq}(\artVariable{C}\ \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}))\ \artSpecial{done}), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf cylinder}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -119,6 +113,12 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf assignResolve}]}
 \begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf cylinder}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -161,6 +161,18 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf difference}]}
 \begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf difference}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{difference}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf initialise}]}
+\begin{split}\langle\, \artConstructor{\sf init}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{init})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf paint}]}
+\begin{split}\langle\, \artConstructor{\sf paint}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{paint})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
 \end{split}
 \end{equation}
 

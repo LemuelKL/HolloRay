@@ -19,14 +19,14 @@
 -ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
 -ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
 (* constructor cube *)
--cube _d |> _ --- cube(_d), _sig -> __cube(_d), _sig
+-cube _d |> _ --- cube(_d), _sig -> __user("cube", _d, __), _sig
 (* constructor while *)
 -while  --- while(_E, _C), _sig -> if(_E, seq(_C, while(_E, _C)), __done), _sig
-(* constructor cylinder *)
--cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __cylinder(_r, _h), _sig
 (* constructor assign *)
 -assign _n |> _ --- assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
 -assignResolve _E, _sig -> _I, _sigP --- assign(_X, _E), _sig -> assign(_X, _I), _sigP
+(* constructor cylinder *)
+-cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __cylinder(_r, _h), _sig
 (* constructor sphere *)
 -sphere _r |> _ --- sphere(_r), _sig -> __sphere(_r), _sig
 (* constructor gt *)
@@ -39,6 +39,10 @@
 -intersection _E1, _sig -> _I1, _sigP --- intersection(_E1, _E2), _sig -> __intersection(_I1, _E2), _sigP
 (* constructor difference *)
 -difference _E1, _sig -> _I1, _sigP --- difference(_E1, _E2), _sig -> __difference(_I1, _E2), _sigP
+(* constructor init *)
+-initialise  --- init, _sig -> __user("init", __, __), _sig
+(* constructor paint *)
+-paint  --- paint, _sig -> __user("paint", __, __), _sig
 
 (*-----------------------*)
 
