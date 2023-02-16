@@ -33,12 +33,6 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf sphere}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{sphere}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
 \tag*{[\artConstructor{\sf sequenceDone}]}
 \begin{split}\langle\, \artConstructor{\sf seq}(\artSpecial{done}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C}, \artVariable{$\sigma$}\,\rangle 
 \end{split}
@@ -51,8 +45,20 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf union}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf union}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{union}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf while}]}
+\begin{split}\langle\, \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E}\ \artConstructor{\sf seq}(\artVariable{C}\ \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}))\ \artSpecial{done}), \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf assign}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artSpecial{put}(\artVariable{$\sigma$}\ \artVariable{X}\ \artVariable{n})\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf assignResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -75,14 +81,20 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf intersection}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf gt}]}
+\begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf gt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{gt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf test}]}
-\begin{split}\artConstructor{\sf test}\rightarrow \artSpecial{empty}
+\tag*{[\artConstructor{\sf gtRight}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) \quad \langle\, \artVariable{E$_{2}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{2}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf gt}(\artVariable{n}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf gt}(\artVariable{n}\ \artVariable{I$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf gtLeft}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf gt}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf gt}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -113,54 +125,6 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf ifResolve}]}
 \begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{E\/$^\prime$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf if}(\artVariable{E}\ \artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E\/$^\prime$}\ \artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf while}]}
-\begin{split}\langle\, \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E}\ \artConstructor{\sf seq}(\artVariable{C}\ \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}))\ \artSpecial{done}), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf assign}]}
-\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artSpecial{put}(\artVariable{$\sigma$}\ \artVariable{X}\ \artVariable{n})\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf assignResolve}]}
-\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf gt}]}
-\begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf gt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{gt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf gtRight}]}
-\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) \quad \langle\, \artVariable{E$_{2}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{2}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf gt}(\artVariable{n}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf gt}(\artVariable{n}\ \artVariable{I$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf gtLeft}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf gt}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf gt}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf cube}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cube}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf cylinder}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cylinder}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 

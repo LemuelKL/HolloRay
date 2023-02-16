@@ -1,5 +1,6 @@
 import uk.ac.rhul.cs.csle.art.util.ARTException;
 import uk.ac.rhul.cs.csle.art.value.*;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,6 +15,8 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
 
   @Override
   public Value user(Value... args) throws ARTException {
+    System.out.println("Hello from JavaFX example plugin");
+    
     Group root = new Group();
     root.getChildren().add(new Label(args[0].toString()));
 

@@ -1,0 +1,6 @@
+(* relation '->' *)
+(* constructor backend *)
+-backend  --- backend(_P1, _P2, _P3), _sig -> __user(_P1, _P2, _P3)
+
+(*-----------------------*)
+

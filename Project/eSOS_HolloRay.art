@@ -122,13 +122,3 @@ intersection(_E1, _E2),_sig -> __intersection(_I1, _E2), _sigP
 
 
 
-
-
--test
----
-test() -> __empty()
-
-
-!try test()
-
-!try seq(assign(a, 15), seq(seq(seq(assign(b, 9), while(ne(deref(a), deref(b)), if(gt(deref(a), deref(b)), assign(a, sub(deref(a), deref(b))), assign(b, sub(deref(b), deref(a)))))), assign(gcd, deref(a))), backend(1, 2, 3)))
