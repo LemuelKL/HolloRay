@@ -26,7 +26,7 @@
 -assign _n |> _ --- assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
 -assignResolve _E, _sig -> _I, _sigP --- assign(_X, _E), _sig -> assign(_X, _I), _sigP
 (* constructor cylinder *)
--cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __cylinder(_r, _h), _sig
+-cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
 (* constructor sphere *)
 -sphere _r |> _ --- sphere(_r), _sig -> __sphere(_r), _sig
 (* constructor gt *)
