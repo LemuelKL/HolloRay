@@ -1,2 +1,0 @@
-S ::= 'b' | 'a' X '@'
-X ::= 'x' { System.out.println("Found an x at location " + cc); } X | #

@@ -1,5 +1,0 @@
--Xlint
--classpath
-.;\\csle\\dev\\art/art.jar
-ARTGeneratedParser.java
-ARTGeneratedLexer.java
