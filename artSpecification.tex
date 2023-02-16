@@ -15,6 +15,12 @@
 \newcommand{\artType}[1]{: #1}
 \begin{document}
 \begin{equation}
+\tag*{[\artConstructor{\sf sphere}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{sphere}(\artVariable{r}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf ne}]}
 \begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf ne}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{ne}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
@@ -29,12 +35,6 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf neLeft}]}
 \begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf ne}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf ne}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf sphere}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{sphere}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -57,6 +57,12 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf intersection}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf sub}]}
 \begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf sub}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{sub}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
@@ -71,18 +77,6 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf subLeft}]}
 \begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf sub}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf sub}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf intersection}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf test}]}
-\begin{split}\artConstructor{\sf test}\rightarrow \artSpecial{empty}
 \end{split}
 \end{equation}
 
@@ -154,13 +148,13 @@
 
 \begin{equation}
 \tag*{[\artConstructor{\sf cube}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cube}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle }
+\begin{split}\frac{ \artVariable{d}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{d}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cube}(\artVariable{d}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
 \tag*{[\artConstructor{\sf cylinder}]}
-\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cylinder}(\artVariable{x}\ \artVariable{y}\ \artVariable{z}\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle }
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 

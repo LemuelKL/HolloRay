@@ -1,0 +1,124 @@
+-sequenceDone
+---
+seq(__done, _C), _sig -> _C, _sig
+
+-sequence 
+_C1, _sig -> _C1P, _sigP
+---
+seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
+
+-ifTrue 
+---
+if(True, _C1, _C2),_sig -> _C1, _sig
+
+-ifFalse 
+---
+if(False, _C1, _C2),_sig -> _C2,_sig
+
+-ifResolve
+_E, _sig ->_EP, _sigP
+---
+if(_E,_C1,_C2),_sig -> if(_EP, _C1, _C2), _sigP
+
+-while
+---
+while(_E, _C),_sig -> if(_E, seq(_C, while(_E,_C)), __done), _sig
+
+-assign
+_n |> __int32(_)   
+---
+assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
+
+-assignResolve
+_E, _sig -> _I, _sigP 
+---
+assign(_X,_E), _sig -> assign(_X, _I), _sigP
+
+-gt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+gt(_n1, _n2),_sig ->  __gt(_n1, _n2),_sig 
+
+-gtRight
+_n |> __int32(_) _E2, _sig -> _I2,_sigP 
+---
+gt(_n, _E2),_sig -> gt(_n, _I2), _sigP
+
+-gtLeft
+_E1, _sig -> _I1, _sigP 
+---
+gt(_E1, _E2),_sig -> gt(_I1, _E2), _sigP
+
+-ne
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+ne(_n1, _n2),_sig ->  __ne(_n1, _n2),_sig
+
+-neRight
+_n |> __int32(_)  _E2, _sig -> _I2,_sigP 
+---
+ne(_n, _E2),_sig -> ne(_n, _I2), _sigP
+
+-neLeft
+_E1, _sig -> _I1, _sigP 
+---
+ne(_E1, _E2),_sig -> ne(_I1, _E2), _sigP
+
+-sub
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+sub(_n1, _n2),_sig ->  __sub(_n1, _n2),_sig
+
+-subRight
+_n |> __int32(_) _E2,_sig -> _I2,_sigP   
+---
+sub(_n, _E2),_sig -> sub(_n, _I2), _sigP
+
+-subLeft
+_E1,_sig -> _I1,_sigP
+---
+sub(_E1, _E2),_sig -> sub(_I1, _E2), _sigP
+
+-variable
+__get(_sig, _R) |> _Z
+---
+deref(_R),_sig -> _Z, _sig
+
+-backend
+---
+backend(_P1, _P2, _P3),_sig -> __user(_P1, _P2, _P3)
+
+!try seq(assign(a, 15), seq(seq(seq(assign(b, 9), while(ne(deref(a), deref(b)), if(gt(deref(a), deref(b)), assign(a, sub(deref(a), deref(b))), assign(b, sub(deref(b), deref(a)))))), assign(gcd, deref(a))), backend(1, 2, 3)))
+
+, __map
+
+
+
+
+-cube
+_d |> __real64(_)
+---
+cube(_d),_sig ->  __cube(_d),_sig
+
+-cylinder
+_r |> __real64(_)  _h |> __real64(_)
+---
+cylinder(_r, _h),_sig ->  __cylinder(_r, _h),_sig
+
+-sphere
+_r |> __real64(_)
+---
+sphere(_r),_sig ->  __sphere(_r),_sig
+
+-union
+_E1, _sig -> _I1, _sigP
+---
+union(_E1, _E2),_sig -> __union(_I1, _E2), _sigP
+
+-intersection
+_E1, _sig -> _I1, _sigP
+---
+intersection(_E1, _E2),_sig -> __intersection(_I1, _E2), _sigP
+
+
+

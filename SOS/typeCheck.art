@@ -1,7 +1,0 @@
--assignArray
-__termRoot(_A) |> __array
----
-array(_X, _A), _sig -> __done, __put(_sig, _X, _A)
-
-!try array(arr, __array(2)), __map->
-
