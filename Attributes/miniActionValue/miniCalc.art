@@ -1,0 +1,43 @@
+(*******************************************************************************
+*
+* miniCalc.art - Adrian Johnstone 9 January 2016
+*
+*******************************************************************************)
+statement ::= 'print' '(' printElements ')' ';'                      (* print statement *)
+
+printElements ::= STRING_DQ { System.out.print(STRING_DQ1.v.toString()); } | 
+                  STRING_DQ { System.out.print(STRING_DQ1.v.toString()); } ',' printElements | 
+                  e0 { System.out.printf(e01.v.toString()); } | e0 { System.out.print(e01.v.toString()); } ',' printElements  
+
+e0 <v> ::= e1 { e0.v = e11.v; } | 
+               e1 '>'  e1 { e0.v = e11.v.__gt(e12.v); } |       (* Greater than *)
+               e1 '<'  e1 { e0.v = e11.v.__lt(e12.v); } |       (* Less than *)
+               e1 '>=' e1 { e0.v = e11.v.__ge(e12.v); } |       (* Greater than or equals*)
+               e1 '<=' e1 { e0.v = e11.v.__le(e12.v); } |       (* Less than or equals *)
+               e1 '==' e1 { e0.v = e11.v.__eq(e12.v); } |       (* Equal to *)
+               e1 '!=' e1 { e0.v = e11.v.__ne(e12.v); }         (* Not equal to *)
+
+e1 <v>  ::= e2 { e1.v = e21.v; } | 
+                e1 '+' e2 { e1.v = e11.v.__add(e21.v); } |      (* Add *)
+                e1 '-' e2 { e1.v = e11.v.__sub(e21.v); }        (* Subtract *)
+
+e2 <v> ::= e3 { e2.v= e31.v; } | 
+                e2 '*' e3 { e2.v = e21.v.__mul(e31.v); } |      (* Multiply *)
+                e2 '/' e3 { e2.v = e21.v.__div(e31.v); } |      (* Divide *)
+                e2 '%' e3 { e2.v = e21.v.__exp(e31.v); }        (* Mod *)
+
+e3 <v> ::= e4 {e3.v = e41.v; } | 
+                '+' e3 {e3.v = e41.v; } |                       (* Posite *)
+                '-' e3 {e3.v = new __int32(0,0).__sub(e41.v); } (* Negate *)
+
+e4 <v> ::= e5 { e4.v = e51.v; } | 
+                e5 '**' e4 {e4.v = e51.v.__exp(e41.v); }        (* Exponentiate *)
+
+e5 <v> ::= INTEGER {e5.v = INTEGER1.v; } |                      (* Integer literal *)
+                '(' e1 { e5.v = e11.v; } ')'                    (* Parenthesised expression *)
+       
+INTEGER <leftExtent:int rightExtent:int lexeme:String v> ::= 
+  &INTEGER {INTEGER.lexeme = artLexeme(INTEGER.leftExtent, INTEGER.rightExtent); INTEGER.v = new __int32(artLexemeAsInteger(INTEGER.leftExtent, INTEGER.rightExtent), 0); }  
+
+STRING_DQ <leftExtent:int rightExtent:int lexeme:String v> ::= 
+  &STRING_DQ {STRING_DQ.lexeme = artLexeme(STRING_DQ.leftExtent, STRING_DQ.rightExtent); STRING_DQ.v = new __string(artLexemeAsString(STRING_DQ.leftExtent, STRING_DQ.rightExtent)); }  

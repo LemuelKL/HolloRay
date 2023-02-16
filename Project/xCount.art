@@ -1,0 +1,12 @@
+support {
+  ITerms iTerms = new ITermsLowLevelAPI(10,10);
+}
+
+
+S ::= 'b' | 'a' X '@' 
+      { System.out.println("Xcount: " + X1.x); } 
+
+
+      X < x > ::= 'x' X { X.x = X1.x.__add(new __int32(1, iTerms)); } 
+             |  #    { X.x = new __int32(0, iTerms); } 
+

@@ -1,0 +1,16 @@
+-integerInc 
+_X |> __int32(_) 
+---
+increment(_X) -> __add(_X, 1)
+
+-realInc 
+_X |> __real64(_) 
+---
+increment(_X) -> __add(_X, 1.0)
+
+!try increment(4)
+!try increment(5.5)
+!trace 5
+!try increment(4)
+!try increment(5.5)
+ 

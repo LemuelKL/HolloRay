@@ -1,0 +1,6 @@
+-assign
+_n |> __int32(_)  __put(_sig, _X, _n) |> _sig1
+---
+assign(_X, _n), _sig -> __done, _sig1
+
+!try assign(tmp, 32), __map()

@@ -1,0 +1,7 @@
+S ::= 'b' | 'a' X '@' 
+      { System.out.println("Xcount: " + X1.x); } 
+
+
+X < x:int> ::= 'x' X { X.x = X1.x+1; } 
+             |  #    { X.x = 0; } 
+

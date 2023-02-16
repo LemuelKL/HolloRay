@@ -1,0 +1,9 @@
+S ::= add ^^
+
+add<sum:int> ::= digit:left '+'^ digit:right 
+               { add.sum = left.v +  right.v;
+                 System.out.println("sum is " + add.sum); }
+
+digit <v:int> ::= '0'^^ { digit.v = 0; }
+                | '1'^^ { digit.v = 1; }
+                | '2'^^ { digit.v = 2; }

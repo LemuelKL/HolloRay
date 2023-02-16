@@ -1,0 +1,8 @@
+_X |> __int32(_)  _Y |> __int32(_)
+---
+add(_X,_Y) -> __add(_X, _Y)
+
+!trace 5
+!try add(add(3,4),5)
+
+ 

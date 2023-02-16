@@ -1,0 +1,5 @@
+S ::= INT '+' INT { System.out.println("sum is: " + (INT1.v + INT2.v)); }
+
+INT <v: int> ::= '1' { INT.v = 1; }
+               | '2' { INT.v = 2; }
+               | '3' { INT.v = 3; }

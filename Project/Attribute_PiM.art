@@ -1,0 +1,54 @@
+(* ART parser with attributes for the GCD language *)
+prelude {
+  import java.util.HashMap;
+}
+
+support {
+  HashMap<String, Integer> variables = new HashMap<String, Integer>();
+  ITerms iTerms = new ITermsLowLevelAPI();
+}
+
+statements ::= statement { System.out.println("Variables at end of program: " + variables); }
+| statement statements  
+
+statement ::=
+  ID ':=' subExpr ';' { variables.put(ID1.v, subExpr1.v); }
+| 'if' relExpr statement< 'else' statement<
+  { if (relExpr1.v != 0) 
+      artEvaluate(statement.statement1, statement1); 
+    else
+      artEvaluate(statement.statement2, statement2);  
+   }
+
+| 'while' relExpr< statement< 
+  { artEvaluate(statement.relExpr1, relExpr1); 
+    while (relExpr1.v != 0) { 
+      artEvaluate(statement.statement1, statement1); 
+      artEvaluate(statement.relExpr1, relExpr1); 
+    } 
+  }
+
+| 'backend' '(' subExpr ',' subExpr ',' subExpr ')'
+  { iTerms.valueUserPlugin.user(new __int32(subExpr1.v, 0), new __int32(subExpr2.v, 0), new __int32(subExpr3.v, 0)); }
+
+relExpr<v:int> ::=
+  subExpr { relExpr.v = subExpr1.v; }
+| relExpr '>' subExpr { relExpr.v = relExpr1.v > subExpr1.v ? 1 : 0; }
+| relExpr '!=' subExpr { relExpr.v = relExpr1.v != subExpr1.v ? 1 : 0; }
+
+subExpr<v:int> ::=
+  operand { subExpr.v = operand1.v; }
+| subExpr '-' operand { subExpr.v = subExpr1.v - operand1.v; }
+
+operand<v:int> ::=
+  ID {operand.v = variables.get(ID1.v); }
+| INTEGER {operand.v = INTEGER1.v; }
+| '(' subExpr ')' {operand.v = subExpr1.v; }
+
+(* lexical items below this line *)
+ID <leftExtent:int rightExtent:int lexeme:String v:String> ::= 
+  &ID {ID.lexeme = artLexeme(ID.leftExtent, ID.rightExtent); ID.v = artLexemeAsID(ID.leftExtent, ID.rightExtent); }  
+
+INTEGER <leftExtent:int rightExtent:int lexeme:String v:int> ::= 
+  &INTEGER {INTEGER.lexeme = artLexeme(INTEGER.leftExtent, INTEGER.rightExtent); INTEGER.v = artLexemeAsInteger(INTEGER.leftExtent, INTEGER.rightExtent); }  
+

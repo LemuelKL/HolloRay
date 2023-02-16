@@ -1,0 +1,112 @@
+Instructions from AJ:
+
+This is a template and example for you to use when defining your informal specification
+and the signatures of the types and operations you think you will need.
+
+Please replace instances of PiM with the name of your language and extend the sections to
+suit your real, non-miniature, language.
+
+
+
+
+A: Informal language specification
+==================================
+
+The language PiM can perform simple arithmetic and call a back end function.
+
+S.1 Programs
+------------
+
+A PiM program is one or more statements
+
+Statements are separated by the ; and-also operator. There is no statement terminator.
+
+A sequence of whitespace characters can be used wherever one whitespace is valid.
+
+
+S.2 Arithmetic and expressions
+------------------------------
+
+PiM has only 32-bit integer arithmetic
+
+Non-keyword alphanumeric identifiers denote variables that may have integers bound to them.
+
+The only operations provided are subtraction over constant integers and variables such as  $x-y$, $x-3$ or $3-4$ 
+
+
+S.3 Predicates
+--------------
+
+PiM allows comparison of 32-bit integers using relational operators that return a boolean result
+
+x > y 		x greater than y
+
+x != y  	x not equal to y
+
+
+S.4 Selection statements
+------------------------
+
+PiM provides two selection statements
+
+if _pred then _statement else _statement
+
+if _pred then _statement
+
+where _pred is a predicate as defined in section S.3, and _statement is any statement
+
+
+S.5 Iteration statements
+------------------------
+
+PiM provides one iteration statement
+
+while _pred do _statement
+
+where _pred is a predicate as defined in section S.4, and _statement is any statement
+
+
+S.6 Domain specific types
+-------------------------
+
+PiM has no domain specific types
+
+
+S.7 Domain specific operations
+------------------------------
+
+PiM provides one DSL-type statement
+
+backend(_v1:int, _v2:int, _v3:int):int
+
+where v1, v2 and v3 are integer expressions. 
+
+This statement then activates the corresponding method in class ValueUserPlugin via the __user() function in the ART value system.
+
+The behaviour depends on the code implemented in that class. 
+
+
+
+
+B: Internal syntax constructors and arities
+===========================================
+
+seq(_C1, _C2) execute command  C_1 followed by command C_2
+
+sub(_E1:__int32, _E2:__int32):__int32 integer subtraction: E_1 - E_2
+
+gt(_E1:__int32, _E2:__int32):__boolean integer greater-than E_1 > E_2
+
+ne(_E1:__int32, _E2:__int32):__boolean integer not-equals E_1 ne E_2
+
+assign(_N:__int32, _E:__int32) bind _E to name _N in variables map
+
+deref(_N)) retrieve binding for name _N in variables map
+
+if(_P:__bool, _C1, _C2) select if _P then execute C_2 else execute C_3
+
+while(_P:__bool, _C1, _C2) iterate while _P then execute C_2 else execute C_3
+
+backend(_V1, _V2, _V3) call __user(_V1, _V2, _V3)
+
+Note: also add signatures for every domains specific primitive, such as box(_x:real64, _y:real64, _z:real64)

@@ -1,0 +1,28 @@
+x = 1;
+cout << "x = " << x << "\n";
+
+y = 30 + 4;
+xx :=5;
+
+cout << "xx = " <<  xx << " y = " << y << "\n";
+
+while true {  
+  xx := xx + 1; 
+  if xx < 8 continue;  
+  cout << "In while loop " << xx << "\n"; 
+  if xx > 9 break;
+}
+
+for (z := 1; z < 8; z := z + 2) {
+ cout<< " z is " << z << "\n";
+
+}
+
+cout << 24<<"\n";
+
+testProc = \(a1,a2) { cout << "Hello from a procedure " << a1 << ", " << a2 << " \n";};
+
+testProc(a2=666);
+tst = \() {return 3;};
+
+

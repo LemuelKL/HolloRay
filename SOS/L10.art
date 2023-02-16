@@ -1,0 +1,12 @@
+-sequenceDone 
+---
+seq(__done, _C) -> _C
+
+-sequence 
+_C1 -> _C1P
+---
+seq(_C1, _C2) -> seq(_C1P, _C2)
+
+
+!try seq(__done, 7)
+

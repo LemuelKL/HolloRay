@@ -1,0 +1,15 @@
+-sequenceDone 
+---
+seq(__done, _C), _phi -> _C, _phi
+
+-sequence 
+_C1, _phi1 -> _C1P, _phi2
+---
+seq(_C1, _C2), _phi1 -> seq(_C1P, _C2), _phi2
+
+-output _x,_phi1 ->_y,_phi2
+---
+output(_x),_phi1 -> __done, __put(_phi2,_y)
+
+!try seq(output(4),output(5)),__list
+

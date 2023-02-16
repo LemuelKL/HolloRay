@@ -1,0 +1,8 @@
+_X |> __int32(_) 
+---
+increment(_X) -> __add(_X, 1) 
+
+!try increment(3)
+!try increment(4)
+!try increment(5.5)
+!try increment("five") 

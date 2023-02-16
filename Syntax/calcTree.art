@@ -1,0 +1,10 @@
+expr ::= add
+
+add ::=  mul '+'^ add^^ | mul^^
+
+
+mul ::= op^^ '*'^ mul | op^^
+
+op ::= ID | '('^ expr^^ ')'^
+
+ID ::= 'A'^^| 'B'^^ | 'C'^^

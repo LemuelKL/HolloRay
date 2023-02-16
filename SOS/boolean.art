@@ -1,0 +1,18 @@
+---
+or(True,True) => True
+
+---
+or(True,False) => True
+
+---
+or(False,True) => True
+
+---
+or(False,False) => False
+
+_x => _xP  _y => _yP  or(_xP, _yP) => _z
+---
+or(_x,_y) => _z
+
+
+!try or(False,or(True,False))

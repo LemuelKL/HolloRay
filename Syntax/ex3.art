@@ -1,0 +1,3 @@
+S ::= 'a' 'b' 'c' 'd'
+    | 'a' { System.out.println("Seen a from second alternate"); } 'b' 'c'
+

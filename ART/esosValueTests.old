@@ -1,0 +1,347 @@
+(* Value system tests using the term rewriter *)
+
+(* One rule for each Value operation *)
+--- eq(_x,_y) -> __eq(_x, _y)
+--- ne(_x,_y) -> __ne(_x, _y)
+--- gt(_x,_y) -> __gt(_x, _y)
+--- lt(_x,_y) -> __lt(_x, _y)
+--- ge(_x,_y   ) -> __ge(_x, _y)
+--- le(_x,_y   ) -> __le(_x, _y)
+--- compare(_x,_y) -> __compare(_x,_y)
+
+--- not(_x) -> __not(_x)
+--- and(_x,_y) -> __and(_x, _y)
+--- or(_x,_y) -> __or(_x, _y)
+--- xor(_x,_y) -> __xor(_x, _y)
+--- cnd(_x,_y) -> __cnd(_x, _y)
+
+--- lsh(_x,_y) -> __lsh(_x, _y)
+--- rsh(_x,_y) -> __rsh(_x, _y)
+--- ash(_x,_y) -> __ash(_x, _y)
+--- rol(_x,_y) -> __rol(_x, _y)
+--- ror(_x,_y) -> __ror(_x, _y)
+
+--- neg(_x) -> __neg(_x)
+--- add(_x,_y) -> __add(_x, _y)
+--- sub(_x,_y) -> __sub(_x, _y)
+--- mul(_x,_y) -> __mul(_x, _y)
+--- div(_x,_y) -> __div(_x, _y)
+--- mod(_x,_y) -> __mod(_x, _y)
+--- exp(_x,_y) -> __exp(_x, _y)
+
+--- size(_x) -> __size(_x)
+--- cat(_x,_y)-> __cat(_x,_y)
+--- slice(_x)-> __slice(_x)   // Monadic slice on lists gets tail
+--- slice(_x,_l,_r)-> __slice(_x,_l,_r)
+--- get(_x)-> __get(_x)   // Monadic get on lists gets head
+--- get(_x,_y)-> __get(_x,_y)
+--- put(_x,_y)-> __put(_x,_y)
+--- put(_x,_y,_z)-> __put(_x,_y,_z)
+
+--- contains(_x,_y) -> __contains(_x,_y)
+--- remove(_x,_y) -> __remove(_x,_y)
+--- extract(_x) -> __extract(_x)
+
+--- union(_x,_y) -> __union(_x,_y)
+--- intersection(_x,_y) -> __intersection(_x,_y)
+--- difference(_x,_y) -> __difference(_x,_y)
+--- cast(_x,_y) -> __cast(_x,_y)
+
+--- termArity(_x) -> __termArity(_x)
+--- termRoot(_x) -> __termRoot(_x)
+--- termMake(_t, _r, _l, _h) -> __termMake(_t, _r, _l, _h)
+--- termMatch(_x,_y) -> __termMatch(_x, _y)
+--- user(_x, _y, _z) -> __user(_x, _y, _z)
+
+(* Tests for each type/opertaion combination *)
+
+(* __bottom *)
+!try 0 eq(__bottom, __bottom) -> True
+!try 0 ne(__bottom, __bottom) -> False
+
+(* __done *)
+!try 0 eq(__done, __done) -> True
+!try 0 ne(__done, __done) -> False
+
+(* __empty *)
+!try 0 eq(__empty, __empty) -> True
+!try 0 ne(__empty, __empty) -> False
+
+(* __quote *)
+!try 0 eq(__quote(a), __quote(a)) -> True
+!try 0 ne(__quote(a), __quote(a)) -> False
+
+(* __proc *)
+!try 0 eq(__proc(a), __proc(a)) -> True
+!try 0 ne(__proc(a), __proc(a)) -> False
+
+(* __procV3 *)
+!try 0 eq(__procV3(a), __procV3(a)) -> True
+!try 0 ne(__procV3(a), __procV3(a)) -> False
+
+(* __input *)
+!try 0 eq(__input("test"), __input("test")) -> True
+!try 0 eq(__input("test"), __input("test1")) -> False
+!try 0 ne(__input("test"), __input("test")) -> False
+!try 0 ne(__input("test"), __input("test1")) -> True
+
+(* __ouput *)
+!try 0 eq(__output("test"), __output("test")) -> True
+!try 0 eq(__output("test"), __output("test1")) -> False
+!try 0 ne(__output("test"), __output("test")) -> False
+!try 0 ne(__output("test"), __output("test1")) -> True
+
+(* __binding *)
+!try 0 eq(__binding(a,3), __binding(a,3)) -> True
+!try 0 ne(__binding(a,3), __binding(a,3)) -> False
+
+(* __adtProd *)
+!try 0 eq(__adtProduct(a,3), __adtProduct(a,3)) -> True
+!try 0 ne(__adtProduct(a,3), __adtProduct(a,3)) -> False
+
+(* __adtSum *)
+!try 0 eq(__adtSum(a,3), __adtSum(a,3)) -> True
+!try 0 ne(__adtSum(a,3), __adtSum(a,3)) -> False
+
+(* __bool *)
+!try 0 eq(True, True) -> True
+!try 0 ne(True, True) -> False
+
+!try 0 eq(True, False) -> False
+!try 0 ne(False, True) -> True
+
+!try 0 not(True) -> False
+!try 0 not(False) -> True
+!try 0 and(True, False) -> False
+!try 0 and(True, True) -> True
+!try 0 or(True, False) -> True
+!try 0 or(False, False) -> False
+!try 0 xor(True,True) -> False
+!try 0 xor(False,True) -> True
+
+(* __char *)
+!try 0 eq(`a, `a) -> True
+!try 0 ne(`a, `a) -> False
+
+!try 0 eq(`a,`c) -> False
+!try 0 eq(`c,`c) -> True
+
+!try 0 ne(`a,`c) -> True
+!try 0 ne(`a,`a) -> False
+
+!try 0 gt(`c,`b) -> True
+!try 0 gt(`c,`c) -> False
+
+!try 0 ge(`c,`b) -> True
+!try 0 ge(`c,`c) -> True
+
+!try 0 lt(`c,`b) -> False
+!try 0 lt(`c,`c) -> False
+
+!try 0 le(`c,`b) -> False
+!try 0 le(`c,`c) -> True
+
+(* __intAP *)
+!try 0 eq(3,2) -> False
+!try 0 eq(3,3) -> True
+
+!try 0 ne(3,2) -> True
+!try 0 ne(3,3) -> False
+
+!try 0 gt(3,2) -> True
+!try 0 gt(3,3) -> False
+
+!try 0 ge(3,2) -> True
+!try 0 ge(3,3) -> True
+
+!try 0 lt(3,2) -> False
+!try 0 lt(3,3) -> False
+
+!try 0 le(3,2) -> False
+!try 0 le(3,3) -> True
+
+!try 0 not(15) -> -16
+!try 0 and(7,3) -> 3
+!try 0 or(7,8) -> 15
+!try 0 xor(3,2) -> 1
+
+!try 0 lsh(15,2) -> 60
+!try 0 rsh(15,2) -> 3
+!try 0 ash(15,2) -> 3
+
+!try 0 rol(15,2) -> 60
+!try 0 ror(15,2) -> -2147483645
+
+!try 0 add(3,2) -> 5
+!try 0 sub(2,3) -> -1
+!try 0 mul(-3,2) -> -6
+!try 0 div(3,2) -> 1
+!try 0 mod(3,2) -> 1
+!try 0 exp(3,2) -> 9
+
+(* __int32 *)
+!try 0 eq(3,2) -> False
+!try 0 eq(3,3) -> True
+
+!try 0 ne(3,2) -> True
+!try 0 ne(3,3) -> False
+
+!try 0 gt(3,2) -> True
+!try 0 gt(3,3) -> False
+
+!try 0 ge(3,2) -> True
+!try 0 ge(3,3) -> True
+
+!try 0 lt(3,2) -> False
+!try 0 lt(3,3) -> False
+
+!try 0 le(3,2) -> False
+!try 0 le(3,3) -> True
+
+!try 0 not(15) -> -16
+!try 0 and(7,3) -> 3
+!try 0 or(7,8) -> 15
+!try 0 xor(3,2) -> 1
+
+!try 0 lsh(15,2) -> 60
+!try 0 rsh(15,2) -> 3
+!try 0 ash(15,2) -> 3
+
+!try 0 rol(15,2) -> 60
+!try 0 ror(15,2) -> -2147483645
+
+!try 0 add(3,2) -> 5
+!try 0 sub(2,3) -> -1
+!try 0 mul(-3,2) -> -6
+!try 0 div(3,2) -> 1
+!try 0 mod(3,2) -> 1
+!try 0 exp(3,2) -> 9
+
+(* __realAP *)
+!try 0 eq(3.0,2.0) -> False
+!try 0 eq(3.0,3.0) -> True
+
+!try 0 ne(3.0,2.0) -> True
+!try 0 ne(3.0,3.0) -> False
+
+!try 0 gt(3.0,2.0) -> True
+!try 0 gt(3.0,3.0) -> False
+
+!try 0 ge(3.0,2.0) -> True
+!try 0 ge(3.0,3.0) -> True
+
+!try 0 lt(3.0,2.0) -> False
+!try 0 lt(3.0,3.0) -> False
+
+!try 0 le(3.0,2.0) -> False
+!try 0 le(3.0,3.0) -> True
+
+!try 0 neg(3.0) -> -3.0
+!try 0 add(3.0,2.0) -> 5.0
+!try 0 sub(3.0,2.0) -> 1.0
+!try 0 mul(3.0,2.0) -> 6.0
+!try 0 div(3.0,2.0) -> 1.5
+!try 0 mod(3.0,2.0) -> 1.0
+!try 0 exp(3.0,2.0) -> 9.0
+
+(* __real64 *)
+!try 0 eq(3.0,2.0) -> False
+!try 0 eq(3.0,3.0) -> True
+
+!try 0 ne(3.0,2.0) -> True
+!try 0 ne(3.0,3.0) -> False
+
+!try 0 gt(3.0,2.0) -> True
+!try 0 gt(3.0,3.0) -> False
+
+!try 0 ge(3.0,2.0) -> True
+!try 0 ge(3.0,3.0) -> True
+
+!try 0 lt(3.0,2.0) -> False
+!try 0 lt(3.0,3.0) -> False
+
+!try 0 le(3.0,2.0) -> False
+!try 0 le(3.0,3.0) -> True
+
+!try 0 neg(3.0) -> -3.0
+!try 0 add(3.0,2.0) -> 5.0
+!try 0 sub(3.0,2.0) -> 1.0
+!try 0 mul(3.0,2.0) -> 6.0
+!try 0 div(3.0,2.0) -> 1.5
+!try 0 mod(3.0,2.0) -> 1.0
+!try 0 exp(3.0,2.0) -> 9.0
+
+(* __string *)
+!try 0 compare("Adrian", "Johnstone") -> -1
+!try 0 compare("Adrian", "Adrian")->0
+!try 0 compare("ZAdrian", "Johnstone")->1
+!try 0 compare("", "Johnstone")->-1
+!try 0 compare("", "")->0
+!try 0 size("") -> 0
+!try 0 size("Adrian") -> 6
+!try 0 cat("World", "hello")->"Worldhello"
+!try 0 cat("hello", "World")->"helloWorld"
+!try 0 get("Adrian",1) -> `d
+!try 0 slice("0123456789",2,7)->"23456"
+!try 0 slice("0123456789",2,2)->""
+!try 0 slice("0123456789",2,3)->"2"
+!try 0 slice("0123456789",2,4)->"23"
+
+(* __array *)
+!try 0 size(__array(4, `a,"b",3)) -> 4
+!try 0 get(__array(4, `a,"b",3), 2) -> 3
+!try 0 put(__array(4, `a,"b",3), 1, `z) -> __array(4, `a, `z, 3, __empty)
+!try 0 slice(__array(4, `a,"b",3), 1, 1) -> __array(0)
+!try 0 slice(__array(4, `a,"b",3), 1, 2) -> __array(1,"b")
+!try 0 slice(__array(4, `a,"b",3), 1, 3) -> __array(2,"b",3)
+
+(* __list *)
+!try 0 size(__list(a,"b",3)) -> 3
+!try 0 cat(__list(`a,"b",3), __list()) -> __list(`a,"b",3)
+!try 0 cat(__list(`a,"b",3), __list(25.9,"z")) -> __list(`a,"b",3,25.9,"z")
+!try 0 get(__list(`a,"b",3,25.9,"z")) -> `a // monadic get returns the head of the list, or __empty of the list has no elements
+!try 0 slice(__list(`a,"b",3,25.9,"z")) -> __list("b",3,25.9,"z") // monadic slice ets tail of list, or __empty if the list has zero or one element
+!try 0 get(__list()) -> __empty
+!try 0 slice(__list(`a)) -> __empty
+
+
+(* __flexArray *)
+!try 0 size(__flexArray(`a,"b",3)) -> 3
+!try 0 cat(__flexArray(`a,"b",3), __flexArray()) -> __flexArray(`a,"b",3)
+!try 0 cat(__flexArray(`a,"b",3), __flexArray(25.9,"z")) -> __flexArray(`a,"b",3,25.9,"z")
+
+!try 0 get(__flexArray(`a,"b",3,25.9,"z"),1) -> "b"
+!try 0 put(__flexArray(`a,"b",3,25.9,"z"),2,"z") -> __flexArray(`a,"b","z",25.9,"z")
+!try 0 slice(__flexArray(`a,"b",3,25.9,"z"),1,4) -> __flexArray("b",3,25.9)
+
+(* __set *)
+!try 0 size(__set(`a,"b",3)) -> 3
+!try 0 put(__set(`a,"b"), 3) -> __set("b", `a, 3) 
+!try 0 contains(__set(`a,"b"), `a) -> True 
+!try 0 contains(__set(`a,"b"), `z) -> False 
+!try 0 remove(__set(`a,"b"), `a) -> __set("b") 
+!try 0 extract(__set(`a,"b")) -> "b" 
+!try 0 union(__set(`a,"b"), __set("b",3)) -> __set("b", `a, 3) 
+!try 0 intersection(__set(`a,"b"), __set("b",3)) -> __set("b") 
+!try 0 difference(__set(`a,"b"), __set("b",3)) -> __set(`a) 
+
+
+(* __map *)
+!try 0 size(__map(__binding(`a,3),__binding("b",4),__binding(3, "z"))) -> 3
+!try 0 put(__map(__binding(`a,3),__binding("b",4),__binding(3, "z")), 3,7) -> __map(__binding("b",4),__binding(`a,3),__binding(3, 7))
+!try 0 put(__map(__binding(`a,3),__binding("b",4),__binding(3, "z")), 10,7) -> __map(__binding("b",4),__binding(`a,3),__binding(3, "z"),__binding(10,7))
+!try 0 contains(__map(__binding(`a,3),__binding("b",4),__binding(3, "z")), `a) -> True 
+!try 0 contains(__map(__binding(`a,3),__binding("b",4),__binding(3, "z")), `z) -> False 
+!try 0 remove(__map(__binding(`a,3),__binding("b",4),__binding(3, "z")), `a) -> __map(__binding("b",4),__binding(3, "z"))
+!try 0 extract(__map(__binding(`a,3),__binding("b",4),__binding(3, "z"))) -> __binding("b",4)
+!try 0 extract(__map()) -> __empty
+
+(* __mapChain *)
+!try 0 size(__mapChain(__empty, __binding(`a,3),__binding("b",4),__binding(3, "z"))) -> 3
+!try 0 put(__mapChain(__empty, __binding(`a,3),__binding("b",4),__binding(3, "z")), 3,7) -> __mapChain(__empty, __binding("b",4),__binding(`a,3),__binding(3, 7))
+!try 0 put(__mapChain(__empty, __binding(`a,3),__binding("b",4),__binding(3, "z")), 10,7) -> __mapChain(__empty, __binding("b",4),__binding(`a,3),__binding(3, "z"),__binding(10,7))
+!try 0 contains(__mapChain(__empty, __binding(`a,3),__binding("b",4),__binding(3, "z")), `a) -> True 
+!try 0 contains(__mapChain(__empty, __binding(`a,3),__binding("b",4),__binding(3, "z")), `z) -> False 
+!try 0 remove(__mapChain(__empty, __binding(a,3),__binding("b",4),__binding(3, "z")), a) -> __mapChain(__empty, __binding("b",4),__binding(3, "z"))
+!try 0 extract(__mapChain(__empty, __binding(a,3),__binding("b",4),__binding(3, "z"))) -> __binding("b",4)
+!try 0 extract(__mapChain(__empty)) -> __empty

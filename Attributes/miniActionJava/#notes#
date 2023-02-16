@@ -1,0 +1,1 @@
+Change generator to remove artEvaluator, artNextNodeNumber and artInput - check generated code against that generated for miniCalc which is in the src\ARTGeneratedParser

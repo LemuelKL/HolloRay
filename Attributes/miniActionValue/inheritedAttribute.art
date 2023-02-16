@@ -1,0 +1,9 @@
+S ::= 'b' | 'a' X '@' { P1.v = X1.x; } P
+
+
+
+X < x:int> ::= 'x' X { X.x = X1.x+1; } 
+             |  #    { X.x = 0; } 
+
+
+P <v:int> ::= # { System.out.println("Xcount via inherited attribute: " + P.v); } 

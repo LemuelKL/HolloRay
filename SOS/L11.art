@@ -1,0 +1,28 @@
+-add
+_X |> __int32(_)  _Y |> __int32(_)  __add(_X, _Y) |> _Z 
+---
+add(_X,_Y),_sig -> _Z,_sig
+
+-addRight
+ _n |> __int32(_) _E2,_sig -> _I2,_sig 
+---
+add(_n, _E2),_sig -> add(_n, _I2),_sig
+
+-addLeft
+_E1,_sig -> _I1,_sig
+---
+add(_E1, _E2),_sig -> add(_I1, _E2),_sig
+
+-assign
+_n |> __int32(_)  __put(_sig, _X, _n) |> _sig1
+---
+assign(_X, _n), _sig -> __done, _sig1
+
+-assignResolve
+_E, _sig -> _I, _sigP 
+---
+assign(_X,_E), _sig -> assign(_X, _I), _sigP
+
+!trace 2
+!try assign(a,add(3,4)), __map
+

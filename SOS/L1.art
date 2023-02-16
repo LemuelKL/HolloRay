@@ -1,0 +1,6 @@
+---
+increment(3) -> 4
+
+!trace 2
+!try increment(3)
+!try increment(4)

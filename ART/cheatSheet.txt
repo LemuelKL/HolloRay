@@ -1,0 +1,16 @@
+ART V4.00 cheat sheet
+
+relation arrow // declare a relation
+relation arrow, terminal1, terminal2, ... // declare a relation and its terminal terms
+
+
+start nonterminal // set the start symbol of the grammar: default is LHS symbol of the first string rewrite rule
+start relationArrow // set the initial relation symbol for the term rewriter: default is the first declared relation or the conclusion relation of the first term rewrite rule
+input [input chars] // set the default input to the parser to be the string "input chars" 
+input filename1, filename2, ... // set the default input to the parser to be the concatenation of the contents of the named files
+input inputTerm(...) // set the default input to the term rewriter to be inputTerm(...): default means use term from the parse phase
+result resultTerm(...) // set the test result to be resultTerm(...): default means do not test
+
+try // process using preset input and test
+try input // process this input using preset result
+try input result // process this input and test using this result
