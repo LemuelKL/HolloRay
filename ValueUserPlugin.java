@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
 
@@ -43,6 +42,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         Shout("Initialising JavaFX stage");
         stage = new Stage();
         root = new Group();
+
         return new __done();
       case "paint":
         Shout("Painting JavaFX stage");

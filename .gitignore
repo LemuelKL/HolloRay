@@ -1,1 +1,4 @@
 ~$*.xlsx
+.DS_Store
+
+*.class
