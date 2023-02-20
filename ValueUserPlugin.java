@@ -6,8 +6,11 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.scene.Scene;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
 public class ValueUserPlugin implements ValueUserPluginInterface {
@@ -28,6 +31,11 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     static Group root;
     static Stage stage;
     static Scene scene;
+    static Translate pivot;
+    static Camera camera;
+    static Rotate cameraRotateX;
+    static Rotate cameraRotateY;
+    static Rotate cameraRotateZ;
 
     @Override
     public String name() {
@@ -45,17 +53,10 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 Shout("Initialising JavaFX stage");
                 stage = new Stage();
                 root = new Group();
-
-                Camera camera = new PerspectiveCamera(true);
-                camera.setTranslateZ(-500);
-                camera.setTranslateY(SCREEN_HEIGHT / 2);
-                camera.setTranslateX(SCREEN_WIDTH / 2);
-
-                camera.setNearClip(1);
-                camera.setFarClip(10000);
-
                 scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-                scene.setCamera(camera);
+
+                buildCamera();
+                buildAxes();
 
                 return new __done();
             case "paint":
@@ -63,12 +64,59 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 stage.setScene(scene);
                 stage.setTitle("HolloRay");
                 stage.show();
+
+                scene.setOnKeyPressed(event -> {
+                    switch (event.getCode()) {
+                        case Z:
+                            camera.setTranslateZ(camera.getTranslateZ() + 10);
+                            break;
+                        case X:
+                            camera.setTranslateZ(camera.getTranslateZ() - 10);
+                            break;
+                        case UP:
+                            camera.setTranslateY(camera.getTranslateY() - 10);
+                            break;
+                        case DOWN:
+                            camera.setTranslateY(camera.getTranslateY() + 10);
+                            break;
+                        case LEFT:
+                            camera.setTranslateX(camera.getTranslateX() - 10);
+                            break;
+                        case RIGHT:
+                            camera.setTranslateX(camera.getTranslateX() + 10);
+                            break;
+                        case W:
+                            cameraRotateX.setAngle(cameraRotateX.getAngle() - 10);
+                            break;
+                        case S:
+                            cameraRotateX.setAngle(cameraRotateX.getAngle() + 10);
+                            break;
+                        case A:
+                            cameraRotateY.setAngle(cameraRotateY.getAngle() - 10);
+                            break;
+                        case D:
+                            cameraRotateY.setAngle(cameraRotateY.getAngle() + 10);
+                            break;
+                        case Q:
+                            cameraRotateZ.setAngle(cameraRotateZ.getAngle() - 10);
+                            break;
+                        case E:
+                            cameraRotateZ.setAngle(cameraRotateZ.getAngle() + 10);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
                 return new __done();
             case "cube":
-                SpawnBox((double) args[1].value());
+                spawnCube((double) args[1].value());
                 return new __done();
             case "cylinder":
-                SpawnCylinder((double) args[1].value(), (double) args[2].value());
+                spawnCylinder((double) args[1].value(), (double) args[2].value());
+                return new __done();
+            case "sphere":
+                spawnSphere((double) args[1].value());
                 return new __done();
             default:
                 Shout("Unknown internal command: " + args[0]);
@@ -76,31 +124,73 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         }
     }
 
-    private void SpawnBox(double side_length) {
+    private void buildCamera() {
+        camera = new PerspectiveCamera(true);
+        pivot = new Translate(0, 0, 0);
+        cameraRotateX = new Rotate(0, Rotate.X_AXIS);
+        cameraRotateY = new Rotate(0, Rotate.Y_AXIS);
+        cameraRotateZ = new Rotate(0, Rotate.Z_AXIS);
+        camera.getTransforms().addAll(
+                pivot,
+                cameraRotateX,
+                cameraRotateY,
+                cameraRotateZ,
+                new Translate(0, 0, -1000));
+
+        camera.setNearClip(1);
+        camera.setFarClip(10000);
+        scene.setCamera(camera);
+    }
+
+    private void spawnCube(double side_length) {
         Shout("Spawning a box with side length " + side_length);
         Box box = new Box();
+        box.setMaterial(new PhongMaterial(Color.BLUE));
         box.setDepth(side_length);
         box.setHeight(side_length);
         box.setWidth(side_length);
         root.getChildren().add(box);
     }
 
-    private void SpawnCylinder(double radius, double height) {
+    private void spawnCylinder(double radius, double height) {
         Shout("Spawning a cylinder with radius " + radius + " and height " + height);
         Cylinder cylinder = new Cylinder();
-
+        cylinder.setMaterial(new PhongMaterial(Color.RED));
         cylinder.setRadius(radius);
         cylinder.setHeight(height);
-
-        cylinder.setTranslateY(SCREEN_HEIGHT / 2);
-        cylinder.setTranslateX(SCREEN_WIDTH / 2);
-
-        cylinder.setMaterial(new javafx.scene.paint.PhongMaterial(javafx.scene.paint.Color.RED));
-
-        cylinder.getTransforms().addAll(
-                new Rotate(45, Rotate.X_AXIS),
-                new Rotate(45, Rotate.Z_AXIS));
-
         root.getChildren().add(cylinder);
+    }
+
+    private void spawnSphere(double radius) {
+        Shout("Spawning a sphere with radius " + radius);
+        Sphere sphere = new Sphere();
+        sphere.setMaterial(new PhongMaterial(Color.GREEN));
+        sphere.setRadius(radius);
+        root.getChildren().add(sphere);
+    }
+
+    private void buildAxes() {
+        final PhongMaterial redMaterial = new PhongMaterial();
+        redMaterial.setDiffuseColor(Color.DARKRED);
+        redMaterial.setSpecularColor(Color.RED);
+
+        final PhongMaterial greenMaterial = new PhongMaterial();
+        greenMaterial.setDiffuseColor(Color.DARKGREEN);
+        greenMaterial.setSpecularColor(Color.GREEN);
+
+        final PhongMaterial blueMaterial = new PhongMaterial();
+        blueMaterial.setDiffuseColor(Color.DARKBLUE);
+        blueMaterial.setSpecularColor(Color.BLUE);
+
+        final Box xAxis = new Box(240.0, 1, 1);
+        final Box yAxis = new Box(1, 240.0, 1);
+        final Box zAxis = new Box(1, 1, 240.0);
+
+        xAxis.setMaterial(redMaterial);
+        yAxis.setMaterial(greenMaterial);
+        zAxis.setMaterial(blueMaterial);
+
+        final Group axisGroup = new Group(xAxis, yAxis, zAxis);
+        root.getChildren().addAll(axisGroup);
     }
 }

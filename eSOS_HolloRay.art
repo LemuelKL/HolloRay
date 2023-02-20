@@ -101,7 +101,7 @@ cylinder(_r, _h),_sig -> __user("cylinder", _r, _h),_sig
 -sphere
 _r |> __real64(_)
 ---
-sphere(_r),_sig ->  __sphere(_r),_sig
+sphere(_r),_sig ->  __user("sphere", _r, __),_sig
 
 -union
 _E1, _sig -> _I1, _sigP
@@ -130,11 +130,9 @@ paint,_sig -> __user("paint", __, __),_sig
 
 !try
 seq(init(),
-seq(cube(100.0),
 seq(cube(50.0),
-seq(cylinder(50.0, 100.0),
 seq(paint()
 
 , __done
-))))), __map
+))), __map
 

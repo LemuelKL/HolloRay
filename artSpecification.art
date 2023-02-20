@@ -28,7 +28,7 @@
 (* constructor cylinder *)
 -cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
 (* constructor sphere *)
--sphere _r |> _ --- sphere(_r), _sig -> __sphere(_r), _sig
+-sphere _r |> _ --- sphere(_r), _sig -> __user("sphere", _r, __), _sig
 (* constructor gt *)
 -gt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
 -gtRight _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
