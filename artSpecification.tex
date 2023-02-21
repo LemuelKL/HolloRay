@@ -15,6 +15,30 @@
 \newcommand{\artType}[1]{: #1}
 \begin{document}
 \begin{equation}
+\tag*{[\artConstructor{\sf difference}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf difference}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{difference}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf sequenceDone}]}
+\begin{split}\langle\, \artConstructor{\sf seq}(\artSpecial{done}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C}, \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf sequence}]}
+\begin{split}\frac{\langle\, \artVariable{C$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C$_{1}$\/$^\prime$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf seq}(\artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artVariable{C$_{1}$\/$^\prime$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf initialise}]}
+\begin{split}\langle\, \artConstructor{\sf init}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{init})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf ne}]}
 \begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf ne}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{ne}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
@@ -33,32 +57,14 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf union}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf union}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{union}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf paint}]}
+\begin{split}\langle\, \artConstructor{\sf paint}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{paint})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf sequenceDone}]}
-\begin{split}\langle\, \artConstructor{\sf seq}(\artSpecial{done}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C}, \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf sequence}]}
-\begin{split}\frac{\langle\, \artVariable{C$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C$_{1}$\/$^\prime$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf seq}(\artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artVariable{C$_{1}$\/$^\prime$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf intersection}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf difference}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf difference}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{difference}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf clear}]}
+\begin{split}\langle\, \artConstructor{\sf clear}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{clear})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
 \end{split}
 \end{equation}
 
@@ -81,32 +87,8 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf initialise}]}
-\begin{split}\langle\, \artConstructor{\sf init}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{init})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf paint}]}
-\begin{split}\langle\, \artConstructor{\sf paint}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{paint})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf clear}]}
-\begin{split}\langle\, \artConstructor{\sf clear}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{clear})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf variable}]}
-\begin{split}\frac{ \artSpecial{get}(\artVariable{$\sigma$}\ \artVariable{R})\triangleright \artVariable{Z} }{\langle\, \artConstructor{\sf deref}(\artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{Z}, \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf backend}]}
-\begin{split}\langle\, \artConstructor{\sf backend}(\artVariable{P$_{1}$}\ \artVariable{P$_{2}$}\ \artVariable{P$_{3}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \artSpecial{user}(\artVariable{P$_{1}$}\ \artVariable{P$_{2}$}\ \artVariable{P$_{3}$})
+\tag*{[\artConstructor{\sf cube}]}
+\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cube})\ \artVariable{a}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -129,26 +111,8 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf cube}]}
-\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cube})\ \artVariable{a}\ \_\_), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf while}]}
-\begin{split}\langle\, \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E}\ \artConstructor{\sf seq}(\artVariable{C}\ \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}))\ \artSpecial{done}), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf assign}]}
-\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artSpecial{put}(\artVariable{$\sigma$}\ \artVariable{X}\ \artVariable{n})\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf assignResolve}]}
-\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf variable}]}
+\begin{split}\frac{ \artSpecial{get}(\artVariable{$\sigma$}\ \artVariable{R})\triangleright \artVariable{Z} }{\langle\, \artConstructor{\sf deref}(\artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{Z}, \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -159,8 +123,50 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf while}]}
+\begin{split}\langle\, \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E}\ \artConstructor{\sf seq}(\artVariable{C}\ \artConstructor{\sf while}(\artVariable{E}\ \artVariable{C}))\ \artSpecial{done}), \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf sphere}]}
 \begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{sphere})\ \artVariable{r}\ \_\_), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf cone}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cone}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cone})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf assignInt}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artSpecial{put}(\artVariable{$\sigma$}\ \artVariable{X}\ \artVariable{n})\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf assignStr}]}
+\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{s}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artSpecial{put}(\artVariable{$\sigma$}\ \artVariable{X}\ \artVariable{s})\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf assignResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf assign}(\artVariable{X}\ \artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf torus}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{R}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf torus}(\artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{torus})\ \artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf pyramid}]}
+\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf pyramid}(\artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{pyramid})\ \artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -183,26 +189,20 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf cone}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cone}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cone})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf torus}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{R}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf torus}(\artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{torus})\ \artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf pyramid}]}
-\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf pyramid}(\artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{pyramid})\ \artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
 \tag*{[\artConstructor{\sf tetrahedron}]}
 \begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf tetrahedron}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{tetrahedron})\ \artVariable{a}\ \_\_), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf union}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf union}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{union}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf intersection}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 

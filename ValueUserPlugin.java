@@ -37,6 +37,8 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     static Rotate cameraRotateY;
     static Rotate cameraRotateZ;
 
+    static int nextSolidId;
+
     @Override
     public String name() {
         return "HolloRay's JavaFX Plugin";
@@ -50,72 +52,20 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     public Value user(Value... args) throws ARTException {
         switch (args[0].value().toString()) {
             case "init":
-                Shout("Initialising JavaFX stage");
-                stage = new Stage();
-                root = new Group();
-                scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-                buildCamera();
-                buildAxes();
-
-                return new __done();
+                return initialise();
             case "paint":
-                Shout("Painting JavaFX stage");
-                stage.setScene(scene);
-                stage.setTitle("HolloRay");
-                stage.show();
-
-                scene.setOnKeyPressed(event -> {
-                    switch (event.getCode()) {
-                        case Z:
-                            camera.setTranslateZ(camera.getTranslateZ() + 10);
-                            break;
-                        case X:
-                            camera.setTranslateZ(camera.getTranslateZ() - 10);
-                            break;
-                        case UP:
-                            camera.setTranslateY(camera.getTranslateY() - 10);
-                            break;
-                        case DOWN:
-                            camera.setTranslateY(camera.getTranslateY() + 10);
-                            break;
-                        case LEFT:
-                            camera.setTranslateX(camera.getTranslateX() - 10);
-                            break;
-                        case RIGHT:
-                            camera.setTranslateX(camera.getTranslateX() + 10);
-                            break;
-                        case W:
-                            cameraRotateX.setAngle(cameraRotateX.getAngle() - 10);
-                            break;
-                        case S:
-                            cameraRotateX.setAngle(cameraRotateX.getAngle() + 10);
-                            break;
-                        case A:
-                            cameraRotateY.setAngle(cameraRotateY.getAngle() - 10);
-                            break;
-                        case D:
-                            cameraRotateY.setAngle(cameraRotateY.getAngle() + 10);
-                            break;
-                        case Q:
-                            cameraRotateZ.setAngle(cameraRotateZ.getAngle() - 10);
-                            break;
-                        case E:
-                            cameraRotateZ.setAngle(cameraRotateZ.getAngle() + 10);
-                            break;
-                        default:
-                            break;
-                    }
-                });
-
-                return new __done();
+                return paint();
             case "clear":
                 Shout("Clearing the scene");
                 root.getChildren().clear();
                 return new __done();
+            case "translate":
+                // int solidId = (int) args[1].value();
+                // TODO
+                return new __done();
             case "cube":
                 spawnCube((double) args[1].value());
-                return new __done();
+                return new __int32(nextSolidId++, 0);
             case "cylinder":
                 spawnCylinder((double) args[1].value(), (double) args[2].value());
                 return new __done();
@@ -138,6 +88,72 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 Shout("Unknown internal command: " + args[0]);
                 return new __string("OH NO!");
         }
+    }
+
+    private Value paint() {
+        Shout("Painting JavaFX stage");
+        stage.setScene(scene);
+        stage.setTitle("HolloRay");
+        stage.show();
+
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case Z:
+                    camera.setTranslateZ(camera.getTranslateZ() + 10);
+                    break;
+                case X:
+                    camera.setTranslateZ(camera.getTranslateZ() - 10);
+                    break;
+                case UP:
+                    camera.setTranslateY(camera.getTranslateY() - 10);
+                    break;
+                case DOWN:
+                    camera.setTranslateY(camera.getTranslateY() + 10);
+                    break;
+                case LEFT:
+                    camera.setTranslateX(camera.getTranslateX() - 10);
+                    break;
+                case RIGHT:
+                    camera.setTranslateX(camera.getTranslateX() + 10);
+                    break;
+                case W:
+                    cameraRotateX.setAngle(cameraRotateX.getAngle() - 10);
+                    break;
+                case S:
+                    cameraRotateX.setAngle(cameraRotateX.getAngle() + 10);
+                    break;
+                case A:
+                    cameraRotateY.setAngle(cameraRotateY.getAngle() - 10);
+                    break;
+                case D:
+                    cameraRotateY.setAngle(cameraRotateY.getAngle() + 10);
+                    break;
+                case Q:
+                    cameraRotateZ.setAngle(cameraRotateZ.getAngle() - 10);
+                    break;
+                case E:
+                    cameraRotateZ.setAngle(cameraRotateZ.getAngle() + 10);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        return new __done();
+    }
+
+    private Value initialise() {
+        Shout("Initialising JavaFX stage");
+        stage = new Stage();
+        root = new Group();
+        scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        buildCamera();
+        buildAxes();
+
+        nextSolidId = 0;
+
+        return new __done();
     }
 
     private void buildCamera() {
