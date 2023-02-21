@@ -60,8 +60,11 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 root.getChildren().clear();
                 return new __done();
             case "translate":
-                // int solidId = (int) args[1].value();
-                // TODO
+                int solidId = (int) args[1].value();
+                double x = (double) args[2].value();
+                double y = (double) args[3].value();
+                double z = (double) args[4].value();
+                Shout("Translating solid " + solidId + " by " + x + ", " + y + ", " + z);
                 return new __done();
             case "cube":
                 spawnCube((double) args[1].value());

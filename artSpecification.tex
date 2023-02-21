@@ -15,6 +15,12 @@
 \newcommand{\artType}[1]{: #1}
 \begin{document}
 \begin{equation}
+\tag*{[\artConstructor{\sf intersection}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf difference}]}
 \begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf difference}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{difference}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
@@ -63,12 +69,6 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf clear}]}
-\begin{split}\langle\, \artConstructor{\sf clear}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{clear})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
-\end{split}
-\end{equation}
-
-\begin{equation}
 \tag*{[\artConstructor{\sf sub}]}
 \begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf sub}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{sub}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
@@ -87,8 +87,20 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf cube}]}
-\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cube})\ \artVariable{a}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf clear}]}
+\begin{split}\langle\, \artConstructor{\sf clear}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{clear})\ \_\_\ \_\_), \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf translate}]}
+\begin{split}\frac{ \artVariable{Z}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf translate}(\artVariable{Z}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{translate})\ \artVariable{Z}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf translateExpr}]}
+\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad \langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{V$_{1}$}, \artVariable{$\sigma$}\,\rangle }{\langle\, \artConstructor{\sf translate}(\artVariable{E$_{1}$}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf translate}(\artVariable{V$_{1}$}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -117,6 +129,12 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf cube}]}
+\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cube}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cube})\ \artVariable{a}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf cylinder}]}
 \begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cylinder})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
@@ -130,13 +148,7 @@
 
 \begin{equation}
 \tag*{[\artConstructor{\sf sphere}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{sphere})\ \artVariable{r}\ \_\_), \artVariable{$\sigma$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf cone}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cone}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cone})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf sphere}(\artVariable{r}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{sphere})\ \artVariable{r}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -159,14 +171,14 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf torus}]}
-\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{R}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf torus}(\artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{torus})\ \artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf cone}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cone}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cone})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf pyramid}]}
-\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf pyramid}(\artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{pyramid})\ \artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf torus}]}
+\begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{R}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf torus}(\artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{torus})\ \artVariable{r}\ \artVariable{R}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -189,20 +201,20 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf pyramid}]}
+\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf pyramid}(\artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{pyramid})\ \artVariable{a}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf tetrahedron}]}
-\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf tetrahedron}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{tetrahedron})\ \artVariable{a}\ \_\_), \artVariable{$\sigma$}\,\rangle }
+\begin{split}\frac{ \artVariable{a}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf tetrahedron}(\artVariable{a}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{tetrahedron})\ \artVariable{a}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
 \tag*{[\artConstructor{\sf union}]}
 \begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf union}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{union}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
-\end{split}
-\end{equation}
-
-\begin{equation}
-\tag*{[\artConstructor{\sf intersection}]}
-\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf intersection}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{intersection}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 
