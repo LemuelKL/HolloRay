@@ -152,23 +152,18 @@ paint,_sig -> __user("paint", __, __),_sig
 clear,_sig -> __user("clear", __, __),_sig
 
 -translate
-_Z |> __int32(_) _x |> __real64(_) _y |> __real64(_) _z |> __real64(_)
+_x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1,_sig -> _V1,_sig
 ---
-translate(_Z, _x, _y, _z),_sig -> __user("translate", _Z, _x, _y, _z),_sig
-
--translateExpr
-_x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1, _sig -> _V1, _sig
----
-translate(_E1, _x, _y, _z),_sig -> translate(_V1, _x, _y, _z),_sig
+translate(_E1, _x, _y, _z),_sig -> __user("translate", _V1, _x, _y, _z),_sig
 
 !trace 5
-!try seq(assign(X, 999), deref(X)), __map
 
-!trace 5
+
+
 !try
 seq(init(),
 seq(assign(X, cube(50.0)),
-seq(translate(deref(X), 1.5, 3.0, 4.75),
+seq(translate(deref(X), 100.0, 300.0, -40.75),
 paint()
 ))), __map
 
