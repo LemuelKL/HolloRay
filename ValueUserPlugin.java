@@ -13,6 +13,8 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
+import com.google.common.collect.BiMap;
+
 public class ValueUserPlugin implements ValueUserPluginInterface {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -38,6 +40,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     static Rotate cameraRotateZ;
 
     static int nextSolidId;
+    static BiMap<Integer, javafx.scene.shape.Shape3D> solids;
 
     @Override
     public String name() {
@@ -52,6 +55,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     public Value user(Value... args) throws ARTException {
         switch (args[0].value().toString()) {
             case "init":
+                solids = com.google.common.collect.HashBiMap.create();
                 return initialise();
             case "paint":
                 return paint();
@@ -65,6 +69,9 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 double y = (double) args[3].value();
                 double z = (double) args[4].value();
                 Shout("Translating solid " + solidId + " by " + x + ", " + y + ", " + z);
+                solids.get(solidId).setTranslateX(solids.get(solidId).getTranslateX() + x);
+                solids.get(solidId).setTranslateY(solids.get(solidId).getTranslateY() + y);
+                solids.get(solidId).setTranslateZ(solids.get(solidId).getTranslateZ() + z);
                 return new __done();
             case "cube":
                 spawnCube((double) args[1].value());
@@ -185,6 +192,8 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         box.setHeight(side_length);
         box.setWidth(side_length);
         root.getChildren().add(box);
+
+        solids.put(nextSolidId, box);
     }
 
     private void spawnCylinder(double radius, double height) {

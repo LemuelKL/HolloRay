@@ -5,5 +5,9 @@
         "Project/javaFXTest",
         "."
     ],
-    "java.project.referencedLibraries": ["lib/**/*.jar", "art.jar"]
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "art.jar",
+        "guava-31.1-jre.jar"
+    ]
 }

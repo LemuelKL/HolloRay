@@ -21,8 +21,7 @@
 (* constructor clear *)
 -clear  --- clear, _sig -> __user("clear", __, __), _sig
 (* constructor translate *)
--translate _Z |> _  _x |> _  _y |> _  _z |> _ --- translate(_Z, _x, _y, _z), _sig -> __user("translate", _Z, _x, _y, _z), _sig
--translateExpr _x |> _  _y |> _  _z |> _  _E1, _sig -> _V1, _sig --- translate(_E1, _x, _y, _z), _sig -> translate(_V1, _x, _y, _z), _sig
+-translate _x |> _  _y |> _  _z |> _  _E1, _sig -> _V1, _sig --- translate(_E1, _x, _y, _z), _sig -> __user("translate", _V1, _x, _y, _z), _sig
 (* constructor if *)
 -ifTrue  --- if(True, _C1, _C2), _sig -> _C1, _sig
 -ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
