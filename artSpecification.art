@@ -3,13 +3,25 @@
 -ne _n1 |> _  _n2 |> _ --- ne(_n1, _n2), _sig -> __ne(_n1, _n2), _sig
 -neRight _n |> _  _E2, _sig -> _I2, _sigP --- ne(_n, _E2), _sig -> ne(_n, _I2), _sigP
 -neLeft _E1, _sig -> _I1, _sigP --- ne(_E1, _E2), _sig -> ne(_I1, _E2), _sigP
+(* constructor union *)
+-union _E1, _sig -> _I1, _sigP --- union(_E1, _E2), _sig -> __union(_I1, _E2), _sigP
 (* constructor seq *)
 -sequenceDone  --- seq(__done, _C), _sig -> _C, _sig
 -sequence _C1, _sig -> _C1P, _sigP --- seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
+(* constructor intersection *)
+-intersection _E1, _sig -> _I1, _sigP --- intersection(_E1, _E2), _sig -> __intersection(_I1, _E2), _sigP
+(* constructor difference *)
+-difference _E1, _sig -> _I1, _sigP --- difference(_E1, _E2), _sig -> __difference(_I1, _E2), _sigP
 (* constructor sub *)
 -sub _n1 |> _  _n2 |> _ --- sub(_n1, _n2), _sig -> __sub(_n1, _n2), _sig
 -subRight _n |> _  _E2, _sig -> _I2, _sigP --- sub(_n, _E2), _sig -> sub(_n, _I2), _sigP
 -subLeft _E1, _sig -> _I1, _sigP --- sub(_E1, _E2), _sig -> sub(_I1, _E2), _sigP
+(* constructor init *)
+-initialise  --- init, _sig -> __user("init", __, __), _sig
+(* constructor paint *)
+-paint  --- paint, _sig -> __user("paint", __, __), _sig
+(* constructor clear *)
+-clear  --- clear, _sig -> __user("clear", __, __), _sig
 (* constructor deref *)
 -variable __get(_sig, _R) |> _Z --- deref(_R), _sig -> _Z, _sig
 (* constructor backend *)
@@ -19,7 +31,7 @@
 -ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
 -ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
 (* constructor cube *)
--cube _d |> _ --- cube(_d), _sig -> __user("cube", _d, __), _sig
+-cube _a |> _ --- cube(_a), _sig -> __user("cube", _a, __), _sig
 (* constructor while *)
 -while  --- while(_E, _C), _sig -> if(_E, seq(_C, while(_E, _C)), __done), _sig
 (* constructor assign *)
@@ -33,16 +45,14 @@
 -gt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
 -gtRight _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
 -gtLeft _E1, _sig -> _I1, _sigP --- gt(_E1, _E2), _sig -> gt(_I1, _E2), _sigP
-(* constructor union *)
--union _E1, _sig -> _I1, _sigP --- union(_E1, _E2), _sig -> __union(_I1, _E2), _sigP
-(* constructor intersection *)
--intersection _E1, _sig -> _I1, _sigP --- intersection(_E1, _E2), _sig -> __intersection(_I1, _E2), _sigP
-(* constructor difference *)
--difference _E1, _sig -> _I1, _sigP --- difference(_E1, _E2), _sig -> __difference(_I1, _E2), _sigP
-(* constructor init *)
--initialise  --- init, _sig -> __user("init", __, __), _sig
-(* constructor paint *)
--paint  --- paint, _sig -> __user("paint", __, __), _sig
+(* constructor cone *)
+-cone _r |> _  _h |> _ --- cone(_r, _h), _sig -> __user("cone", _r, _h), _sig
+(* constructor torus *)
+-torus _r |> _  _R |> _ --- torus(_r, _R), _sig -> __user("torus", _r, _R), _sig
+(* constructor pyramid *)
+-pyramid _a |> _  _h |> _ --- pyramid(_a, _h), _sig -> __user("pyramid", _a, _h), _sig
+(* constructor tetrahedron *)
+-tetrahedron _a |> _ --- tetrahedron(_a), _sig -> __user("tetrahedron", _a, __), _sig
 
 (*-----------------------*)
 

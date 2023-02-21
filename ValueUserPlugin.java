@@ -109,6 +109,10 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 });
 
                 return new __done();
+            case "clear":
+                Shout("Clearing the scene");
+                root.getChildren().clear();
+                return new __done();
             case "cube":
                 spawnCube((double) args[1].value());
                 return new __done();
@@ -117,6 +121,18 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 return new __done();
             case "sphere":
                 spawnSphere((double) args[1].value());
+                return new __done();
+            case "torus":
+                spawnTorus((double) args[1].value(), (double) args[2].value());
+                return new __done();
+            case "cone":
+                spawnCone((double) args[1].value(), (double) args[2].value());
+                return new __done();
+            case "pyramid":
+                spawnPyramid((double) args[1].value(), (double) args[2].value());
+                return new __done();
+            case "tetrahedron":
+                spawnTetrahedron((double) args[1].value());
                 return new __done();
             default:
                 Shout("Unknown internal command: " + args[0]);
@@ -167,6 +183,26 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         sphere.setMaterial(new PhongMaterial(Color.GREEN));
         sphere.setRadius(radius);
         root.getChildren().add(sphere);
+    }
+
+    private void spawnTorus(double radius, double tube_radius) {
+        // Shout("Spawning a torus");
+        // TODO
+    }
+
+    private void spawnCone(double radius, double height) {
+        // Shout("Spawning a cone");
+        // TODO
+    }
+
+    private void spawnPyramid(double side_length, double height) {
+        // Shout("Spawning a pyramid");
+        // TODO
+    }
+
+    private void spawnTetrahedron(double side_length) {
+        // Shout("Spawning a tetrahedron");
+        // TODO
     }
 
     private void buildAxes() {

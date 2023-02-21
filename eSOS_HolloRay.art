@@ -89,9 +89,9 @@ deref(_R),_sig -> _Z, _sig
 backend(_P1, _P2, _P3),_sig -> __user(_P1, _P2, _P3)
 
 -cube
-_d |> __real64(_)
+_a |> __real64(_)
 ---
-cube(_d),_sig -> __user("cube", _d, __),_sig
+cube(_a),_sig -> __user("cube", _a, __),_sig
 
 -cylinder
 _r |> __real64(_)  _h |> __real64(_)
@@ -101,7 +101,27 @@ cylinder(_r, _h),_sig -> __user("cylinder", _r, _h),_sig
 -sphere
 _r |> __real64(_)
 ---
-sphere(_r),_sig ->  __user("sphere", _r, __),_sig
+sphere(_r),_sig -> __user("sphere", _r, __),_sig
+
+-cone
+_r |> __real64(_)  _h |> __real64(_)
+---
+cone(_r, _h),_sig -> __user("cone", _r, _h),_sig
+
+-torus
+_r |> __real64(_)  _R |> __real64(_)
+---
+torus(_r, _R),_sig -> __user("torus", _r, _R),_sig
+
+-pyramid
+_a |> __real64(_) _h |> __real64(_)
+---
+pyramid(_a, _h),_sig -> __user("pyramid", _a, _h),_sig
+
+-tetrahedron
+_a |> __real64(_)
+---
+tetrahedron(_a),_sig -> __user("tetrahedron", _a, __),_sig
 
 -union
 _E1, _sig -> _I1, _sigP
@@ -126,6 +146,9 @@ init,_sig -> __user("init", __, __),_sig
 ---
 paint,_sig -> __user("paint", __, __),_sig
 
+-clear
+---
+clear,_sig -> __user("clear", __, __),_sig
 
 
 !try
