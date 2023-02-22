@@ -66,44 +66,30 @@ HolloRay has the following domain specific types representing common shapes:
 
 box
 
+cube
+
 sphere
 
-cone
-
 cylinder
+
+cone
 
 torus
 
 tetrahedron
 
+pyramid
 
 S.7 Domain specific operations
 ------------------------------
 
-HolloRay provides a DSL-type statement
-
-backend(_v1:int, _v2:int, _v3:int):int
-
-where v1, v2 and v3 are integer expressions.
-
-This statement then activates the corresponding method in class ValueUserPlugin via the __user() function in the ART value system.
-
-The behaviour depends on the code implemented in that class.
-
-
-and the following DSL-type statements for manipulating solids:
+HolloRay provides the following DSL-type statements for manipulating solids:
 
 translate(_solid:solid, _x:real64, _y:real64, _z:real64)
 
 rotate(_solid:_solid, _x:real64, _y:real64, _z:real64, _angle:real64)
 
 scale(_solid:solid, _x:real64, _y:real64, _z:real64)
-
-difference(_solid1:solid, _solid2:solid)
-
-union(_solid1:solid, _solid2:solid)
-
-intersection(_solid1:solid, _solid2:solid)
 
 
 B: Internal syntax constructors and arities
@@ -119,37 +105,38 @@ ne(_E1:__int32, _E2:__int32):__boolean integer not-equals E_1 ne E_2
 
 assign(_N:__int32, _E:__int32) bind _E to name _N in variables map
 
-deref(_N)) retrieve binding for name _N in variables map
+deref(_N) retrieve binding for name _N in variables map
 
 if(_P:__bool, _C1, _C2) select if _P then execute C_2 else execute C_3
 
 while(_P:__bool, _C1, _C2) iterate while _P then execute C_2 else execute C_3
 
-backend(_V1, _V2, _V3) call __user(_V1, _V2, _V3)
+
 
 box(_x:real64, _y:real64, _z:real64) create a box of dimension (_x, _y, _z)
 
-sphere(_r:real64) create a sphere of radius _r
+cube(_e:real64) create a cube of edge length _e
 
-cone(_r:real64, _h:real64) create a cone of radius _r and height _h
+sphere(_r:real64) create a sphere of radius _r
 
 cylinder(_r:real64, _h:real64) create a cylinder of radius _r and height _h
 
+cone(_r:real64, _h:real64) create a cone of radius _r and height _h
+
 torus(_r:real64, _R:real64) create a torus of radius _r and major radius _R
 
-tetrahedron(_e: real64) create a tetrahedron of edge length _e
+tetrahedron(_e:real64) create a tetrahedron of edge length _e
+
+pyramid(_e:real64, _h:real64) create a pyramid of edge length _e and height _h
+
+
 
 translate(_solid:solid, _x:real64, _y:real64, _z:real64) translate a solid by (_x, _y, _z)
 
-rotate(_solid:solid, _x:real64, _y:real64, _z:real64, _angle:real64) rotate a solid by _angle degrees around the axis (_x, _y, _z)
+rotate(_solid:solid, _x:real64, _y:real64, _z:real64) rotate a solid by (_x, _y, _z) degrees around the the respecitive axis 
 
-scale(_solid:solid, _x:real64, _y:real64, _z:real64) scale a solid by (_x, _y, _z)
+scale(_solid:solid, _x:real64, _y:real64, _z:real64) scale a solid by (_x, _y, _z) factors in the respective axis
 
-difference(_solid1:solid, _solid2:solid) subtract solid _solid2 from solid _solid1
-
-union(_solid1:solid, _solid2:solid) union solid _solid1 with solid _solid2
-
-intersection(_solid1:solid, _solid2:solid) intersect solid _solid1 with solid _solid2
 
 
 Note to self and Adrian: I don't think strings and characters would be necessary?

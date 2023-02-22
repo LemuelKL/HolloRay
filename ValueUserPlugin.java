@@ -76,31 +76,52 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
             }
             case "rotate": {
                 int solidId = (int) args[1].value();
-                double angle = (double) args[2].value();
-                Shout("Rotating solid " + solidId + " by " + angle + " degrees");
-                solids.get(solidId).setRotate(solids.get(solidId).getRotate() + angle);
+                double xAngle = (double) args[2].value();
+                double yAngle = (double) args[3].value();
+                double zAngle = (double) args[4].value();
+                Shout("Rotating solid " + solidId + " by " + xAngle + ", " + yAngle + ", " + zAngle);
+                solids.get(solidId).setRotationAxis(Rotate.X_AXIS);
+                solids.get(solidId).setRotate(solids.get(solidId).getRotate() + xAngle);
+                solids.get(solidId).setRotationAxis(Rotate.Y_AXIS);
+                solids.get(solidId).setRotate(solids.get(solidId).getRotate() + yAngle);
+                solids.get(solidId).setRotationAxis(Rotate.Z_AXIS);
+                solids.get(solidId).setRotate(solids.get(solidId).getRotate() + zAngle);
                 return new __done();
             }
+            case "scale": {
+                int solidId = (int) args[1].value();
+                double x = (double) args[2].value();
+                double y = (double) args[3].value();
+                double z = (double) args[4].value();
+                Shout("Scaling solid " + solidId + " by " + x + ", " + y + ", " + z);
+                solids.get(solidId).setScaleX(solids.get(solidId).getScaleX() * x);
+                solids.get(solidId).setScaleY(solids.get(solidId).getScaleY() * y);
+                solids.get(solidId).setScaleZ(solids.get(solidId).getScaleZ() * z);
+                return new __int32(nextSolidId++, 0);
+            }
+            case "box":
+                spawnBox((double) args[1].value(), (double) args[2].value(), (double) args[3].value());
+                return new __int32(nextSolidId++, 0);
             case "cube":
                 spawnCube((double) args[1].value());
-                return new __int32(nextSolidId++, 0);
-            case "cylinder":
-                spawnCylinder((double) args[1].value(), (double) args[2].value());
                 return new __int32(nextSolidId++, 0);
             case "sphere":
                 spawnSphere((double) args[1].value());
                 return new __int32(nextSolidId++, 0);
-            case "torus":
-                spawnTorus((double) args[1].value(), (double) args[2].value());
-                return new __done();
+            case "cylinder":
+                spawnCylinder((double) args[1].value(), (double) args[2].value());
+                return new __int32(nextSolidId++, 0);
             case "cone":
                 spawnCone((double) args[1].value(), (double) args[2].value());
                 return new __done();
-            case "pyramid":
-                spawnPyramid((double) args[1].value(), (double) args[2].value());
+            case "torus":
+                spawnTorus((double) args[1].value(), (double) args[2].value());
                 return new __done();
             case "tetrahedron":
                 spawnTetrahedron((double) args[1].value());
+                return new __done();
+            case "pyramid":
+                spawnPyramid((double) args[1].value(), (double) args[2].value());
                 return new __done();
             default:
                 Shout("Unknown internal command: " + args[0]);
@@ -164,6 +185,13 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 case RIGHT:
                     root.setTranslateX(root.getTranslateX() - 10);
                     break;
+                case O:
+                    root.setTranslateX(0);
+                    root.setTranslateY(0);
+                    root.setTranslateZ(0);
+                    sceneRotateX.setAngle(0);
+                    sceneRotateY.setAngle(0);
+                    sceneRotateZ.setAngle(0);
                 default:
                     break;
             }
@@ -221,6 +249,18 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
 
         final Group axisGroup = new Group(xAxis, yAxis, zAxis, xSphere, ySphere, zSphere, origin);
         root.getChildren().addAll(axisGroup);
+    }
+
+    private void spawnBox(double width, double height, double depth) {
+        Shout("Spawning a box with width " + width + ", height " + height + ", and depth " + depth);
+        Box box = new Box();
+        box.setMaterial(new PhongMaterial(Color.INDIGO));
+        box.setDepth(depth);
+        box.setHeight(height);
+        box.setWidth(width);
+        root.getChildren().add(box);
+
+        solids.put(nextSolidId, box);
     }
 
     private void spawnCube(double side_length) {
