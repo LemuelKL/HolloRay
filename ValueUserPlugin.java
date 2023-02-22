@@ -86,10 +86,10 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 return new __int32(nextSolidId++, 0);
             case "cylinder":
                 spawnCylinder((double) args[1].value(), (double) args[2].value());
-                return new __done();
+                return new __int32(nextSolidId++, 0);
             case "sphere":
                 spawnSphere((double) args[1].value());
-                return new __done();
+                return new __int32(nextSolidId++, 0);
             case "torus":
                 spawnTorus((double) args[1].value(), (double) args[2].value());
                 return new __done();
@@ -196,19 +196,31 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         blueMaterial.setSpecularColor(Color.BLUE);
 
         final Box xAxis = new Box(240.0, 1, 1);
+        final Sphere xSphere = new Sphere(5);
+        xSphere.getTransforms().add(new Translate(120.0, 0, 0));
+
         final Box yAxis = new Box(1, 240.0, 1);
+        final Sphere ySphere = new Sphere(5);
+        ySphere.getTransforms().add(new Translate(0, 120.0, 0));
+
         final Box zAxis = new Box(1, 1, 240.0);
+        final Sphere zSphere = new Sphere(5);
+        zSphere.getTransforms().add(new Translate(0, 0, 120.0));
 
         xAxis.setMaterial(redMaterial);
-        yAxis.setMaterial(greenMaterial);
-        zAxis.setMaterial(blueMaterial);
+        xSphere.setMaterial(redMaterial);
 
-        final Group axisGroup = new Group(xAxis, yAxis, zAxis);
-        root.getChildren().addAll(axisGroup);
+        yAxis.setMaterial(greenMaterial);
+        ySphere.setMaterial(greenMaterial);
+
+        zAxis.setMaterial(blueMaterial);
+        zSphere.setMaterial(blueMaterial);
 
         final Sphere origin = new Sphere(5);
         origin.setMaterial(new PhongMaterial(Color.WHITE));
-        root.getChildren().add(origin);
+
+        final Group axisGroup = new Group(xAxis, yAxis, zAxis, xSphere, ySphere, zSphere, origin);
+        root.getChildren().addAll(axisGroup);
     }
 
     private void spawnCube(double side_length) {
@@ -230,6 +242,8 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         cylinder.setRadius(radius);
         cylinder.setHeight(height);
         root.getChildren().add(cylinder);
+
+        solids.put(nextSolidId, cylinder);
     }
 
     private void spawnSphere(double radius) {
@@ -238,6 +252,8 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         sphere.setMaterial(new PhongMaterial(Color.GREEN));
         sphere.setRadius(radius);
         root.getChildren().add(sphere);
+
+        solids.put(nextSolidId, sphere);
     }
 
     private void spawnTorus(double radius, double tube_radius) {
