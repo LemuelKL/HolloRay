@@ -42,7 +42,7 @@ assign(_X, _s), _sig -> __done, __put(_sig, _X, _s)
 -assignResolve
 _E, _sig -> _I, _sigP 
 ---
-assign(_X,_E), _sig -> assign(_X, _I), _sigP
+assign(_X,_E), _sig -> assign(_X, _I),_sigP
 
 -gt
 _n1 |> __int32(_) _n2 |> __int32(_)
@@ -57,17 +57,17 @@ gt(_n1, _n2),_sig ->  __gt(_n1, _n2),_sig
 -gtRight
 _n |> __int32(_) _E2, _sig -> _I2,_sigP 
 ---
-gt(_n, _E2),_sig -> gt(_n, _I2), _sigP
+gt(_n, _E2),_sig -> gt(_n, _I2),_sigP
 
 -gtRight
 _n |> __real64(_) _E2, _sig -> _I2,_sigP
 ---
-gt(_n, _E2),_sig -> gt(_n, _I2), _sigP
+gt(_n, _E2),_sig -> gt(_n, _I2),_sigP
 
 -gtLeft
 _E1, _sig -> _I1, _sigP 
 ---
-gt(_E1, _E2),_sig -> gt(_I1, _E2), _sigP
+gt(_E1, _E2),_sig -> gt(_I1, _E2),_sigP
 
 -ne
 _n1 |> __int32(_) _n2 |> __int32(_)
@@ -77,37 +77,116 @@ ne(_n1, _n2),_sig ->  __ne(_n1, _n2),_sig
 -neRight
 _n |> __int32(_)  _E2, _sig -> _I2,_sigP 
 ---
-ne(_n, _E2),_sig -> ne(_n, _I2), _sigP
+ne(_n, _E2),_sig -> ne(_n, _I2),_sigP
 
 -neLeft
 _E1, _sig -> _I1, _sigP 
 ---
-ne(_E1, _E2),_sig -> ne(_I1, _E2), _sigP
+ne(_E1, _E2),_sig -> ne(_I1, _E2),_sigP
 
--sub
+-subInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-sub(_n1, _n2),_sig ->  __sub(_n1, _n2),_sig
+sub(_n1, _n2),_sig -> __sub(_n1, _n2),_sig
 
--sub
+-subReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-sub(_n1, _n2),_sig ->  __sub(_n1, _n2),_sig
+sub(_n1, _n2),_sig -> __sub(_n1, _n2),_sig
 
--subRight
+-subRightInt
 _n |> __int32(_) _E2,_sig -> _I2,_sigP   
 ---
-sub(_n, _E2),_sig -> sub(_n, _I2), _sigP
+sub(_n, _E2),_sig -> sub(_n, _I2),_sigP
 
--subRight
+-subRightReal
 _n |> __real64(_) _E2,_sig -> _I2,_sigP
 ---
-sub(_n, _E2),_sig -> sub(_n, _I2), _sigP
+sub(_n, _E2),_sig -> sub(_n, _I2),_sigP
 
 -subLeft
 _E1,_sig -> _I1,_sigP
 ---
-sub(_E1, _E2),_sig -> sub(_I1, _E2), _sigP
+sub(_E1, _E2),_sig -> sub(_I1, _E2),_sigP
+
+-addInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+add(_n1, _n2),_sig -> __add(_n1, _n2),_sig
+
+-addReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+add(_n1, _n2),_sig -> __add(_n1, _n2),_sig
+
+-addRightInt
+_n |> __int32(_) _E2,_sig -> _I2,_sigP
+---
+add(_n, _E2),_sig -> add(_n, _I2),_sigP
+
+-addRightReal
+_n |> __real64(_) _E2,_sig -> _I2,_sigP
+---
+add(_n, _E2),_sig -> add(_n, _I2),_sigP
+
+-addLeft
+_E1,_sig -> _I1,_sigP
+---
+add(_E1, _E2),_sig -> add(_I1, _E2),_sigP
+
+-mulInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+mul(_n1, _n2),_sig -> __mul(_n1, _n2),_sig
+
+-mulReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+mul(_n1, _n2),_sig -> __mul(_n1, _n2),_sig
+
+-mulRightInt
+_n |> __int32(_) _E2,_sig -> _I2,_sigP
+---
+mul(_n, _E2),_sig -> mul(_n, _I2),_sigP
+
+-mulRightReal
+_n |> __real64(_) _E2,_sig -> _I2,_sigP
+---
+mul(_n, _E2),_sig -> mul(_n, _I2),_sigP
+
+-mulLeft
+_E1,_sig -> _I1,_sigP
+---
+mul(_E1, _E2),_sig -> mul(_I1, _E2),_sigP
+
+-divInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+div(_n1, _n2),_sig -> __div(_n1, _n2),_sig
+
+-divReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+div(_n1, _n2),_sig -> __div(_n1, _n2),_sig
+
+-divRightInt
+_n |> __int32(_) _E2,_sig -> _I2,_sigP
+---
+div(_n, _E2),_sig -> div(_n, _I2),_sigP
+
+-divRightReal
+_n |> __real64(_) _E2,_sig -> _I2,_sigP
+---
+div(_n, _E2),_sig -> div(_n, _I2),_sigP
+
+-divLeft
+_E1,_sig -> _I1,_sigP
+---
+div(_E1, _E2),_sig -> div(_I1, _E2),_sigP
+
+
+
+
 
 -variable
 __get(_sig, _R) |> _Z
@@ -199,15 +278,6 @@ clear,_sig -> __user("clear", __, __),_sig
 
 
 
--intToReal
-_n |> __int32(_)
----
-int32ToReal64(_n),_sig -> __real64(_n),_sig
-
-
-!verbosity 0
-
-(*
 !trace 0
 !try
 seq(init(),
@@ -220,13 +290,11 @@ seq(translate(deref(C), 0.0, -100.0, 0.0),
 seq(rotate(deref(C), 20.0, 0.0, 0.0),
 paint()
 )))))))), __map
-*)
 
 !trace 1
 !try
 seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
 ), __map
-
 
 !trace 5
 !try
@@ -234,12 +302,14 @@ seq(init(),
 seq(assign(I, 0.0), 
 seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
 
-seq(assign(A, cube(20.0)), translate(deref(A), deref(I), deref(I), 0.0))
+seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0))
 
 )),
 
 paint()
 ))), __map
+
+
 
 
 
