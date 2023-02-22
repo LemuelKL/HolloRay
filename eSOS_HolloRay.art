@@ -170,8 +170,9 @@ seq(assign(B, sphere(35.0)),
 seq(translate(deref(B), 100.0, 100.0, 0.0),
 seq(assign(C, cylinder(25.0, 50.0)),
 seq(translate(deref(C), 0.0, -100.0, 0.0),
+seq(rotate(deref(C), 20.0, 0.0, 0.0),
 paint()
-))))))), __map
+)))))))), __map
 
 
 
