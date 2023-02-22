@@ -180,6 +180,12 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 case E:
                     sceneRotateZ.setAngle(sceneRotateZ.getAngle() + 2);
                     break;
+                case Z:
+                    camera.setTranslateZ(camera.getTranslateZ() + 10);
+                    break;
+                case X:
+                    camera.setTranslateZ(camera.getTranslateZ() - 10);
+                    break;
                 case UP:
                     root.setTranslateY(root.getTranslateY() + 10);
                     break;
