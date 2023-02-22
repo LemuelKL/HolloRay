@@ -30,6 +30,8 @@
 -variable __get(_sig, _R) |> _Z --- deref(_R), _sig -> _Z, _sig
 (* constructor cube *)
 -cube _a |> _ --- cube(_a), _sig -> __user("cube", _a), _sig
+(* constructor rotate *)
+-rotate _x |> _  _y |> _  _z |> _  _E1, _sig -> _V1, _sig --- rotate(_E1, _x, _y, _z), _sig -> __user("rotate", _V1, _x, _y, _z), _sig
 (* constructor cylinder *)
 -cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
 (* constructor while *)

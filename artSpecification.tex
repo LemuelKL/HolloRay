@@ -129,6 +129,12 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf rotate}]}
+\begin{split}\frac{ \artVariable{x}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{y}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{z}\triangleright \artSpecial{real64}(\_) \quad \langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{V$_{1}$}, \artVariable{$\sigma$}\,\rangle }{\langle\, \artConstructor{\sf rotate}(\artVariable{E$_{1}$}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{rotate})\ \artVariable{V$_{1}$}\ \artVariable{x}\ \artVariable{y}\ \artVariable{z}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf cylinder}]}
 \begin{split}\frac{ \artVariable{r}\triangleright \artSpecial{real64}(\_) \quad  \artVariable{h}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf cylinder}(\artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{cylinder})\ \artVariable{r}\ \artVariable{h}), \artVariable{$\sigma$}\,\rangle }
 \end{split}
