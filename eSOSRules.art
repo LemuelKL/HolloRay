@@ -29,6 +29,11 @@ _n |> __int32(_)
 ---
 assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
 
+-assignReal
+_n |> __real64(_)
+---
+assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
+
 -assignStr
 _s |> __string(_)
 ---
@@ -44,8 +49,18 @@ _n1 |> __int32(_) _n2 |> __int32(_)
 ---
 gt(_n1, _n2),_sig ->  __gt(_n1, _n2),_sig 
 
+-gt
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+gt(_n1, _n2),_sig ->  __gt(_n1, _n2),_sig
+
 -gtRight
 _n |> __int32(_) _E2, _sig -> _I2,_sigP 
+---
+gt(_n, _E2),_sig -> gt(_n, _I2), _sigP
+
+-gtRight
+_n |> __real64(_) _E2, _sig -> _I2,_sigP
 ---
 gt(_n, _E2),_sig -> gt(_n, _I2), _sigP
 
@@ -74,8 +89,18 @@ _n1 |> __int32(_) _n2 |> __int32(_)
 ---
 sub(_n1, _n2),_sig ->  __sub(_n1, _n2),_sig
 
+-sub
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+sub(_n1, _n2),_sig ->  __sub(_n1, _n2),_sig
+
 -subRight
 _n |> __int32(_) _E2,_sig -> _I2,_sigP   
+---
+sub(_n, _E2),_sig -> sub(_n, _I2), _sigP
+
+-subRight
+_n |> __real64(_) _E2,_sig -> _I2,_sigP
 ---
 sub(_n, _E2),_sig -> sub(_n, _I2), _sigP
 
@@ -100,6 +125,11 @@ box(_x, _y, _z),_sig -> __user("box", _x, _y, _z),_sig
 _e |> __real64(_)
 ---
 cube(_e),_sig -> __user("cube", _e), _sig
+
+-cubeResolve
+_E, _sig -> _I, _sigP
+---
+cube(_E),_sig -> cube(_I), _sigP
 
 -sphere
 _r |> __real64(_)
@@ -134,9 +164,14 @@ pyramid(_e, _h),_sig -> __user("pyramid", _e, _h),_sig
 
 
 -translate
-_x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1,_sig -> _V1,_sig
+_Z |> __int32(_) _x |> __real64(_) _y |> __real64(_) _z |> __real64(_)
 ---
-translate(_E1, _x, _y, _z),_sig -> __user("translate", _V1, _x, _y, _z),_sig
+translate(_Z, _x, _y, _z),_sig -> __user("translate", _Z, _x, _y, _z),_sig
+
+-translateResolve
+_E1,_sig -> _V1,_sig _E2,_sig -> _V2,_sig _E3,_sig -> _V3,_sig _E4,_sig -> _V4,_sig
+---
+translate(_E1, _E2, _E3, _E4),_sig -> translate(_V1, _V2, _V3, _V4),_sig
 
 -rotate
 _x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1,_sig -> _V1,_sig
@@ -164,6 +199,15 @@ clear,_sig -> __user("clear", __, __),_sig
 
 
 
+-intToReal
+_n |> __int32(_)
+---
+int32ToReal64(_n),_sig -> __real64(_n),_sig
+
+
+!verbosity 0
+
+(*
 !trace 0
 !try
 seq(init(),
@@ -176,6 +220,27 @@ seq(translate(deref(C), 0.0, -100.0, 0.0),
 seq(rotate(deref(C), 20.0, 0.0, 0.0),
 paint()
 )))))))), __map
+*)
+
+!trace 1
+!try
+seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
+), __map
+
+
+!trace 5
+!try
+seq(init(),
+seq(assign(I, 0.0), 
+seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
+
+seq(assign(A, cube(20.0)), translate(deref(A), deref(I), deref(I), 0.0))
+
+)),
+
+paint()
+))), __map
+
 
 
 
