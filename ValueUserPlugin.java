@@ -28,9 +28,6 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    static int SCREEN_WIDTH = 800;
-    static int SCREEN_HEIGHT = 600;
-
     static Group root;
     static Stage stage;
     static Scene scene;
@@ -56,7 +53,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         switch (args[0].value().toString()) {
             case "init":
                 solids = com.google.common.collect.HashBiMap.create();
-                return initialise();
+                return initialise((int) args[1].value(), (int) args[2].value());
             case "paint":
                 return paint();
             case "clear":
@@ -137,10 +134,10 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         return new __done();
     }
 
-    private Value initialise() {
+    private Value initialise(int screen_width, int screen_height) {
         Shout("Initialising JavaFX stage");
         root = new Group();
-        scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, true);
+        scene = new Scene(root, screen_width, screen_width, true);
         stage = new Stage();
 
         buildCamera();

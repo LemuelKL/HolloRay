@@ -24,6 +24,8 @@ if(_E,_C1,_C2),_sig -> if(_EP, _C1, _C2), _sigP
 ---
 while(_E, _C),_sig -> if(_E, seq(_C, while(_E,_C)), __done), _sig
 
+
+
 -assignInt
 _n |> __int32(_)   
 ---
@@ -39,10 +41,22 @@ _s |> __string(_)
 ---
 assign(_X, _s), _sig -> __done, __put(_sig, _X, _s)
 
+-assignBool
+_b |> __bool(_)
+---
+assign(_X, _b), _sig -> __done, __put(_sig, _X, _b)
+
 -assignResolve
 _E, _sig -> _I, _sigP 
 ---
 assign(_X,_E), _sig -> assign(_X, _I),_sigP
+
+-variable
+__get(_sig, _R) |> _Z
+---
+deref(_R),_sig -> _Z, _sig
+
+
 
 -gt
 _n1 |> __int32(_) _n2 |> __int32(_)
@@ -83,6 +97,8 @@ ne(_n, _E2),_sig -> ne(_n, _I2),_sigP
 _E1, _sig -> _I1, _sigP 
 ---
 ne(_E1, _E2),_sig -> ne(_I1, _E2),_sigP
+
+
 
 -subInt
 _n1 |> __int32(_) _n2 |> __int32(_)
@@ -188,10 +204,7 @@ div(_E1, _E2),_sig -> div(_I1, _E2),_sigP
 
 
 
--variable
-__get(_sig, _R) |> _Z
----
-deref(_R),_sig -> _Z, _sig
+
 
 
 
@@ -253,34 +266,42 @@ _E1,_sig -> _V1,_sig _E2,_sig -> _V2,_sig _E3,_sig -> _V3,_sig _E4,_sig -> _V4,_
 translate(_E1, _E2, _E3, _E4),_sig -> translate(_V1, _V2, _V3, _V4),_sig
 
 -rotate
-_x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1,_sig -> _V1,_sig
+_Z |> __int32(_) _x |> __real64(_) _y |> __real64(_) _z |> __real64(_)
 ---
-rotate(_E1, _x, _y, _z),_sig -> __user("rotate", _V1, _x, _y, _z),_sig
+rotate(_Z, _x, _y, _z),_sig -> __user("rotate", _Z, _x, _y, _z),_sig
+
+-rotateResolve
+_E1,_sig -> _V1,_sig _E2,_sig -> _V2,_sig _E3,_sig -> _V3,_sig _E4,_sig -> _V4,_sig
+---
+rotate(_E1, _E2, _E3, _E4),_sig -> rotate(_V1, _V2, _V3, _V4),_sig
 
 -scale
-_x |> __real64(_) _y |> __real64(_) _z |> __real64(_) _E1,_sig -> _V1,_sig
+_Z |> __int32(_) _x |> __real64(_) _y |> __real64(_) _z |> __real64(_)
 ---
-scale(_E1, _x, _y, _z),_sig -> __user("scale", _V1, _x, _y, _z),_sig
+scale(_Z, _x, _y, _z),_sig -> __user("scale", _Z, _x, _y, _z),_sig
 
-
-
--initialise
+-scaleResolve
+_E1,_sig -> _V1,_sig _E2,_sig -> _V2,_sig _E3,_sig -> _V3,_sig _E4,_sig -> _V4,_sig
 ---
-init,_sig -> __user("init", __, __),_sig
+scale(_E1, _E2, _E3, _E4),_sig -> scale(_V1, _V2, _V3, _V4),_sig
+
+
+
+-init
+_w |> __int32(_) _h |> __int32(_)
+---
+init(_w, _h),_sig -> __user("init", _w, _h),_sig
 
 -paint
 ---
-paint,_sig -> __user("paint", __, __),_sig
-
--clear
----
-clear,_sig -> __user("clear", __, __),_sig
+paint,_sig -> __user("paint"),_sig
 
 
 
 !trace 0
+
 !try
-seq(init(),
+seq(init(800, 600),
 seq(assign(A, cube(50.0)),
 seq(translate(deref(A), -100.0, 0.0, 0.0),
 seq(assign(B, sphere(35.0)),
@@ -291,14 +312,12 @@ seq(rotate(deref(C), 20.0, 0.0, 0.0),
 paint()
 )))))))), __map
 
-!trace 1
 !try
 seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
 ), __map
 
-!trace 5
 !try
-seq(init(),
+seq(init(800, 600),
 seq(assign(I, 0.0), 
 seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
 
@@ -308,7 +327,6 @@ seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0
 
 paint()
 ))), __map
-
 
 
 

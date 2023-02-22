@@ -91,13 +91,16 @@ rotate(_solid:_solid, _x:real64, _y:real64, _z:real64, _angle:real64)
 
 scale(_solid:solid, _x:real64, _y:real64, _z:real64)
 
+and the following for managing JavaFX's lifecycle:
+
+init(_w:int32, _h:int32) initialize the JavaFX window with width _w and height _h
+
+paint() render the scene
 
 B: Internal syntax constructors and arities
 ===========================================
 
 seq(_C1, _C2) execute command  C_1 followed by command C_2
-
-sub(_E1:__int32, _E2:__int32):__int32 integer subtraction: E_1 - E_2
 
 gt(_E1:__int32, _E2:__int32):__boolean integer greater-than E_1 > E_2
 
@@ -110,6 +113,24 @@ deref(_N) retrieve binding for name _N in variables map
 if(_P:__bool, _C1, _C2) select if _P then execute C_2 else execute C_3
 
 while(_P:__bool, _C1, _C2) iterate while _P then execute C_2 else execute C_3
+
+
+
+sub(_E1:__int32, _E2:__int32):__int32 integer subtraction: E_1 - E_2
+
+sub(_E1:__real64, _E2:__real64):__real64 real subtraction: E_1 - E_2
+
+add(_E1:__int32, _E2:__int32):__int32 integer addition: E_1 + E_2
+
+add(_E1:__real64, _E2:__real64):__real64 real addition: E_1 + E_2
+
+mul(_E1:__int32, _E2:__int32):__int32 integer multiplication: E_1 * E_2
+
+mul(_E1:__real64, _E2:__real64):__real64 real multiplication: E_1 * E_2
+
+div(_E1:__int32, _E2:__int32):__int32 integer division: E_1 / E_2
+
+div(_E1:__real64, _E2:__real64):__real64 real division: E_1 / E_2
 
 
 
@@ -139,4 +160,3 @@ scale(_solid:solid, _x:real64, _y:real64, _z:real64) scale a solid by (_x, _y, _
 
 
 
-Note to self and Adrian: I don't think strings and characters would be necessary?
