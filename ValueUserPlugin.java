@@ -120,6 +120,16 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
             case "pyramid":
                 spawnPyramid((double) args[1].value(), (double) args[2].value());
                 return new __done();
+            case "int2real": {
+                int theInt = (int) args[1].value();
+                double theDouble = Double.valueOf(theInt);
+                return new __real64(theDouble);
+            }
+            case "real2int": {
+                Double theDouble = Double.valueOf((double) args[1].value());
+                int theInt = theDouble.intValue();
+                return new __int32(theInt, 0);
+            }
             default:
                 Shout("Unknown internal command: " + args[0]);
                 return new __string("OH NO!");
@@ -200,7 +210,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     private void buildCamera() {
         camera = new PerspectiveCamera(true);
         camera.getTransforms().addAll(
-                new Translate(0, 0, -1000));
+                new Translate(0, 0, -500));
 
         camera.setNearClip(0.1);
         camera.setFarClip(100000);

@@ -100,6 +100,8 @@ ne(_E1, _E2),_sig -> ne(_I1, _E2),_sigP
 
 
 
+
+
 -subInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
@@ -200,8 +202,40 @@ _E1,_sig -> _I1,_sigP
 ---
 div(_E1, _E2),_sig -> div(_I1, _E2),_sigP
 
+-modInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+mod(_n1, _n2),_sig -> __mod(_n1, _n2),_sig
 
+-modRightInt
+_n |> __int32(_) _E2,_sig -> _I2,_sigP
+---
+mod(_n, _E2),_sig -> mod(_n, _I2),_sigP
 
+-modLeft
+_E1,_sig -> _I1,_sigP
+---
+mod(_E1, _E2),_sig -> mod(_I1, _E2),_sigP
+
+-int2real
+_n |> __int32(_)
+---
+int2real(_n),_sig -> __user("int2real", _n),_sig
+
+-int2realResolve
+_E, _sig -> _I, _sigP
+---
+int2real(_E),_sig -> __user("int2real", _I),_sigP
+
+-real2int
+_n |> __real64(_)
+---
+real2int(_n),_sig -> __user("real2int", _n),_sig
+
+-real2intResolve
+_E, _sig -> _I, _sigP
+---
+real2int(_E),_sig -> __user("real2int", _I),_sigP
 
 
 
@@ -300,6 +334,7 @@ paint,_sig -> __user("paint"),_sig
 
 !trace 0
 
+(*
 !try
 seq(init(800, 600),
 seq(assign(A, cube(50.0)),
@@ -320,13 +355,43 @@ seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
 seq(init(800, 600),
 seq(assign(I, 0.0), 
 seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
-
-seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0))
-
-)),
-
+seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0)))),
 paint()
 ))), __map
+
+
+// quadratic curve 
+!trace 0
+!try
+seq(init(800, 600),
+seq(assign(X, -320.0),
+seq(while(gt(320.0, deref(X)), seq(assign(X, add(deref(X), 0.1)), 
+seq(assign(A, cube(1.0)), translate(deref(A), deref(X), mul(0.0125, mul(deref(X), deref(X))), 0.0)))),
+paint()
+))), __map
+*)
+
+// 3x+1 conjecture
+!trace 0
+!try
+seq(init(800, 600),
+seq(assign(X, 100),
+seq(
+    while(
+        ne(1, deref(X)),
+        seq(
+            if(
+                ne(mod(deref(X), 2), 0),
+                assign(X, div(deref(X),2)),
+                assign(X, add(mul(deref(X), 3), 1))
+            ),
+            seq(assign(A, cube(1.0)), translate(deref(A), int2real(deref(X)), 0.0, 0.0))
+        )
+    ),
+paint()
+))), __map
+
+
 
 
 

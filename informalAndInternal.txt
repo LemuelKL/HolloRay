@@ -24,6 +24,7 @@ Non-keyword alphanumeric identifiers denote variables that may have integers and
 
 Operations provided are addition, subtraction, multiplication and division over constant integers and reals, and variables such as  $x+y$, $x-3$, $3.1*4$, or $3/x$.
 
+The modulo operator is also provided for integers.
 
 S.3 Predicates
 --------------
@@ -131,6 +132,8 @@ mul(_E1:__real64, _E2:__real64):__real64 real multiplication: E_1 * E_2
 div(_E1:__int32, _E2:__int32):__int32 integer division: E_1 / E_2
 
 div(_E1:__real64, _E2:__real64):__real64 real division: E_1 / E_2
+
+mod(_E1:__int32, _E2:__int32):__int32 integer modulus: E_1 % E_2
 
 
 
