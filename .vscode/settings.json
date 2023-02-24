@@ -1,12 +1,8 @@
 {
     "java.project.sourcePaths": [
-        "Project",
-        "Project/imageProcessing",
-        "Project/javaFXTest",
         "."
     ],
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
         "art.jar",
         "guava-31.1-jre.jar"
     ]
