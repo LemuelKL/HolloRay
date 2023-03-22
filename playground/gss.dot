@@ -1,0 +1,18 @@
+digraph "Graph from GLL parser"{
+graph[ordering=out]
+node[fontname=Helvetica fontsize=9 shape=box height=0 width=0 margin=0.04]
+edge[arrowsize=0.3]
+"0 ART$"[]
+"null"[ label = "1 S ::= 'a'  X . '@'  "]
+"null"[ label = "2 X ::= 'x'  X ."]
+"null"[ label = "3 X ::= 'x'  X ."]
+"null"[ label = "4 X ::= 'x'  X ."]
+"null"[ label = "5 X ::= 'x'  X ."]
+"null"[ label = "6 X ::= 'x'  X ."]
+"1 S ::= 'a'  X . '@'  "->"0 ART$" []
+"2 X ::= 'x'  X ."->"1 S ::= 'a'  X . '@'  " []
+"3 X ::= 'x'  X ."->"2 X ::= 'x'  X ." []
+"4 X ::= 'x'  X ."->"3 X ::= 'x'  X ." []
+"5 X ::= 'x'  X ."->"4 X ::= 'x'  X ." []
+"6 X ::= 'x'  X ."->"5 X ::= 'x'  X ." []
+}
