@@ -20,8 +20,12 @@ public void artLexicaliseBuiltinInstances() throws ARTException {
   artLexicaliseTest(ARTGeneratedParser.ARTTB_ID);
   artBuiltin_INTEGER();
   artLexicaliseTest(ARTGeneratedParser.ARTTB_INTEGER);
+  artBuiltin_REAL();
+  artLexicaliseTest(ARTGeneratedParser.ARTTB_REAL);
   artBuiltin_SIMPLE_WHITESPACE();
   artLexicaliseTest(ARTGeneratedParser.ARTTB_SIMPLE_WHITESPACE);
+  artBuiltin_STRING_DQ();
+  artLexicaliseTest(ARTGeneratedParser.ARTTB_STRING_DQ);
 }
 
 public void artLexicalisePreparseWhitespaceInstances() throws ARTException {

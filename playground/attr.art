@@ -1,0 +1,5 @@
+S ::= Y | #
+
+Y ::= X | X Y
+
+X <value:String number:int> ::= 'x'

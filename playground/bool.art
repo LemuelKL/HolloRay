@@ -1,0 +1,8 @@
+Expr ::= Atom
+    | Expr '&' Expr
+    | Expr '|' Expr
+    | '!' Expr
+Atom ::= 'true'
+    | 'false'
+    | '(' Expr ')'
+

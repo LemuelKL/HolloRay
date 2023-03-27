@@ -1,1 +1,1 @@
-S('a', X('x', X('x', X('x', X('x', X('x', X(#)))))), '@')
+seq(seq(seq(assign(x, 10), assign(y, 5)), while(ne(deref(x), deref(y)), if(gt(deref(x), deref(y)), assign(x, sub(deref(x), deref(y))), assign(y, sub(deref(y), deref(x)))))), assign(gcd, deref(x)))

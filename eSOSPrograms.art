@@ -1,0 +1,56 @@
+// scene test with 3 objects 
+!try
+seq(init(800, 600),
+seq(assign(A, cube(50.0)),
+seq(translate(deref(A), -100.0, 0.0, 0.0),
+seq(assign(B, sphere(35.0)),
+seq(translate(deref(B), 100.0, 100.0, 0.0),
+seq(assign(C, cylinder(25.0, 50.0)),
+seq(translate(deref(C), 0.0, -100.0, 0.0),
+seq(rotate(deref(C), 20.0, 0.0, 0.0),
+paint()
+)))))))), __map
+
+// looping test
+!try
+seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
+), __map
+
+// linear curve
+!try
+seq(init(800, 600),
+seq(assign(I, 0.0), 
+seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
+seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0)))),
+paint()
+))), __map
+
+// quadratic curve 
+!trace 0
+!try
+seq(init(800, 600),
+seq(assign(X, -320.0),
+seq(while(gt(320.0, deref(X)), seq(assign(X, add(deref(X), 0.1)), 
+seq(assign(A, cube(1.0)), translate(deref(A), deref(X), mul(0.0125, mul(deref(X), deref(X))), 0.0)))),
+paint()
+))), __map
+
+// 3x+1 conjecture
+!trace 0
+!try
+seq(init(800, 600),
+seq(assign(X, 100),
+seq(
+    while(
+        ne(1, deref(X)),
+        seq(
+            if(
+                ne(mod(deref(X), 2), 0),
+                assign(X, div(deref(X),2)),
+                assign(X, add(mul(deref(X), 3), 1))
+            ),
+            seq(assign(A, cube(1.0)), translate(deref(A), int2real(deref(X)), 0.0, 0.0))
+        )
+    ),
+paint()
+))), __map

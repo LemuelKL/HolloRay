@@ -11,3 +11,7 @@
 - Any difference between _sigP and _sig?
 
 - Anyway to turn down JavaFX's verbosity?
+
+- Type conversion anti pattern to do in backend
+
+- Timeline and animations

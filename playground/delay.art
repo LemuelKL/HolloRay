@@ -1,0 +1,5 @@
+S ::= 'if' P 'then' A
+
+P<v:boolean> ::= 'true' {P.v = true;} | 'false' {P.v = false;}
+
+A ::= 'print' {artText.println("Printed");}
