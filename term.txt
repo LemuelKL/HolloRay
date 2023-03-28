@@ -1,1 +1,1 @@
-seq(seq(seq(assign(x, 2.0), assign(y, 3)), assign(z, 4)), assign(w, add(deref(y), deref(z))))
+seq(seq(seq(seq(seq(seq(seq(init(800, 600), assign(x, 3)), assign(y, 5)), assign(z, 7)), assign(w, sub(deref(x), add(deref(y), deref(z))))), print("The value of w is:")), print(deref(w))), paint)

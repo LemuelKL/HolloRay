@@ -47,6 +47,10 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     void Shout(String msg) {
         System.out.println(ANSI_PURPLE + "[PLUGIN] " + ANSI_RESET + msg);
     }
+    
+    void Print(String msg) {
+        System.out.println(ANSI_CYAN + msg + ANSI_RESET);
+    }
 
     @Override
     public Value user(Value... args) throws ARTException {
@@ -59,6 +63,9 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
             case "clear":
                 Shout("Clearing the scene");
                 root.getChildren().clear();
+                return new __done();
+            case "print":
+                Print(args[1].value().toString());
                 return new __done();
             case "translate": {
                 int solidId = (int) args[1].value();

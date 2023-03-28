@@ -1,11 +1,15 @@
-statement ::= seq^^ | assign^^ | if^^ | while^^ | backend^^ | comment^^
+statement ::= seq^^ | assign^^ | if^^ | while^^ | backend^^ | print^^ | init^^ | paint^^
 
 seq ::= statement statement
 assign ::= ID '='^ subExpr ';'^
-if ::= 'if'^ relExpr statement 'else'^ statement
+if ::= 
+    'if'^ '('^ relExpr ')'^ statement 'else'^ statement 'fi'^
+  | 'if'^ '('^ relExpr ')'^ statement 'fi'^
 while ::= 'while'^ relExpr statement
 backend ::= 'backend'^ '('^ subExpr ','^ subExpr ','^ subExpr ')'^
-comment ::= '//'^ &STRING_DQ  '\n'^
+print ::= 'print'^ '('^ subExpr  ')'^ ';'^
+init ::= 'init'^ '('^ INTEGER ','^ INTEGER  ')'^ ';'^
+paint ::= 'paint'^ '('^ ')'^ ';'^
 
 relExpr ::= subExpr^^ | gt^^ | ne^^ | lt^^ | eq^^
 gt ::= relExpr '>'^ subExpr
@@ -19,7 +23,7 @@ add ::= subExpr '+'^ operand
 mul ::= subExpr '*'^ operand
 div ::= subExpr '/'^ operand
 
-operand ::= deref^^ | INTEGER^^ | REAL^^ | '('^ subExpr^^ ')'^
+operand ::= deref^^ | INTEGER^^ | REAL^^ | STRING_DQ^^ | '('^ subExpr^^ ')'^
 deref ::= ID
 
 (* lexical items below this line *)
@@ -32,9 +36,9 @@ INTEGER <leftExtent:int rightExtent:int lexeme:String v:ARTValueInteger32> ::=
   INTEGER.v = new ARTValueInteger32(artLexemeAsInteger(INTEGER.leftExtent, INTEGER.rightExtent)); }
 
 REAL <leftExtent:int rightExtent:int lexeme:String v:double> ::=
-&REAL {REAL.lexeme = artLexeme(REAL.leftExtent, REAL.rightExtent);
+&REAL^^ {REAL.lexeme = artLexeme(REAL.leftExtent, REAL.rightExtent);
 REAL.v = artLexemeAsInteger(REAL.leftExtent, REAL.rightExtent); }
 
-STRING DQ <leftExtent:int rightExtent:int lexeme:String v:String> ::=
-&STRING DQ {STRING DQ.lexeme = artLexeme(STRING DQ.leftExtent, STRING DQ.rightExtent);
-STRING DQ.v = artLexemeAsString(STRING DQ.leftExtent, STRING DQ.rightExtent); }
+STRING_DQ <leftExtent:int rightExtent:int lexeme:String v:String> ::=
+&STRING_DQ^^ {STRING_DQ.lexeme = artLexeme(STRING_DQ.leftExtent, STRING_DQ.rightExtent);
+STRING_DQ.v = artLexemeAsString(STRING_DQ.leftExtent, STRING_DQ.rightExtent); }

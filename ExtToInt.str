@@ -1,5 +1,13 @@
-x = 2.0;
-y = 3;
-z = 4;
 
-w = y + z;
+init(800, 600);
+
+x = 3;
+y = 5;
+z = 7;
+
+w = x - (y + z);
+
+print("The value of w is:");
+print(w);
+
+paint();

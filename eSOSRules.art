@@ -98,6 +98,21 @@ _E1, _sig -> _I1, _sigP
 ---
 ne(_E1, _E2),_sig -> ne(_I1, _E2),_sigP
 
+-eq
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+eq(_n1, _n2),_sig ->  __eq(_n1, _n2),_sig
+
+-eqRight
+_n |> __int32(_)  _E2, _sig -> _I2,_sigP
+---
+eq(_n, _E2),_sig -> eq(_n, _I2),_sigP
+
+-eqLeft
+_E1, _sig -> _I1, _sigP
+---
+eq(_E1, _E2),_sig -> eq(_I1, _E2),_sigP
+
 
 
 
@@ -331,3 +346,23 @@ init(_w, _h),_sig -> __user("init", _w, _h),_sig
 paint,_sig -> __user("paint"),_sig
 
 
+// EXTENSION
+-printStr
+_s |> __string(_)
+---
+print(_s), _sig -> __user("print", _s), _sig
+
+-printInt
+_n |> __int32(_)
+---
+print(_n), _sig -> __user("print", _n), _sig
+
+-printReal
+_n |> __real64(_)
+---
+print(_n), _sig -> __user("print", _n), _sig
+
+-printResolve
+_E, _sig -> _I, _sigP
+---
+print(_E), _sig -> print(_I), _sigP

@@ -7,16 +7,15 @@ if echo "$output" | grep -q '** Reject'; then
   exit 1
 fi
 
-# Read the contents of the files into variables
+echo "$output"
+
 file1_contents=$(cat eSOSRules.art)
 file2_contents=$(cat term.txt)
-
-# Concatenate the contents of the variables and write to a temporary file
 temp_file=$(mktemp)
-echo "$file1_contents !try $file2_contents, __map" > "$temp_file"
+echo "$file1_contents !trace 1 !try $file2_contents, __map" > "$temp_file"
 
-# Pass the name of the temporary file as an argument to the java command
-java -jar art.jar "$temp_file"
+./buildPlugin.sh
 
-# Remove the temporary file
+java -Dprism.forceGPU=true --add-modules javafx.controls -cp ".:art.jar:guava-31.1-jre.jar" uk.ac.rhul.cs.csle.art.ARTFX "$temp_file" 2>/dev/null
+
 rm "$temp_file"
