@@ -1,104 +1,137 @@
 (* relation '->' *)
+(* constructor exp *)
+-expInt _n1 |> _  _n2 |> _ --- exp(_n1, _n2), _sig -> __exp(_n1, _n2), _sig
+-expReal _n1 |> _  _n2 |> _ --- exp(_n1, _n2), _sig -> __exp(_n1, _n2), _sig
+-powResolve _E1, _sig -> _I1, _sigP  _E2, _sig -> _I2, _sigP --- exp(_E1, _E2), _sig -> __exp(_I1, _I2), _sigP
 (* constructor deref *)
 -variable __get(_sig, _R) |> _Z --- deref(_R), _sig -> _Z, _sig
+(* constructor not *)
+-not _n |> _ --- not(_n), _sig -> __not(_n), _sig
+-notResolve _E, _sig -> _I, _sigP --- not(_E), _sig -> __not(_I), _sigP
+(* constructor and *)
+-and _n1 |> _  _n2 |> _ --- and(_n1, _n2), _sig -> __and(_n1, _n2), _sig
+-andResolve _E1, _sig -> _I1, _sigP  _E2, _sig -> _I2, _sigP --- and(_E1, _E2), _sig -> __and(_I1, _I2), _sigP
 (* constructor gt *)
--gt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
--gt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
--gtRight _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
--gtRight _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
+-gtInt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
+-gtReal _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
+-gtRightInt _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
+-gtRightReal _n |> _  _E2, _sig -> _I2, _sigP --- gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
 -gtLeft _E1, _sig -> _I1, _sigP --- gt(_E1, _E2), _sig -> gt(_I1, _E2), _sigP
-(* constructor cone *)
--cone _r |> _  _h |> _ --- cone(_r, _h), _sig -> __user("cone", _r, _h), _sig
-(* constructor torus *)
--torus _r |> _  _R |> _ --- torus(_r, _R), _sig -> __user("torus", _r, _R), _sig
-(* constructor tetrahedron *)
--tetrahedron _e |> _ --- tetrahedron(_e), _sig -> __user("tetrahedron", _e), _sig
-(* constructor pyramid *)
--pyramid _e |> _  _h |> _ --- pyramid(_e, _h), _sig -> __user("pyramid", _e, _h), _sig
-(* constructor translate *)
--translate _Z |> _  _x |> _  _y |> _  _z |> _ --- translate(_Z, _x, _y, _z), _sig -> __user("translate", _Z, _x, _y, _z), _sig
--translateResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- translate(_E1, _E2, _E3, _E4), _sig -> translate(_V1, _V2, _V3, _V4), _sig
+(* constructor or *)
+-or _n1 |> _  _n2 |> _ --- or(_n1, _n2), _sig -> __or(_n1, _n2), _sig
+-orResolve _E1, _sig -> _I1, _sigP  _E2, _sig -> _I2, _sigP --- or(_E1, _E2), _sig -> __or(_I1, _I2), _sigP
+(* constructor xor *)
+-xor _n1 |> _  _n2 |> _ --- xor(_n1, _n2), _sig -> __xor(_n1, _n2), _sig
+-xorResolve _E1, _sig -> _I1, _sigP  _E2, _sig -> _I2, _sigP --- xor(_E1, _E2), _sig -> __xor(_I1, _I2), _sigP
+(* constructor int2real *)
+-int2real _n |> _ --- int2real(_n), _sig -> __user("int2real", _n), _sig
+-int2realResolve _E, _sig -> _I, _sigP --- int2real(_E), _sig -> __user("int2real", _I), _sigP
+(* constructor lt *)
+-ltInt _n1 |> _  _n2 |> _ --- lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig
+-ltReal _n1 |> _  _n2 |> _ --- lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig
+-ltRightInt _n |> _  _E2, _sig -> _I2, _sigP --- lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
+-ltRightReal _n |> _  _E2, _sig -> _I2, _sigP --- lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
+-ltLeft _E1, _sig -> _I1, _sigP --- lt(_E1, _E2), _sig -> lt(_I1, _E2), _sigP
+(* constructor real2int *)
+-real2int _n |> _ --- real2int(_n), _sig -> __user("real2int", _n), _sig
+-real2intResolve _E, _sig -> _I, _sigP --- real2int(_E), _sig -> __user("real2int", _I), _sigP
+(* constructor box *)
+-box _x |> _  _y |> _  _z |> _ --- box(_x, _y, _z), _sig -> __user("box", _x, _y, _z), _sig
 (* constructor ne *)
--ne _n1 |> _  _n2 |> _ --- ne(_n1, _n2), _sig -> __ne(_n1, _n2), _sig
--neRight _n |> _  _E2, _sig -> _I2, _sigP --- ne(_n, _E2), _sig -> ne(_n, _I2), _sigP
+-neInt _n1 |> _  _n2 |> _ --- ne(_n1, _n2), _sig -> __ne(_n1, _n2), _sig
+-neReal _n1 |> _  _n2 |> _ --- ne(_n1, _n2), _sig -> __ne(_n1, _n2), _sig
+-neRightInt _n |> _  _E2, _sig -> _I2, _sigP --- ne(_n, _E2), _sig -> ne(_n, _I2), _sigP
+-neRightReal _n |> _  _E2, _sig -> _I2, _sigP --- ne(_n, _E2), _sig -> ne(_n, _I2), _sigP
 -neLeft _E1, _sig -> _I1, _sigP --- ne(_E1, _E2), _sig -> ne(_I1, _E2), _sigP
+(* constructor cube *)
+-cube _e |> _ --- cube(_e), _sig -> __user("cube", _e), _sig
+-cubeResolve _E, _sig -> _I, _sigP --- cube(_E), _sig -> cube(_I), _sigP
 (* constructor eq *)
--eq _n1 |> _  _n2 |> _ --- eq(_n1, _n2), _sig -> __eq(_n1, _n2), _sig
--eqRight _n |> _  _E2, _sig -> _I2, _sigP --- eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
+-eqInt _n1 |> _  _n2 |> _ --- eq(_n1, _n2), _sig -> __eq(_n1, _n2), _sig
+-eqReal _n1 |> _  _n2 |> _ --- eq(_n1, _n2), _sig -> __eq(_n1, _n2), _sig
+-eqRightInt _n |> _  _E2, _sig -> _I2, _sigP --- eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
+-eqRightReal _n |> _  _E2, _sig -> _I2, _sigP --- eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
 -eqLeft _E1, _sig -> _I1, _sigP --- eq(_E1, _E2), _sig -> eq(_I1, _E2), _sigP
+(* constructor sphere *)
+-sphere _r |> _ --- sphere(_r), _sig -> __user("sphere", _r), _sig
+(* constructor cylinder *)
+-cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
+(* constructor seq *)
+-sequenceDone  --- seq(__done, _C), _sig -> _C, _sig
+-sequence _C1, _sig -> _C1P, _sigP --- seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
 (* constructor sub *)
 -subInt _n1 |> _  _n2 |> _ --- sub(_n1, _n2), _sig -> __sub(_n1, _n2), _sig
 -subReal _n1 |> _  _n2 |> _ --- sub(_n1, _n2), _sig -> __sub(_n1, _n2), _sig
 -subRightInt _n |> _  _E2, _sig -> _I2, _sigP --- sub(_n, _E2), _sig -> sub(_n, _I2), _sigP
 -subRightReal _n |> _  _E2, _sig -> _I2, _sigP --- sub(_n, _E2), _sig -> sub(_n, _I2), _sigP
 -subLeft _E1, _sig -> _I1, _sigP --- sub(_E1, _E2), _sig -> sub(_I1, _E2), _sigP
-(* constructor rotate *)
--rotate _Z |> _  _x |> _  _y |> _  _z |> _ --- rotate(_Z, _x, _y, _z), _sig -> __user("rotate", _Z, _x, _y, _z), _sig
--rotateResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- rotate(_E1, _E2, _E3, _E4), _sig -> rotate(_V1, _V2, _V3, _V4), _sig
-(* constructor scale *)
--scale _Z |> _  _x |> _  _y |> _  _z |> _ --- scale(_Z, _x, _y, _z), _sig -> __user("scale", _Z, _x, _y, _z), _sig
--scaleResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- scale(_E1, _E2, _E3, _E4), _sig -> scale(_V1, _V2, _V3, _V4), _sig
+(* constructor cone *)
+-cone _r |> _  _h |> _ --- cone(_r, _h), _sig -> __user("cone", _r, _h), _sig
+(* constructor torus *)
+-torus _r |> _  _R |> _ --- torus(_r, _R), _sig -> __user("torus", _r, _R), _sig
+(* constructor tetrahedron *)
+-tetrahedron _e |> _ --- tetrahedron(_e), _sig -> __user("tetrahedron", _e), _sig
 (* constructor add *)
 -addInt _n1 |> _  _n2 |> _ --- add(_n1, _n2), _sig -> __add(_n1, _n2), _sig
 -addReal _n1 |> _  _n2 |> _ --- add(_n1, _n2), _sig -> __add(_n1, _n2), _sig
 -addRightInt _n |> _  _E2, _sig -> _I2, _sigP --- add(_n, _E2), _sig -> add(_n, _I2), _sigP
 -addRightReal _n |> _  _E2, _sig -> _I2, _sigP --- add(_n, _E2), _sig -> add(_n, _I2), _sigP
 -addLeft _E1, _sig -> _I1, _sigP --- add(_E1, _E2), _sig -> add(_I1, _E2), _sigP
-(* constructor init *)
--init _w |> _  _h |> _ --- init(_w, _h), _sig -> __user("init", _w, _h), _sig
-(* constructor paint *)
--paint  --- paint, _sig -> __user("paint"), _sig
+(* constructor pyramid *)
+-pyramid _e |> _  _h |> _ --- pyramid(_e, _h), _sig -> __user("pyramid", _e, _h), _sig
+(* constructor translate *)
+-translate _Z |> _  _x |> _  _y |> _  _z |> _ --- translate(_Z, _x, _y, _z), _sig -> __user("translate", _Z, _x, _y, _z), _sig
+-translateResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- translate(_E1, _E2, _E3, _E4), _sig -> translate(_V1, _V2, _V3, _V4), _sig
+(* constructor if *)
+-ifTrue  --- if(True, _C1, _C2), _sig -> _C1, _sig
+-ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
+-ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
 (* constructor mul *)
 -mulInt _n1 |> _  _n2 |> _ --- mul(_n1, _n2), _sig -> __mul(_n1, _n2), _sig
 -mulReal _n1 |> _  _n2 |> _ --- mul(_n1, _n2), _sig -> __mul(_n1, _n2), _sig
 -mulRightInt _n |> _  _E2, _sig -> _I2, _sigP --- mul(_n, _E2), _sig -> mul(_n, _I2), _sigP
 -mulRightReal _n |> _  _E2, _sig -> _I2, _sigP --- mul(_n, _E2), _sig -> mul(_n, _I2), _sigP
 -mulLeft _E1, _sig -> _I1, _sigP --- mul(_E1, _E2), _sig -> mul(_I1, _E2), _sigP
-(* constructor print *)
--printStr _s |> _ --- print(_s), _sig -> __user("print", _s), _sig
--printInt _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
--printReal _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
--printResolve _E, _sig -> _I, _sigP --- print(_E), _sig -> print(_I), _sigP
-(* constructor seq *)
--sequenceDone  --- seq(__done, _C), _sig -> _C, _sig
--sequence _C1, _sig -> _C1P, _sigP --- seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
+(* constructor while *)
+-while  --- while(_E, _C), _sig -> if(_E, seq(_C, while(_E, _C)), __done), _sig
+(* constructor for *)
+-for  --- for(_E1, _E2, _E3, _C), _sig -> seq(_E1, while(_E2, seq(_C, _E3))), _sig
+(* constructor rotate *)
+-rotate _Z |> _  _x |> _  _y |> _  _z |> _ --- rotate(_Z, _x, _y, _z), _sig -> __user("rotate", _Z, _x, _y, _z), _sig
+-rotateResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- rotate(_E1, _E2, _E3, _E4), _sig -> rotate(_V1, _V2, _V3, _V4), _sig
 (* constructor div *)
 -divInt _n1 |> _  _n2 |> _ --- div(_n1, _n2), _sig -> __div(_n1, _n2), _sig
 -divReal _n1 |> _  _n2 |> _ --- div(_n1, _n2), _sig -> __div(_n1, _n2), _sig
 -divRightInt _n |> _  _E2, _sig -> _I2, _sigP --- div(_n, _E2), _sig -> div(_n, _I2), _sigP
 -divRightReal _n |> _  _E2, _sig -> _I2, _sigP --- div(_n, _E2), _sig -> div(_n, _I2), _sigP
 -divLeft _E1, _sig -> _I1, _sigP --- div(_E1, _E2), _sig -> div(_I1, _E2), _sigP
-(* constructor mod *)
--modInt _n1 |> _  _n2 |> _ --- mod(_n1, _n2), _sig -> __mod(_n1, _n2), _sig
--modRightInt _n |> _  _E2, _sig -> _I2, _sigP --- mod(_n, _E2), _sig -> mod(_n, _I2), _sigP
--modLeft _E1, _sig -> _I1, _sigP --- mod(_E1, _E2), _sig -> mod(_I1, _E2), _sigP
-(* constructor if *)
--ifTrue  --- if(True, _C1, _C2), _sig -> _C1, _sig
--ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
--ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
-(* constructor int2real *)
--int2real _n |> _ --- int2real(_n), _sig -> __user("int2real", _n), _sig
--int2realResolve _E, _sig -> _I, _sigP --- int2real(_E), _sig -> __user("int2real", _I), _sigP
-(* constructor real2int *)
--real2int _n |> _ --- real2int(_n), _sig -> __user("real2int", _n), _sig
--real2intResolve _E, _sig -> _I, _sigP --- real2int(_E), _sig -> __user("real2int", _I), _sigP
-(* constructor while *)
--while  --- while(_E, _C), _sig -> if(_E, seq(_C, while(_E, _C)), __done), _sig
-(* constructor box *)
--box _x |> _  _y |> _  _z |> _ --- box(_x, _y, _z), _sig -> __user("box", _x, _y, _z), _sig
+(* constructor scale *)
+-scale _Z |> _  _x |> _  _y |> _  _z |> _ --- scale(_Z, _x, _y, _z), _sig -> __user("scale", _Z, _x, _y, _z), _sig
+-scaleResolve _E1, _sig -> _V1, _sig  _E2, _sig -> _V2, _sig  _E3, _sig -> _V3, _sig  _E4, _sig -> _V4, _sig --- scale(_E1, _E2, _E3, _E4), _sig -> scale(_V1, _V2, _V3, _V4), _sig
+(* constructor init *)
+-init _w |> _  _h |> _ --- init(_w, _h), _sig -> __user("init", _w, _h), _sig
 (* constructor assign *)
 -assignInt _n |> _ --- assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
 -assignReal _n |> _ --- assign(_X, _n), _sig -> __done, __put(_sig, _X, _n)
 -assignStr _s |> _ --- assign(_X, _s), _sig -> __done, __put(_sig, _X, _s)
 -assignBool _b |> _ --- assign(_X, _b), _sig -> __done, __put(_sig, _X, _b)
 -assignResolve _E, _sig -> _I, _sigP --- assign(_X, _E), _sig -> assign(_X, _I), _sigP
-(* constructor cube *)
--cube _e |> _ --- cube(_e), _sig -> __user("cube", _e), _sig
--cubeResolve _E, _sig -> _I, _sigP --- cube(_E), _sig -> cube(_I), _sigP
-(* constructor sphere *)
--sphere _r |> _ --- sphere(_r), _sig -> __user("sphere", _r), _sig
-(* constructor cylinder *)
--cylinder _r |> _  _h |> _ --- cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
+(* constructor mod *)
+-modInt _n1 |> _  _n2 |> _ --- mod(_n1, _n2), _sig -> __mod(_n1, _n2), _sig
+-modRightInt _n |> _  _E2, _sig -> _I2, _sigP --- mod(_n, _E2), _sig -> mod(_n, _I2), _sigP
+-modLeft _E1, _sig -> _I1, _sigP --- mod(_E1, _E2), _sig -> mod(_I1, _E2), _sigP
+(* constructor paint *)
+-paint  --- paint, _sig -> __user("paint"), _sig
+(* constructor neg *)
+-negInt _n |> _ --- neg(_n), _sig -> __neg(_n), _sig
+-negReal _n |> _ --- neg(_n), _sig -> __neg(_n), _sig
+-negResolve _E, _sig -> _I, _sigP --- neg(_E), _sig -> __neg(_I), _sigP
+(* constructor print *)
+-printStr _s |> _ --- print(_s), _sig -> __user("print", _s), _sig
+-printInt _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
+-printReal _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
+-printBool _b |> _ --- print(_b), _sig -> __user("print", _b), _sig
+-printResolve _E, _sig -> _I, _sigP --- print(_E), _sig -> print(_I), _sigP
 
 (*-----------------------*)
 

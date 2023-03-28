@@ -1,13 +1,39 @@
-
-init(800, 600);
-
 x = 3;
 y = 5;
 z = 7;
+t = 1;
 
-w = x - (y + z);
+w = -t * (x - (y + z)) * (x + (y - z)) * (x + (y + z)) * (x - (y - z));
 
+w = w / (y * y);
+
+print("The starting value of w is:");
+print(w);
+
+if (w > 0) {
+    print("w is positive");
+} else {
+    print("w is negative");
+}
+
+while (w < 10) {
+    print("w is less than 10:");
+    print(w);
+    w = w + 1;
+}
+
+print("We are done!");
 print("The value of w is:");
 print(w);
 
-paint();
+b = 4;
+exp = 3;
+res = b**exp;
+
+print("The value of res is:");
+print(res);
+
+boolean = 1 == 1;
+print("The value of boolean is:");
+print(boolean);
+

@@ -1,27 +1,33 @@
 statement ::= seq^^ | assign^^ | if^^ | while^^ | backend^^ | print^^ | init^^ | paint^^
 
 seq ::= statement statement
-assign ::= ID '='^ subExpr ';'^
+assign ::= ID '='^ relExpr ';'^
 if ::= 
-    'if'^ '('^ relExpr ')'^ statement 'else'^ statement 'fi'^
-  | 'if'^ '('^ relExpr ')'^ statement 'fi'^
-while ::= 'while'^ relExpr statement
+    'if'^ '('^ relExpr ')'^ '{'^ statement '}'^ 'else'^ '{'^ statement '}'^
+  | 'if'^ '('^ relExpr ')'^ '{'^ statement '}'^
+while ::= 'while'^ '('^ relExpr ')'^ '{'^ statement '}'^
 backend ::= 'backend'^ '('^ subExpr ','^ subExpr ','^ subExpr ')'^
 print ::= 'print'^ '('^ subExpr  ')'^ ';'^
 init ::= 'init'^ '('^ INTEGER ','^ INTEGER  ')'^ ';'^
 paint ::= 'paint'^ '('^ ')'^ ';'^
 
-relExpr ::= subExpr^^ | gt^^ | ne^^ | lt^^ | eq^^
+relExpr ::= subExpr^^ | gt^^ | ne^^ | lt^^ | eq^^ | and^^ | or^^ | not^^ | xor^^
 gt ::= relExpr '>'^ subExpr
 ne ::= relExpr '!='^ subExpr
 lt ::= relExpr '<'^ subExpr
 eq ::= relExpr '=='^ subExpr
+and ::= relExpr '&&'^ relExpr
+or ::= relExpr '||'^ relExpr
+not ::= '!'^ relExpr
+xor ::= relExpr '^'^ relExpr
 
-subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^
+subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^ | neg^^ | exp^^
 sub ::= subExpr '-'^ operand
 add ::= subExpr '+'^ operand
 mul ::= subExpr '*'^ operand
 div ::= subExpr '/'^ operand
+neg ::= '-'^ operand
+exp ::= subExpr '**'^ operand
 
 operand ::= deref^^ | INTEGER^^ | REAL^^ | STRING_DQ^^ | '('^ subExpr^^ ')'^
 deref ::= ID
@@ -42,3 +48,5 @@ REAL.v = artLexemeAsInteger(REAL.leftExtent, REAL.rightExtent); }
 STRING_DQ <leftExtent:int rightExtent:int lexeme:String v:String> ::=
 &STRING_DQ^^ {STRING_DQ.lexeme = artLexeme(STRING_DQ.leftExtent, STRING_DQ.rightExtent);
 STRING_DQ.v = artLexemeAsString(STRING_DQ.leftExtent, STRING_DQ.rightExtent); }
+
+
