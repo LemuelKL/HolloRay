@@ -79,5 +79,11 @@ print(myBool ^ !myBool);
 print(!myBool ^ myBool);
 print(!myBool ^ !myBool);
 
-//
+init(800, 600);
+cube = CUBE(100.0);
+cube.translate(0.0, 0.0, 0.0);
+cube.rotate(0.0, 0.0, 0.0);
+cube.scale(1.0, 1.0, 1.0);
+paint();
+
 

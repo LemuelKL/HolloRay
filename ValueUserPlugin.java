@@ -101,7 +101,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 solids.get(solidId).setScaleX(solids.get(solidId).getScaleX() * x);
                 solids.get(solidId).setScaleY(solids.get(solidId).getScaleY() * y);
                 solids.get(solidId).setScaleZ(solids.get(solidId).getScaleZ() * z);
-                return new __int32(nextSolidId++, 0);
+                return new __done();
             }
             case "box":
                 spawnBox((double) args[1].value(), (double) args[2].value(), (double) args[3].value());
