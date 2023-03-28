@@ -1,27 +1,31 @@
-statement ::= seq^^ | assign^^ | if^^ | while^^ | backend^^ | print^^ | init^^ | paint^^
+statement ::= seq^^ | assign^^ | compassign^^ | if^^ | while^^ | backend^^ | print^^ | init^^ | paint^^ | for^^
 
 seq ::= statement statement
 assign ::= ID '='^ relExpr ';'^
+compassign ::= ID '+='^ relExpr ';'^
 if ::= 
     'if'^ '('^ relExpr ')'^ '{'^ statement '}'^ 'else'^ '{'^ statement '}'^
   | 'if'^ '('^ relExpr ')'^ '{'^ statement '}'^
 while ::= 'while'^ '('^ relExpr ')'^ '{'^ statement '}'^
+for ::= 'for'^ '('^ statement relExpr ';'^ statement ')'^ '{'^ statement '}'^
 backend ::= 'backend'^ '('^ subExpr ','^ subExpr ','^ subExpr ')'^
-print ::= 'print'^ '('^ subExpr  ')'^ ';'^
+print ::= 'print'^ '('^ relExpr ')'^ ';'^
 init ::= 'init'^ '('^ INTEGER ','^ INTEGER  ')'^ ';'^
 paint ::= 'paint'^ '('^ ')'^ ';'^
 
-relExpr ::= subExpr^^ | gt^^ | ne^^ | lt^^ | eq^^ | and^^ | or^^ | not^^ | xor^^
-gt ::= relExpr '>'^ subExpr
-ne ::= relExpr '!='^ subExpr
-lt ::= relExpr '<'^ subExpr
+relExpr ::= subExpr^^ | eq^^ | ne^^ | gt^^ | ge^^ | lt^^ | le^^ | and^^ | or^^ | not^^ | xor^^ | '('^ relExpr^^ ')'^
 eq ::= relExpr '=='^ subExpr
+ne ::= relExpr '!='^ subExpr
+gt ::= relExpr '>'^ subExpr
+ge ::= relExpr '>='^ subExpr
+lt ::= relExpr '<'^ subExpr
+le ::= relExpr '<='^ subExpr
 and ::= relExpr '&&'^ relExpr
 or ::= relExpr '||'^ relExpr
 not ::= '!'^ relExpr
 xor ::= relExpr '^'^ relExpr
 
-subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^ | neg^^ | exp^^
+subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^ | neg^^ | exp^^ | '('^ subExpr^^ ')'^
 sub ::= subExpr '-'^ operand
 add ::= subExpr '+'^ operand
 mul ::= subExpr '*'^ operand

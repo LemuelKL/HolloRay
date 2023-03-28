@@ -1,3 +1,5 @@
+// Control flow
+
 -sequenceDone
 ---
 seq(__done, _C), _sig -> _C, _sig
@@ -59,57 +61,47 @@ __get(_sig, _R) |> _Z
 ---
 deref(_R), _sig -> _Z, _sig
 
+-compoundAssignInt
+_n |> __int32(_)
+---
+compassign(_X, _n), _sig -> __done, __put(_sig, _X, __add(__get(_sig, _X), _n))
+
+-compoundAssignReal
+_n |> __real64(_)
+---
+compassign(_X, _n), _sig -> __done, __put(_sig, _X, __add(__get(_sig, _X), _n))
+
+-compoundAssignResolve
+_E, _sig -> _I, _sigP
+---
+compassign(_X, _E), _sig -> compassign(_X, _I), _sigP
+
 // Comparison
 
--gtInt
+-eqInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig 
+eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
 
--gtReal
+-eqReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig
+eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
 
--gtRightInt
-_n |> __int32(_) _E2, _sig -> _I2, _sigP 
+-eqRightInt
+_n |> __int32(_)  _E2, _sig -> _I2, _sigP
 ---
-gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
+eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
 
--gtRightReal
+-eqRightReal
 _n |> __real64(_) _E2, _sig -> _I2, _sigP
 ---
-gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
+eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
 
--gtLeft
-_E1, _sig -> _I1, _sigP 
----
-gt(_E1, _E2), _sig -> gt(_I1, _E2), _sigP
-
--ltInt
-_n1 |> __int32(_) _n2 |> __int32(_)
----
-lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
-
--ltReal
-_n1 |> __real64(_) _n2 |> __real64(_)
----
-lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
-
--ltRightInt
-_n |> __int32(_) _E2, _sig -> _I2, _sigP
----
-lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
-
--ltRightReal
-_n |> __real64(_) _E2, _sig -> _I2, _sigP
----
-lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
-
--ltLeft
+-eqLeft
 _E1, _sig -> _I1, _sigP
 ---
-lt(_E1, _E2), _sig -> lt(_I1, _E2), _sigP
+eq(_E1, _E2), _sig -> eq(_I1, _E2), _sigP
 
 -neInt
 _n1 |> __int32(_) _n2 |> __int32(_)
@@ -136,30 +128,147 @@ _E1, _sig -> _I1, _sigP
 ---
 ne(_E1, _E2), _sig -> ne(_I1, _E2), _sigP
 
--eqInt
+-gtInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
+gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig 
 
--eqReal
+-gtReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
+gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig
 
--eqRightInt
-_n |> __int32(_)  _E2, _sig -> _I2, _sigP
+-gtRightInt
+_n |> __int32(_) _E2, _sig -> _I2, _sigP 
 ---
-eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
+gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
 
--eqRightReal
+-gtRightReal
 _n |> __real64(_) _E2, _sig -> _I2, _sigP
 ---
-eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
+gt(_n, _E2), _sig -> gt(_n, _I2), _sigP
 
--eqLeft
+-gtLeft
+_E1, _sig -> _I1, _sigP 
+---
+gt(_E1, _E2), _sig -> gt(_I1, _E2), _sigP
+
+-geInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+ge(_n1, _n2), _sig ->  __ge(_n1, _n2), _sig
+
+-geReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+ge(_n1, _n2), _sig ->  __ge(_n1, _n2), _sig
+
+-geRightInt
+_n |> __int32(_) _E2, _sig -> _I2, _sigP
+---
+ge(_n, _E2), _sig -> ge(_n, _I2), _sigP
+
+-geRightReal
+_n |> __real64(_) _E2, _sig -> _I2, _sigP
+---
+ge(_n, _E2), _sig -> ge(_n, _I2), _sigP
+
+-geLeft
 _E1, _sig -> _I1, _sigP
 ---
-eq(_E1, _E2), _sig -> eq(_I1, _E2), _sigP
+ge(_E1, _E2), _sig -> ge(_I1, _E2), _sigP
+
+-ltInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
+
+-ltReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
+
+-ltRightInt
+_n |> __int32(_) _E2, _sig -> _I2, _sigP
+---
+lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
+
+-ltRightReal
+_n |> __real64(_) _E2, _sig -> _I2, _sigP
+---
+lt(_n, _E2), _sig -> lt(_n, _I2), _sigP
+
+-ltLeft
+_E1, _sig -> _I1, _sigP
+---
+lt(_E1, _E2), _sig -> lt(_I1, _E2), _sigP
+
+-leInt
+_n1 |> __int32(_) _n2 |> __int32(_)
+---
+le(_n1, _n2), _sig ->  __le(_n1, _n2), _sig
+
+-leReal
+_n1 |> __real64(_) _n2 |> __real64(_)
+---
+le(_n1, _n2), _sig ->  __le(_n1, _n2), _sig
+
+-leRightInt
+_n |> __int32(_) _E2, _sig -> _I2, _sigP
+---
+le(_n, _E2), _sig -> le(_n, _I2), _sigP
+
+-leRightReal
+_n |> __real64(_) _E2, _sig -> _I2, _sigP
+---
+le(_n, _E2), _sig -> le(_n, _I2), _sigP
+
+-leLeft
+_E1, _sig -> _I1, _sigP
+---
+le(_E1, _E2), _sig -> le(_I1, _E2), _sigP
+
+// Logic
+
+-not
+_n |> __bool(_)
+---
+not(_n), _sig -> __not(_n), _sig
+
+-notResolve
+_E, _sig -> _I, _sigP
+---
+not(_E), _sig -> __not(_I), _sigP
+
+-and
+_n1 |> __bool(_) _n2 |> __bool(_)
+---
+and(_n1, _n2), _sig -> __and(_n1, _n2), _sig
+
+-andResolve
+_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
+---
+and(_E1, _E2), _sig -> __and(_I1, _I2), _sigP
+
+-or
+_n1 |> __bool(_) _n2 |> __bool(_)
+---
+or(_n1, _n2), _sig -> __or(_n1, _n2), _sig
+
+-orResolve
+_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
+---
+or(_E1, _E2), _sig -> __or(_I1, _I2), _sigP
+
+-xor
+_n1 |> __bool(_) _n2 |> __bool(_)
+---
+xor(_n1, _n2), _sig -> __xor(_n1, _n2), _sig
+
+-xorResolve
+_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
+---
+xor(_E1, _E2), _sig -> __xor(_I1, _I2), _sigP
 
 // Arithemtic
 
@@ -308,48 +417,6 @@ _E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
 ---
 exp(_E1, _E2), _sig -> __exp(_I1, _I2), _sigP
 
-// Logic
-
--not
-_n |> __bool(_)
----
-not(_n), _sig -> __not(_n), _sig
-
--notResolve
-_E, _sig -> _I, _sigP
----
-not(_E), _sig -> __not(_I), _sigP
-
--and
-_n1 |> __bool(_) _n2 |> __bool(_)
----
-and(_n1, _n2), _sig -> __and(_n1, _n2), _sig
-
--andResolve
-_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
----
-and(_E1, _E2), _sig -> __and(_I1, _I2), _sigP
-
--or
-_n1 |> __bool(_) _n2 |> __bool(_)
----
-or(_n1, _n2), _sig -> __or(_n1, _n2), _sig
-
--orResolve
-_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
----
-or(_E1, _E2), _sig -> __or(_I1, _I2), _sigP
-
--xor
-_n1 |> __bool(_) _n2 |> __bool(_)
----
-xor(_n1, _n2), _sig -> __xor(_n1, _n2), _sig
-
--xorResolve
-_E1, _sig -> _I1, _sigP _E2, _sig -> _I2, _sigP
----
-xor(_E1, _E2), _sig -> __xor(_I1, _I2), _sigP
-
 // Special
 
 -int2real
@@ -461,7 +528,6 @@ init(_w, _h), _sig -> __user("init", _w, _h), _sig
 -paint
 ---
 paint, _sig -> __user("paint"), _sig
-
 
 // Helper
 

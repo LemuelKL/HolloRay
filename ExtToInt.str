@@ -33,7 +33,51 @@ res = b**exp;
 print("The value of res is:");
 print(res);
 
-boolean = 1 == 1;
-print("The value of boolean is:");
-print(boolean);
+print("[>] 1 > 0 is:");
+print(1 > 0);
+
+print("[<] 1 < 0 is:");
+print(1 < 0);
+
+print("[>=] 1 >= 0 is:");
+print(1 >= 0);
+
+print("[<=] 1 <= 0 is:");
+print(1 <= 0);
+
+print("[==] 1 == 0 is:");
+print(1 == 0);
+
+print("[!=] 1 != 0 is:");
+print(1 != 0);
+
+print("[&&] 1 && 0 is:");
+print(1 && 0);
+
+print("[||] 1 || 0 is:");
+print(1 || 0);
+
+print("[!] !(1 == 1) is:");
+print(!(1 == 1));
+
+comp = 1;
+comp = comp + 1;
+comp += 10;
+print("comp is:");
+print(comp);
+
+for (i = 0; i < 10; i = i + 1;) {
+    print("i is:");
+    print(i);
+}
+
+myBool = 1 == 1;
+print(myBool);
+print(!myBool);
+print(myBool ^ myBool);
+print(myBool ^ !myBool);
+print(!myBool ^ myBool);
+print(!myBool ^ !myBool);
+
+//
 
