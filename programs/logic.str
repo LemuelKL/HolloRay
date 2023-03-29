@@ -1,0 +1,21 @@
+println("1 > 0 :", 1 > 0);
+println("1 < 0 :", 1 < 0);
+println("1 >= 0:", 1 >= 0);
+println("1 <= 0:", 1 <= 0);
+println("1 == 0:", 1 == 0);
+println("1 != 0:", 1 != 0);
+
+B = 1 == 1;
+println("B:       ", B);
+println("B && B:  ", B && B);
+println("B && !B: ", B && !B);
+println("!B && B: ", !B && B);
+println("!B && !B:", !B && !B);
+println("B || B:  ", B || B);
+println("B || !B: ", B || !B);
+println("!B || B: ", !B || B);
+println("!B || !B:", !B || !B);
+println("B ^ B:   ", B ^ B);
+println("B ^ !B:  ", B ^ !B);
+println("!B ^ B:  ", !B ^ B);
+println("!B ^ !B: ", !B ^ !B);

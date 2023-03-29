@@ -1,10 +1,10 @@
 for (x = 0; x < 10; x += 1;) {
     for (y = 0; y < 10; y += 1;) {
         if (x == 5 && y == 5) {
-            print("x is 5 and y is 5");
+            println("x is 5 and y is 5");
         }
-        print(x);
-        print(y);
+        println(x);
+        println(y);
     }
 }
-print("done");
+println("done");

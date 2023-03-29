@@ -113,8 +113,11 @@
 -cubeResolve _E, _sig -> _I, _sigP --- cube(_E), _sig -> cube(_I), _sigP
 (* constructor if *)
 -ifTrue  --- if(True, _C1, _C2), _sig -> _C1, _sig
+-ifTrue  --- if(True, _C), _sig -> _C, _sig
 -ifFalse  --- if(False, _C1, _C2), _sig -> _C2, _sig
+-ifFalse  --- if(False, _C), _sig -> __done, _sig
 -ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
+-ifResolve _E, _sig -> _EP, _sigP --- if(_E, _C), _sig -> if(_EP, _C, __done), _sigP
 (* constructor le *)
 -leInt _n1 |> _  _n2 |> _ --- le(_n1, _n2), _sig -> __le(_n1, _n2), _sig
 -leReal _n1 |> _  _n2 |> _ --- le(_n1, _n2), _sig -> __le(_n1, _n2), _sig

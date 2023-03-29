@@ -13,14 +13,27 @@ seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
 ---
 if(True, _C1, _C2), _sig -> _C1, _sig
 
+-ifTrue
+---
+if(True, _C), _sig -> _C, _sig
+
 -ifFalse 
 ---
 if(False, _C1, _C2), _sig -> _C2, _sig
 
+-ifFalse
+---
+if(False, _C), _sig -> __done, _sig
+
 -ifResolve
 _E, _sig ->_EP, _sigP
 ---
-if(_E,_C1,_C2), _sig -> if(_EP, _C1, _C2), _sigP
+if(_E, _C1, _C2), _sig -> if(_EP, _C1, _C2), _sigP
+
+-ifResolve
+_E, _sig ->_EP, _sigP
+---
+if(_E, _C), _sig -> if(_EP, _C, __done), _sigP
 
 -while
 ---
@@ -81,15 +94,15 @@ compassign(_X, _E), _sig -> compassign(_X, _I), _sigP
 -eqInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
+eq(_n1, _n2), _sig -> __eq(_n1, _n2), _sig
 
 -eqReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-eq(_n1, _n2), _sig ->  __eq(_n1, _n2), _sig
+eq(_n1, _n2), _sig -> __eq(_n1, _n2), _sig
 
 -eqRightInt
-_n |> __int32(_)  _E2, _sig -> _I2, _sigP
+_n |> __int32(_) _E2, _sig -> _I2, _sigP
 ---
 eq(_n, _E2), _sig -> eq(_n, _I2), _sigP
 
@@ -131,12 +144,12 @@ ne(_E1, _E2), _sig -> ne(_I1, _E2), _sigP
 -gtInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig 
+gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig 
 
 -gtReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-gt(_n1, _n2), _sig ->  __gt(_n1, _n2), _sig
+gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
 
 -gtRightInt
 _n |> __int32(_) _E2, _sig -> _I2, _sigP 
@@ -156,12 +169,12 @@ gt(_E1, _E2), _sig -> gt(_I1, _E2), _sigP
 -geInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-ge(_n1, _n2), _sig ->  __ge(_n1, _n2), _sig
+ge(_n1, _n2), _sig -> __ge(_n1, _n2), _sig
 
 -geReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-ge(_n1, _n2), _sig ->  __ge(_n1, _n2), _sig
+ge(_n1, _n2), _sig -> __ge(_n1, _n2), _sig
 
 -geRightInt
 _n |> __int32(_) _E2, _sig -> _I2, _sigP
@@ -181,12 +194,12 @@ ge(_E1, _E2), _sig -> ge(_I1, _E2), _sigP
 -ltInt
 _n1 |> __int32(_) _n2 |> __int32(_)
 ---
-lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
+lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig
 
 -ltReal
 _n1 |> __real64(_) _n2 |> __real64(_)
 ---
-lt(_n1, _n2), _sig ->  __lt(_n1, _n2), _sig
+lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig
 
 -ltRightInt
 _n |> __int32(_) _E2, _sig -> _I2, _sigP
@@ -462,17 +475,17 @@ _r |> __real64(_)
 sphere(_r), _sig -> __user("sphere", _r), _sig
 
 -cylinder
-_r |> __real64(_)  _h |> __real64(_)
+_r |> __real64(_) _h |> __real64(_)
 ---
 cylinder(_r, _h), _sig -> __user("cylinder", _r, _h), _sig
 
 -cone
-_r |> __real64(_)  _h |> __real64(_)
+_r |> __real64(_) _h |> __real64(_)
 ---
 cone(_r, _h), _sig -> __user("cone", _r, _h), _sig
 
 -torus
-_r |> __real64(_)  _R |> __real64(_)
+_r |> __real64(_) _R |> __real64(_)
 ---
 torus(_r, _R), _sig -> __user("torus", _r, _R), _sig
 

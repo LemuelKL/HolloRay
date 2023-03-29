@@ -549,14 +549,32 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf ifTrue}]}
+\begin{split}\langle\, \artConstructor{\sf if}(\artSpecial{bool}(\artConstructor{\sf True})\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C}, \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf ifFalse}]}
 \begin{split}\langle\, \artConstructor{\sf if}(\artSpecial{bool}(\artConstructor{\sf False})\ \artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{C$_{2}$}, \artVariable{$\sigma$}\,\rangle 
 \end{split}
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf ifFalse}]}
+\begin{split}\langle\, \artConstructor{\sf if}(\artSpecial{bool}(\artConstructor{\sf False})\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf ifResolve}]}
 \begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{E\/$^\prime$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf if}(\artVariable{E}\ \artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E\/$^\prime$}\ \artVariable{C$_{1}$}\ \artVariable{C$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf ifResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{E\/$^\prime$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf if}(\artVariable{E}\ \artVariable{C}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf if}(\artVariable{E\/$^\prime$}\ \artVariable{C}\ \artSpecial{done}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 
