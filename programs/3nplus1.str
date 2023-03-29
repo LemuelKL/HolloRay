@@ -1,12 +1,18 @@
 n = 33732423;
 steps = 0;
+prev = n;
 while (n != 1) {
     if (n % 2 == 0) {
         n = n / 2;
     } else {
         n = 3 * n + 1;
     }
-    print(n);
-    steps = steps + 1;
+    if (n < prev) {
+        println("[", steps, "] - n =", n);
+    } else {
+        println("[", steps, "] + n =", n);
+    }
+    steps += 1;
+    prev = n;
 }
-print("steps = ", steps);
+println("Done!");
