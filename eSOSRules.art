@@ -529,29 +529,104 @@ init(_w, _h), _sig -> __user("init", _w, _h), _sig
 ---
 paint, _sig -> __user("paint"), _sig
 
-// Helper
+// Flexible printing with arbitrary number of arguments
 
--printStr
+-printlnSingleStr
 _s |> __string(_)
 ---
-print(_s), _sig -> __user("print", _s), _sig
+println(_s), _sig -> seq(__user("print", _s), __user("printNewLineChar")), _sig
 
--printInt
+-printlnSingleInt
 _n |> __int32(_)
 ---
-print(_n), _sig -> __user("print", _n), _sig
+println(_n), _sig -> seq(__user("print", _n), __user("printNewLineChar")), _sig
 
--printReal
+-printlnSingleReal
 _n |> __real64(_)
 ---
-print(_n), _sig -> __user("print", _n), _sig
+println(_n), _sig -> seq(__user("print", _n), __user("printNewLineChar")), _sig
 
--printBool
+-printlnSingleBool
 _b |> __bool(_)
 ---
-print(_b), _sig -> __user("print", _b), _sig
+println(_b), _sig -> seq(__user("print", _b), __user("printNewLineChar")), _sig
 
--printResolve
+-printlnMultiStr
+_s |> __string(_)
+---
+println(_s, _E), _sig -> seq(__user("print", _s), _E), _sig
+
+-printlnMultiInt
+_n |> __int32(_)
+---
+println(_n, _E), _sig -> seq(__user("print", _n), _E), _sig
+
+-printlnMultiReal
+_n |> __real64(_)
+---
+println(_n, _E), _sig -> seq(__user("print", _n), _E), _sig
+
+-printlnMultiBool
+_b |> __bool(_)
+---
+println(_b, _E), _sig -> seq(__user("print", _b), _E), _sig
+
+-printlnElemStr
+_s |> __string(_)
+---
+printlnElem(_s, _E), _sig -> seq(__user("print", " "), seq(__user("print", _s), _E)), _sig
+
+-printlnElemInt
+_n |> __int32(_)
+---
+printlnElem(_n, _E), _sig -> seq(__user("print", " "), seq(__user("print", _n), _E)), _sig
+
+-printlnElemReal
+_n |> __real64(_)
+---
+printlnElem(_n, _E), _sig -> seq(__user("print", " "), seq(__user("print", _n), _E)), _sig
+
+-printlnElemBool
+_b |> __bool(_)
+---
+printlnElem(_b, _E), _sig -> seq(__user("print", " "), seq(__user("print", _b), _E)), _sig
+
+-printlnElemLast
+_s |> __string(_)
+---
+printlnElem(_s), _sig -> seq(seq(__user("print", " "), __user("print", _s)), __user("printNewLineChar")), _sig
+
+-printlnElemLastInt
+_n |> __int32(_)
+---
+printlnElem(_n), _sig -> seq(seq(__user("print", " "), __user("print", _n)), __user("printNewLineChar")), _sig
+
+-printlnElemLastReal
+_n |> __real64(_)
+---
+printlnElem(_n), _sig -> seq(seq(__user("print", " "), __user("print", _n)), __user("printNewLineChar")), _sig
+
+-printlnElemLastBool
+_b |> __bool(_)
+---
+printlnElem(_b), _sig -> seq(seq(__user("print", " "), __user("print", _b)), __user("printNewLineChar")), _sig
+
+-printlnElemLastResolve
 _E, _sig -> _I, _sigP
 ---
-print(_E), _sig -> print(_I), _sigP
+printlnElem(_E), _sig -> printlnElem(_I), _sigP
+
+-printlnResolve
+_E1, _sig -> _I1, _sigP
+---
+println(_E1, _E2), _sig -> println(_I1, _E2), _sigP
+
+-printlnResolve
+_E, _sig -> _I, _sigP
+---
+println(_E), _sig -> println(_I), _sigP
+
+-printlnElemResolve
+_E1, _sig -> _I1, _sigP
+---
+printlnElem(_E1, _E2), _sig -> printlnElem(_I1, _E2), _sigP

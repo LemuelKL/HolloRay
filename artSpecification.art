@@ -39,12 +39,17 @@
 -divRightInt _n |> _  _E2, _sig -> _I2, _sigP --- div(_n, _E2), _sig -> div(_n, _I2), _sigP
 -divRightReal _n |> _  _E2, _sig -> _I2, _sigP --- div(_n, _E2), _sig -> div(_n, _I2), _sigP
 -divLeft _E1, _sig -> _I1, _sigP --- div(_E1, _E2), _sig -> div(_I1, _E2), _sigP
-(* constructor print *)
--printStr _s |> _ --- print(_s), _sig -> __user("print", _s), _sig
--printInt _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
--printReal _n |> _ --- print(_n), _sig -> __user("print", _n), _sig
--printBool _b |> _ --- print(_b), _sig -> __user("print", _b), _sig
--printResolve _E, _sig -> _I, _sigP --- print(_E), _sig -> print(_I), _sigP
+(* constructor println *)
+-printlnSingleStr _s |> _ --- println(_s), _sig -> seq(__user("print", _s), __user("printNewLineChar")), _sig
+-printlnSingleInt _n |> _ --- println(_n), _sig -> seq(__user("print", _n), __user("printNewLineChar")), _sig
+-printlnSingleReal _n |> _ --- println(_n), _sig -> seq(__user("print", _n), __user("printNewLineChar")), _sig
+-printlnSingleBool _b |> _ --- println(_b), _sig -> seq(__user("print", _b), __user("printNewLineChar")), _sig
+-printlnMultiStr _s |> _ --- println(_s, _E), _sig -> seq(__user("print", _s), _E), _sig
+-printlnMultiInt _n |> _ --- println(_n, _E), _sig -> seq(__user("print", _n), _E), _sig
+-printlnMultiReal _n |> _ --- println(_n, _E), _sig -> seq(__user("print", _n), _E), _sig
+-printlnMultiBool _b |> _ --- println(_b, _E), _sig -> seq(__user("print", _b), _E), _sig
+-printlnResolve _E1, _sig -> _I1, _sigP --- println(_E1, _E2), _sig -> println(_I1, _E2), _sigP
+-printlnResolve _E, _sig -> _I, _sigP --- println(_E), _sig -> println(_I), _sigP
 (* constructor mod *)
 -modInt _n1 |> _  _n2 |> _ --- mod(_n1, _n2), _sig -> __mod(_n1, _n2), _sig
 -modRightInt _n |> _  _E2, _sig -> _I2, _sigP --- mod(_n, _E2), _sig -> mod(_n, _I2), _sigP
@@ -59,6 +64,17 @@
 -negInt _n |> _ --- neg(_n), _sig -> __neg(_n), _sig
 -negReal _n |> _ --- neg(_n), _sig -> __neg(_n), _sig
 -negResolve _E, _sig -> _I, _sigP --- neg(_E), _sig -> __neg(_I), _sigP
+(* constructor printlnElem *)
+-printlnElemStr _s |> _ --- printlnElem(_s, _E), _sig -> seq(__user("print", " "), seq(__user("print", _s), _E)), _sig
+-printlnElemInt _n |> _ --- printlnElem(_n, _E), _sig -> seq(__user("print", " "), seq(__user("print", _n), _E)), _sig
+-printlnElemReal _n |> _ --- printlnElem(_n, _E), _sig -> seq(__user("print", " "), seq(__user("print", _n), _E)), _sig
+-printlnElemBool _b |> _ --- printlnElem(_b, _E), _sig -> seq(__user("print", " "), seq(__user("print", _b), _E)), _sig
+-printlnElemLast _s |> _ --- printlnElem(_s), _sig -> seq(seq(__user("print", " "), __user("print", _s)), __user("printNewLineChar")), _sig
+-printlnElemLastInt _n |> _ --- printlnElem(_n), _sig -> seq(seq(__user("print", " "), __user("print", _n)), __user("printNewLineChar")), _sig
+-printlnElemLastReal _n |> _ --- printlnElem(_n), _sig -> seq(seq(__user("print", " "), __user("print", _n)), __user("printNewLineChar")), _sig
+-printlnElemLastBool _b |> _ --- printlnElem(_b), _sig -> seq(seq(__user("print", " "), __user("print", _b)), __user("printNewLineChar")), _sig
+-printlnElemLastResolve _E, _sig -> _I, _sigP --- printlnElem(_E), _sig -> printlnElem(_I), _sigP
+-printlnElemResolve _E1, _sig -> _I1, _sigP --- printlnElem(_E1, _E2), _sig -> printlnElem(_I1, _E2), _sigP
 (* constructor gt *)
 -gtInt _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig
 -gtReal _n1 |> _  _n2 |> _ --- gt(_n1, _n2), _sig -> __gt(_n1, _n2), _sig

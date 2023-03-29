@@ -1,0 +1,11 @@
+x = 3;
+y = 5;
+z = 7;
+t = 1;
+
+w = -t * (x - (y + z)) * (x + (y - z)) * (x + (y + z)) * (x - (y - z));
+
+w = w / (y * y);
+
+print("The value of w is:");
+print(w);

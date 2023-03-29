@@ -1,4 +1,4 @@
-statement ::= seq^^ | assign^^ | compassign^^ | if^^ | while^^ | for^^ | print^^ | init^^ | paint^^ | translate^^ | rotate^^ | scale^^
+statement ::= seq^^ | assign^^ | compassign^^ | if^^ | while^^ | for^^ | println^^ | init^^ | paint^^ | translate^^ | rotate^^ | scale^^
 
 seq ::= statement statement
 assign ::= ID '='^ relExpr ';'^
@@ -9,7 +9,8 @@ if ::=
 while ::= 'while'^ '('^ relExpr ')'^ '{'^ statement '}'^
 for ::= 'for'^ '('^ statement relExpr ';'^ statement ')'^ '{'^ statement '}'^
 
-print ::= 'print'^ '('^ relExpr ')'^ ';'^
+println ::= 'println'^ '('^ printlnElem^ ')'^ ';'^
+printlnElem ::= relExpr | relExpr ','^ printlnElem
 init ::= 'init'^ '('^ INTEGER ','^ INTEGER  ')'^ ';'^
 paint ::= 'paint'^ '('^ ')'^ ';'^
 translate ::= deref '.translate'^ '('^ REAL ','^ REAL ','^ REAL ')'^ ';'^
@@ -28,11 +29,12 @@ or ::= relExpr '||'^ relExpr
 not ::= '!'^ relExpr
 xor ::= relExpr '^'^ relExpr
 
-subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^ | neg^^ | exp^^ | '('^ subExpr^^ ')'^
+subExpr ::= operand^^ | sub^^ | add^^ | mul^^ | div^^ | mod^^ | neg^^ | exp^^ | '('^ subExpr^^ ')'^
 sub ::= subExpr '-'^ operand
 add ::= subExpr '+'^ operand
 mul ::= subExpr '*'^ operand
 div ::= subExpr '/'^ operand
+mod ::= subExpr '%'^ operand
 neg ::= '-'^ operand
 exp ::= subExpr '**'^ operand
 

@@ -1,0 +1,11 @@
+w = 0;
+
+println("The initial value of w is:", w);
+
+while (w < 10) {
+    println(w);
+    w = w + 1;
+}
+
+println("We are done!");
+println("The value of w is:", w);

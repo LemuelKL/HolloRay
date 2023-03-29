@@ -1,0 +1,10 @@
+println("just one word...");
+
+println("hello", "world", "!");
+
+println("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+
+x = 1;
+println(x);
+x = 2;
+println(x);

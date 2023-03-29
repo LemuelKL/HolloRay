@@ -195,32 +195,62 @@
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf printStr}]}
-\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf print}(\artVariable{s}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{s}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf printlnSingleStr}]}
+\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{s}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{s})\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf printInt}]}
-\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf print}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf printlnSingleInt}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf printReal}]}
-\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf print}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf printlnSingleReal}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf printBool}]}
-\begin{split}\frac{ \artVariable{b}\triangleright \artSpecial{bool}(\_) }{\langle\, \artConstructor{\sf print}(\artVariable{b}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{b}), \artVariable{$\sigma$}\,\rangle }
+\tag*{[\artConstructor{\sf printlnSingleBool}]}
+\begin{split}\frac{ \artVariable{b}\triangleright \artSpecial{bool}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{b}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{b})\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
 \end{split}
 \end{equation}
 
 \begin{equation}
-\tag*{[\artConstructor{\sf printResolve}]}
-\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf print}(\artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf print}(\artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\tag*{[\artConstructor{\sf printlnMultiStr}]}
+\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{s}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{s})\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnMultiInt}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{n}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnMultiReal}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{n}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnMultiBool}]}
+\begin{split}\frac{ \artVariable{b}\triangleright \artSpecial{bool}(\_) }{\langle\, \artConstructor{\sf println}(\artVariable{b}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{b})\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf println}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf println}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf println}(\artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf println}(\artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 
@@ -287,6 +317,66 @@
 \begin{equation}
 \tag*{[\artConstructor{\sf negResolve}]}
 \begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf neg}(\artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{neg}(\artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemStr}]}
+\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{s}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{s})\ \artVariable{E})), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemInt}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{n}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artVariable{E})), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemReal}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{n}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n})\ \artVariable{E})), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemBool}]}
+\begin{split}\frac{ \artVariable{b}\triangleright \artSpecial{bool}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{b}\ \artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{b})\ \artVariable{E})), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemLast}]}
+\begin{split}\frac{ \artVariable{s}\triangleright \artSpecial{string}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{s}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{s}))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemLastInt}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n}))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemLastReal}]}
+\begin{split}\frac{ \artVariable{n}\triangleright \artSpecial{real64}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{n}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{n}))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemLastBool}]}
+\begin{split}\frac{ \artVariable{b}\triangleright \artSpecial{bool}(\_) }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{b}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf seq}(\artConstructor{\sf seq}(\artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artSpecial{string}(\artCaseInsensitiveLiteral{ }))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{print})\ \artVariable{b}))\ \artSpecial{user}(\artSpecial{string}(\artCaseInsensitiveLiteral{printNewLineChar}))), \artVariable{$\sigma$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemLastResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{E}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf printlnElem}(\artVariable{I}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
+\end{split}
+\end{equation}
+
+\begin{equation}
+\tag*{[\artConstructor{\sf printlnElemResolve}]}
+\begin{split}\frac{\langle\, \artVariable{E$_{1}$}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artVariable{I$_{1}$}, \artVariable{$\sigma$\/$^\prime$}\,\rangle }{\langle\, \artConstructor{\sf printlnElem}(\artVariable{E$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artConstructor{\sf printlnElem}(\artVariable{I$_{1}$}\ \artVariable{E$_{2}$}), \artVariable{$\sigma$\/$^\prime$}\,\rangle }
 \end{split}
 \end{equation}
 

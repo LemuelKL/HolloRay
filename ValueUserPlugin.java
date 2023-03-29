@@ -49,9 +49,9 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     }
     
     void Print(String msg) {
-        System.out.println(ANSI_CYAN + msg + ANSI_RESET);
+        System.out.print(ANSI_CYAN + msg + ANSI_RESET);
     }
-
+    
     @Override
     public Value user(Value... args) throws ARTException {
         switch (args[0].value().toString()) {
@@ -66,6 +66,9 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
                 return new __done();
             case "print":
                 Print(args[1].value().toString());
+                return new __done();
+            case "printNewLineChar":
+                Print("\n");
                 return new __done();
             case "translate": {
                 int solidId = (int) args[1].value();
