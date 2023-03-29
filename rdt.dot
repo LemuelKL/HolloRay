@@ -103,59 +103,49 @@ edge[arrowsize = 0.3]
 "44"->"50"
 "50"  [label="50: println"]
 "50"->"51"
-"51"  [label="51: \"[\""]
+"51"  [label="51: \"-\""]
 "50"->"52"
 "52"  [label="52: printlnElem"]
 "52"->"53"
 "53"  [label="53: deref"]
 "53"->"54"
-"54"  [label="54: steps"]
-"52"->"55"
-"55"  [label="55: printlnElem"]
+"54"  [label="54: n"]
+"44"->"55"
+"55"  [label="55: println"]
 "55"->"56"
-"56"  [label="56: \"] - n =\""]
+"56"  [label="56: \"+\""]
 "55"->"57"
 "57"  [label="57: printlnElem"]
 "57"->"58"
 "58"  [label="58: deref"]
 "58"->"59"
 "59"  [label="59: n"]
-"44"->"60"
-"60"  [label="60: println"]
+"21"->"60"
+"60"  [label="60: compassign"]
 "60"->"61"
-"61"  [label="61: \"[\""]
+"61"  [label="61: steps"]
 "60"->"62"
-"62"  [label="62: printlnElem"]
-"62"->"63"
-"63"  [label="63: deref"]
+"62"  [label="62: 1"]
+"20"->"63"
+"63"  [label="63: assign"]
 "63"->"64"
-"64"  [label="64: steps"]
-"62"->"65"
-"65"  [label="65: printlnElem"]
+"64"  [label="64: prev"]
+"63"->"65"
+"65"  [label="65: deref"]
 "65"->"66"
-"66"  [label="66: \"] + n =\""]
-"65"->"67"
-"67"  [label="67: printlnElem"]
+"66"  [label="66: n"]
+"1"->"67"
+"67"  [label="67: println"]
 "67"->"68"
-"68"  [label="68: deref"]
-"68"->"69"
-"69"  [label="69: n"]
-"21"->"70"
-"70"  [label="70: compassign"]
+"68"  [label="68: \"Finished in\""]
+"67"->"69"
+"69"  [label="69: printlnElem"]
+"69"->"70"
+"70"  [label="70: deref"]
 "70"->"71"
 "71"  [label="71: steps"]
-"70"->"72"
-"72"  [label="72: 1"]
-"20"->"73"
-"73"  [label="73: assign"]
-"73"->"74"
-"74"  [label="74: prev"]
-"73"->"75"
-"75"  [label="75: deref"]
-"75"->"76"
-"76"  [label="76: n"]
-"1"->"77"
-"77"  [label="77: println"]
-"77"->"78"
-"78"  [label="78: \"Done!\""]
+"69"->"72"
+"72"  [label="72: printlnElem"]
+"72"->"73"
+"73"  [label="73: \"steps\""]
 }

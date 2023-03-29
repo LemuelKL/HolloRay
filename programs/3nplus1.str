@@ -8,11 +8,11 @@ while (n != 1) {
         n = 3 * n + 1;
     }
     if (n < prev) {
-        println("[", steps, "] - n =", n);
+        println("-", n);
     } else {
-        println("[", steps, "] + n =", n);
+        println("+", n);
     }
     steps += 1;
     prev = n;
 }
-println("Done!");
+println("Finished in", steps, "steps");
