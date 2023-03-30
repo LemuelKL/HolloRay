@@ -53,9 +53,11 @@ where _pred is a predicate as defined in section S.3, and _statement is any stat
 S.5 Iteration statements
 ------------------------
 
-HolloRay provides one iteration statement
+HolloRay provides two iteration statements
 
 while _pred do _statement
+
+for _pred do _statement
 
 where _pred is a predicate as defined in section S.4, and _statement is any statement
 
@@ -105,15 +107,59 @@ seq(_C1, _C2) execute command  C_1 followed by command C_2
 
 gt(_E1:__int32, _E2:__int32):__boolean integer greater-than E_1 > E_2
 
-ne(_E1:__int32, _E2:__int32):__boolean integer not-equals E_1 ne E_2
+gt(_E1:__real64, _E2:__real64):__boolean real greater-than E_1 > E_2
+
+ge(_E1:__int32, _E2:__int32):__boolean integer greater-than-or-equals E_1 >= E_2
+
+ge(_E1:__real64, _E2:__real64):__boolean real greater-than-or-equals E_1 >= E_2
+
+lt(_E1:__int32, _E2:__int32):__boolean integer less-than E_1 < E_2
+
+lt(_E1:__real64, _E2:__real64):__boolean real less-than E_1 < E_2
+
+le(_E1:__int32, _E2:__int32):__boolean integer less-than-or-equals E_1 <= E_2
+
+le(_E1:__real64, _E2:__real64):__boolean real less-than-or-equals E_1 <= E_2
+
+ne(_E1:__int32, _E2:__int32):__boolean integer not-equals E_1 != E_2
+
+ne(_E1:__real64, _E2:__real64):__boolean real not-equals E_1 != E_2
+
+ne(_E1:__bool, _E2:__bool):__boolean boolean not-equals E_1 != E_2
+
+eq(_E1:__int32, _E2:__int32):__boolean integer equals E_1 == E_2
+
+eq(_E1:__real64, _E2:__real64):__boolean real equals E_1 == E_2
+
+eq(_E1:__bool, _E2:__bool):__boolean boolean equals E_1 == E_2
+
+and(_P1:__bool, _P2:__bool):__bool boolean and P_1 && P_2
+
+or(_P1:__bool, _P2:__bool):__bool boolean or P_1 || P_2
+
+not(_P:__bool):__bool boolean not !P
+
+xor(_P1:__bool, _P2:__bool):__bool boolean xor P_1 ^ P_2
 
 assign(_N:__int32, _E:__int32) bind _E to name _N in variables map
+
+assign(_N:__real64, _E:__real64) bind _E to name _N in variables map
+
+assign(_N:__bool, _E:__bool) bind _E to name _N in variables map
+
+assign(_N:_solid, _E:_solid) bind _E to name _N in variables map
+
+compassign(_N:__int32, _V:__int32) bind _V plus value of _N to name _N in variables map
+
+compassign(_N:__real64, _V:__real64) bind _V plus value of _N to name _N in variables map
 
 deref(_N) retrieve binding for name _N in variables map
 
 if(_P:__bool, _C1, _C2) select if _P then execute C_2 else execute C_3
 
-while(_P:__bool, _C1, _C2) iterate while _P then execute C_2 else execute C_3
+if(_P:__bool, _C1) select if _P then execute C_2
+
+while(_P:__bool, _C1) iterate while _P then execute C_1
 
 
 
@@ -134,6 +180,14 @@ div(_E1:__int32, _E2:__int32):__int32 integer division: E_1 / E_2
 div(_E1:__real64, _E2:__real64):__real64 real division: E_1 / E_2
 
 mod(_E1:__int32, _E2:__int32):__int32 integer modulus: E_1 % E_2
+
+neg(_E:__int32):__int32 integer negation: -E
+
+neg(_E:__real64):__real64 real negation: -E
+
+exp(_E1:__int32, _E2:__int32):__int32 integer exponentiation: E_1 ** E_2
+
+exp(_E1:__real64, _E2:__real64):__real64 real exponentiation: E_1 ** E_2
 
 
 

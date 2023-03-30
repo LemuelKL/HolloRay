@@ -501,6 +501,12 @@
 \end{equation}
 
 \begin{equation}
+\tag*{[\artConstructor{\sf break}]}
+\begin{split}\langle\, \artConstructor{\sf break}, \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{done}, \artVariable{$\sigma$}\,\rangle 
+\end{split}
+\end{equation}
+
+\begin{equation}
 \tag*{[\artConstructor{\sf ltInt}]}
 \begin{split}\frac{ \artVariable{n$_{1}$}\triangleright \artSpecial{int32}(\_) \quad  \artVariable{n$_{2}$}\triangleright \artSpecial{int32}(\_) }{\langle\, \artConstructor{\sf lt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle \rightarrow \langle\, \artSpecial{lt}(\artVariable{n$_{1}$}\ \artVariable{n$_{2}$}), \artVariable{$\sigma$}\,\rangle }
 \end{split}

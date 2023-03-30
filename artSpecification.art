@@ -102,6 +102,8 @@
 -sequence _C1, _sig -> _C1P, _sigP --- seq(_C1, _C2), _sig -> seq(_C1P, _C2), _sigP
 (* constructor box *)
 -box _x |> _  _y |> _  _z |> _ --- box(_x, _y, _z), _sig -> __user("box", _x, _y, _z), _sig
+(* constructor break *)
+-break  --- break, _sig -> __done, _sig
 (* constructor lt *)
 -ltInt _n1 |> _  _n2 |> _ --- lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig
 -ltReal _n1 |> _  _n2 |> _ --- lt(_n1, _n2), _sig -> __lt(_n1, _n2), _sig

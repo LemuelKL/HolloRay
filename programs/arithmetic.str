@@ -13,5 +13,5 @@ b = 4;
 exp = 3;
 res = b**exp;
 
-print("The value of res is:");
-print(res);
+println("The value of res is:");
+println(res);
