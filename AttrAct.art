@@ -1,0 +1,5 @@
+S ::= A S | B S | # { System.out.println("FINISHED"); }
+
+A ::= 'a' { System.out.println("A"); }
+
+B ::= 'b' { System.out.println("B"); }
