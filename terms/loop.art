@@ -1,0 +1,4 @@
+// looping test
+!try
+seq(assign(A, 0), while(gt(32, deref(A)), assign(A, sub(deref(A), -1)))
+), __map

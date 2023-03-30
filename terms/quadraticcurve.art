@@ -1,0 +1,9 @@
+// quadratic curve 
+!trace 0
+!try
+seq(init(800, 600),
+seq(assign(X, -320.0),
+seq(while(gt(320.0, deref(X)), seq(assign(X, add(deref(X), 0.1)), 
+seq(assign(A, cube(1.0)), translate(deref(A), deref(X), mul(0.0125, mul(deref(X), deref(X))), 0.0)))),
+paint()
+))), __map

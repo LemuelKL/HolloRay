@@ -1,0 +1,8 @@
+// linear curve
+!try
+seq(init(800, 600),
+seq(assign(I, 0.0), 
+seq(while(gt(32.0, deref(I)), seq(assign(I, sub(deref(I), -1.0)), 
+seq(assign(A, cube(20.0)), translate(deref(A), mul(deref(I), 2.0), deref(I), 0.0)))),
+paint()
+))), __map
