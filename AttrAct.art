@@ -1,5 +1,10 @@
 prelude { 
     import java.util.HashMap;
+}
+support { 
+    HashMap<String, Integer> variables = new HashMap<String, Integer>();
+    HashMap<String, ARTGLLRDTHandle> procedures = new HashMap<String, ARTGLLRDTHandle>();
+    ValueUserPlugin valueUserPlugin = new ValueUserPlugin();
     class Helper {
         public static final String ANSI_RED = "\u001B[31m";
         public static final String ANSI_GREEN = "\u001B[32m";
@@ -9,17 +14,19 @@ prelude {
         }
     }
 }
-support { 
-    HashMap<String, Integer> variables = new HashMap<String, Integer>();
-    HashMap<String, ARTGLLRDTHandle> procedures = new HashMap<String, ARTGLLRDTHandle>();
-    ValueUserPlugin valueUserPlugin = new ValueUserPlugin();
-}
 
 stms ::= stm stms | stm
 
 stm ::= ID '=' relExpr ';' {
     variables.put(ID1.v, relExpr1.v);
     Helper.Shout("[ASSIGN] " + ID1.v + " = " + relExpr1.v);
+}
+| ID '+=' relExpr ';' {
+    if (!variables.containsKey(ID1.v)) {
+        variables.put(ID1.v, 0);
+    }
+    variables.put(ID1.v, variables.get(ID1.v) + relExpr1.v);
+    Helper.Shout("[ASSIGN] " + ID1.v + " += " + relExpr1.v);
 }
 | 'call' ID ';' {
     if (procedures.containsKey(ID1.v)) {
@@ -33,8 +40,7 @@ stm ::= ID '=' relExpr ';' {
     procedures.put(ID1.v, stm.stms1);
     Helper.Shout("[NEW PROCEDURE] " + ID1.v);
 }
-| 'print' '(' relExpr ')' ';' { Helper.Shout("[PRINT] " + relExpr1.v);}
-| 'print' '(' STRING_DQ ')' ';' { Helper.Shout("[PRINT] " + STRING_DQ1.v);}
+| 'println' '(' printlnElements ')' ';'
 | 'if' '(' relExpr ')' '{' stm< '}' {
     if (relExpr1.v != 0) {
         artEvaluate(stm.stm1, stm1);
@@ -91,6 +97,15 @@ stm ::= ID '=' relExpr ';' {
         artEvaluate(stm.relExpr1, relExpr1);
     }
 }
+| 'init' '(' INTEGER ',' INTEGER ')' ';' {
+    // UNCOMMENT THIS TO SEE BUG
+    // valueUserPlugin.initialise(INTEGER1.v, INTEGER2.v);
+}
+
+printlnElements ::= STRING_DQ { System.out.printf("%s\\n", STRING_DQ1.v); }
+    | STRING_DQ { System.out.printf("%s", STRING_DQ1.v); } ',' printlnElements
+    | relExpr { System.out.printf("%d\\n", relExpr1.v); }
+    | relExpr { System.out.printf("%d", relExpr1.v); } ',' printlnElements  
 
 relExpr<v:int> ::=
     subExpr { relExpr.v = subExpr1.v; }
@@ -100,6 +115,9 @@ relExpr<v:int> ::=
     | relExpr '>=' subExpr { relExpr.v = relExpr1.v >= subExpr1.v ? 1 : 0; }
     | relExpr '==' subExpr { relExpr.v = relExpr1.v == subExpr1.v ? 1 : 0; }
     | relExpr '!=' subExpr { relExpr.v = relExpr1.v != subExpr1.v ? 1 : 0; }
+    | relExpr '&&' subExpr { relExpr.v = relExpr1.v != 0 && subExpr1.v != 0 ? 1 : 0; }
+    | relExpr '||' subExpr { relExpr.v = relExpr1.v != 0 || subExpr1.v != 0 ? 1 : 0; }
+    | relExpr '^' subExpr { relExpr.v = relExpr1.v != 0 ^ subExpr1.v != 0 ? 1 : 0; }
 
 subExpr<v:int> ::= subExpr0 { subExpr.v = subExpr01.v; }
 

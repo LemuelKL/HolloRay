@@ -20,40 +20,40 @@ for (; i < 100;)
     i = i * 2;
 }
 
-print("Expect y == 1");
+println("Expect y == 1");
 y = 7 - 3 * 2;
 
-print("Expect y == 3");
+println("Expect y == 3");
 y = 18 / 3 ** 2 + 1;
 
-print("Expect y == 10");
+println("Expect y == 10");
 y = 4 * 2 + 2;
 
-print("Expect y == 0.5");
+println("Expect y == 0.5");
 y = 1 / 2;
 
-print("Expect y == -14");
+println("Expect y == -14");
 y = 4 - 6 * 3;
 
-print("Expect y == 81");
+println("Expect y == 81");
 y = (6 + 3) ** 2;
 
-print("Expect y == True");
+println("Expect y == True");
 y = 5 == 5;
 
-print("Expect y == False");
+println("Expect y == False");
 y = 5 != 5;
 
-print("Expect y == True");
+println("Expect y == True");
 y = 10 > 5;
 
-print("Expect y == False");
+println("Expect y == False");
 y = 5 < 2;
 
-print("Expect y == True");
+println("Expect y == True");
 y = (3 + 2) >= 5;
 
-print("Expect y == False");
+println("Expect y == False");
 y = (5 - 3) <= 1;
 
 z = !(5 == 5);
@@ -64,7 +64,7 @@ z = -z;
 
 procedure _3x_plus_1
 {
-    print("Begin _3x_plus_1");
+    println("Begin _3x_plus_1");
     while (x != 1)
     {
         if (x % 2 == 0)
@@ -76,7 +76,7 @@ procedure _3x_plus_1
             x = 3 * x + 1;
         }
     }
-    print("End _3x_plus_1");
+    println("End _3x_plus_1");
 }
 
 tmp = x;
@@ -87,4 +87,10 @@ for (i = 1; i < 10; i = i + 1;)
 }
 x = tmp;
 
+w = 1;
+w += 2;
+println(w);
+t += 4;
+
+init(640, 480);
 

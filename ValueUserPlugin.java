@@ -13,11 +13,11 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
+import javafx.application.Application;
 
 import com.google.common.collect.BiMap;
 
-public class ValueUserPlugin implements ValueUserPluginInterface {
-
+public class ValueUserPlugin extends Application implements ValueUserPluginInterface {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -47,11 +47,11 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
     void Shout(String msg) {
         System.out.println(ANSI_PURPLE + "[PLUGIN] " + ANSI_RESET + msg);
     }
-    
+
     void Print(String msg) {
         System.out.print(ANSI_CYAN + msg + ANSI_RESET);
     }
-    
+
     @Override
     public Value user(Value... args) throws ARTException {
         switch (args[0].value().toString()) {
@@ -146,7 +146,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         }
     }
 
-    private Value paint() {
+    public Value paint() {
         Shout("Painting JavaFX stage");
         stage.setScene(scene);
         stage.setTitle("HolloRay");
@@ -154,7 +154,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         return new __done();
     }
 
-    private Value initialise(int screen_width, int screen_height) {
+    public Value initialise(int screen_width, int screen_height) {
         Shout("Initialising JavaFX stage");
         root = new Group();
         scene = new Scene(root, screen_width, screen_width, true);
@@ -223,7 +223,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         return new __done();
     }
 
-    private void buildCamera() {
+    public void buildCamera() {
         camera = new PerspectiveCamera(true);
         camera.getTransforms().addAll(
                 new Translate(0, 0, -500));
@@ -233,7 +233,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         scene.setCamera(camera);
     }
 
-    private void buildAxes() {
+    public void buildAxes() {
         final PhongMaterial redMaterial = new PhongMaterial();
         redMaterial.setDiffuseColor(Color.DARKRED);
         redMaterial.setSpecularColor(Color.RED);
@@ -274,7 +274,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         root.getChildren().addAll(axisGroup);
     }
 
-    private void spawnBox(double width, double height, double depth) {
+    public void spawnBox(double width, double height, double depth) {
         Shout("Spawning a box with width " + width + ", height " + height + ", and depth " + depth);
         Box box = new Box();
         box.setMaterial(new PhongMaterial(Color.INDIGO));
@@ -286,7 +286,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         solids.put(nextSolidId, box);
     }
 
-    private void spawnCube(double side_length) {
+    public void spawnCube(double side_length) {
         Shout("Spawning a box with side length " + side_length);
         Box box = new Box();
         box.setMaterial(new PhongMaterial(Color.BLUE));
@@ -298,7 +298,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         solids.put(nextSolidId, box);
     }
 
-    private void spawnCylinder(double radius, double height) {
+    public void spawnCylinder(double radius, double height) {
         Shout("Spawning a cylinder with radius " + radius + " and height " + height);
         Cylinder cylinder = new Cylinder();
         cylinder.setMaterial(new PhongMaterial(Color.RED));
@@ -309,7 +309,7 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         solids.put(nextSolidId, cylinder);
     }
 
-    private void spawnSphere(double radius) {
+    public void spawnSphere(double radius) {
         Shout("Spawning a sphere with radius " + radius);
         Sphere sphere = new Sphere();
         sphere.setMaterial(new PhongMaterial(Color.GREEN));
@@ -319,24 +319,29 @@ public class ValueUserPlugin implements ValueUserPluginInterface {
         solids.put(nextSolidId, sphere);
     }
 
-    private void spawnTorus(double radius, double tube_radius) {
+    public void spawnTorus(double radius, double tube_radius) {
         // Shout("Spawning a torus");
         // TODO
     }
 
-    private void spawnCone(double radius, double height) {
+    public void spawnCone(double radius, double height) {
         // Shout("Spawning a cone");
         // TODO
     }
 
-    private void spawnPyramid(double side_length, double height) {
+    public void spawnPyramid(double side_length, double height) {
         // Shout("Spawning a pyramid");
         // TODO
     }
 
-    private void spawnTetrahedron(double side_length) {
+    public void spawnTetrahedron(double side_length) {
         // Shout("Spawning a tetrahedron");
         // TODO
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        System.out.println("!!!Starting JavaFX");
     }
 
 }

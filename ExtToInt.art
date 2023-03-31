@@ -13,9 +13,9 @@ println ::= 'println'^ '('^ printlnElem^ ')'^ ';'^
 printlnElem ::= relExpr | relExpr ','^ printlnElem
 init ::= 'init'^ '('^ INTEGER ','^ INTEGER  ')'^ ';'^
 paint ::= 'paint'^ '('^ ')'^ ';'^
-translate ::= deref '.translate'^ '('^ REAL ','^ REAL ','^ REAL ')'^ ';'^
-rotate ::= deref '.rotate'^ '('^ REAL ','^ REAL ','^ REAL ')'^ ';'^
-scale ::= deref '.scale'^ '('^ REAL ','^ REAL ','^ REAL ')'^ ';'^
+translate ::= deref '.translate'^ '('^ subExpr ','^ subExpr ','^ REAL ')'^ ';'^
+rotate ::= deref '.rotate'^ '('^ subExpr ','^ subExpr ','^ subExpr ')'^ ';'^
+scale ::= deref '.scale'^ '('^ subExpr ','^ subExpr ','^ subExpr ')'^ ';'^
 
 relExpr ::= subExpr^^ | eq^^ | ne^^ | gt^^ | ge^^ | lt^^ | le^^ | and^^ | or^^ | not^^ | xor^^ | '('^ relExpr^^ ')'^
 eq ::= relExpr '=='^ subExpr
