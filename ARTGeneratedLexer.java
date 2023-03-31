@@ -16,8 +16,14 @@ import uk.ac.rhul.cs.csle.art.value.*;
 *******************************************************************************/
 @SuppressWarnings("fallthrough") public class ARTGeneratedLexer extends ARTLexerV3 {
 public void artLexicaliseBuiltinInstances() throws ARTException {
+  artBuiltin_ID();
+  artLexicaliseTest(ARTGeneratedParser.ARTTB_ID);
+  artBuiltin_INTEGER();
+  artLexicaliseTest(ARTGeneratedParser.ARTTB_INTEGER);
   artBuiltin_SIMPLE_WHITESPACE();
   artLexicaliseTest(ARTGeneratedParser.ARTTB_SIMPLE_WHITESPACE);
+  artBuiltin_STRING_DQ();
+  artLexicaliseTest(ARTGeneratedParser.ARTTB_STRING_DQ);
 }
 
 public void artLexicalisePreparseWhitespaceInstances() throws ARTException {

@@ -1,5 +1,146 @@
-S ::= A S | B S | # { System.out.println("FINISHED"); }
+prelude { 
+    import java.util.HashMap;
+    class Helper {
+        public static final String ANSI_RED = "\u001B[31m";
+        public static final String ANSI_GREEN = "\u001B[32m";
+        public static final String ANSI_RESET = "\u001B[0m";
+        public static void Shout(String s) {
+            System.out.println(ANSI_GREEN + s + ANSI_RESET);
+        }
+    }
+}
+support { 
+    HashMap<String, Integer> variables = new HashMap<String, Integer>();
+    HashMap<String, ARTGLLRDTHandle> procedures = new HashMap<String, ARTGLLRDTHandle>();
+    ValueUserPlugin valueUserPlugin = new ValueUserPlugin();
+}
 
-A ::= 'a' { System.out.println("A"); }
+stms ::= stm stms | stm
 
-B ::= 'b' { System.out.println("B"); }
+stm ::= ID '=' relExpr ';' {
+    variables.put(ID1.v, relExpr1.v);
+    Helper.Shout("[ASSIGN] " + ID1.v + " = " + relExpr1.v);
+}
+| 'call' ID ';' {
+    if (procedures.containsKey(ID1.v)) {
+        Helper.Shout("[CALL PROCEDURE] " + ID1.v);
+        artEvaluate(procedures.get(ID1.v), null);
+    } else {
+        Helper.Shout("[ERROR] " + ID1.v + " is not a procedure");
+    }
+}
+| 'procedure' ID '{' stms< '}' {
+    procedures.put(ID1.v, stm.stms1);
+    Helper.Shout("[NEW PROCEDURE] " + ID1.v);
+}
+| 'print' '(' relExpr ')' ';' { Helper.Shout("[PRINT] " + relExpr1.v);}
+| 'print' '(' STRING_DQ ')' ';' { Helper.Shout("[PRINT] " + STRING_DQ1.v);}
+| 'if' '(' relExpr ')' '{' stm< '}' {
+    if (relExpr1.v != 0) {
+        artEvaluate(stm.stm1, stm1);
+    }
+}
+| 'if' '(' relExpr ')' '{' stm< '}' 'else' '{' stm< '}' {
+    if (relExpr1.v != 0) {
+        artEvaluate(stm.stm1, stm1);
+    } else {
+        artEvaluate(stm.stm2, stm2);
+    }
+}
+| 'while' '(' relExpr< ')' '{' stms< '}' {
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.stms1, stms1);
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+| 'while' '(' relExpr< ')' {
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+| 'for' '(' stms< relExpr< ';' stms< ')' '{' stms< '}' {
+    artEvaluate(stm.stms1, stms1);
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.stms3, stms3);
+        artEvaluate(stm.stms2, stms2);
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+| 'for' '(' stms< relExpr< ';' stms< ')' {
+    artEvaluate(stm.stms1, stms1);
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.stms2, stms2);
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+| 'for' '(' ';' relExpr< ';' stms< ')' {
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.stms1, stms1);
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+| 'for' '(' ';' relExpr< ';' ')' '{' stms< '}' {
+    artEvaluate(stm.relExpr1, relExpr1);
+    while (relExpr1.v != 0) {
+        artEvaluate(stm.stms1, stms1);
+        artEvaluate(stm.relExpr1, relExpr1);
+    }
+}
+
+relExpr<v:int> ::=
+    subExpr { relExpr.v = subExpr1.v; }
+    | relExpr '<' subExpr { relExpr.v = relExpr1.v < subExpr1.v ? 1 : 0; }
+    | relExpr '>' subExpr { relExpr.v = relExpr1.v > subExpr1.v ? 1 : 0; }
+    | relExpr '<=' subExpr { relExpr.v = relExpr1.v <= subExpr1.v ? 1 : 0; }
+    | relExpr '>=' subExpr { relExpr.v = relExpr1.v >= subExpr1.v ? 1 : 0; }
+    | relExpr '==' subExpr { relExpr.v = relExpr1.v == subExpr1.v ? 1 : 0; }
+    | relExpr '!=' subExpr { relExpr.v = relExpr1.v != subExpr1.v ? 1 : 0; }
+
+subExpr<v:int> ::= subExpr0 { subExpr.v = subExpr01.v; }
+
+subExpr0<v:int> ::=
+    subExpr1 { subExpr0.v = subExpr11.v; }
+    | subExpr0 '+' subExpr1 { subExpr0.v = subExpr01.v + subExpr11.v; }
+    | subExpr0 '-' subExpr1 { subExpr0.v = subExpr01.v - subExpr11.v; }
+
+subExpr1<v:int> ::=
+    subExpr2 { subExpr1.v = subExpr21.v; }
+    | subExpr1 '*' subExpr2 { subExpr1.v = subExpr11.v * subExpr21.v; }
+    | subExpr1 '/' subExpr2 { subExpr1.v = subExpr11.v / subExpr21.v; }
+    | subExpr1 '%' subExpr2 { subExpr1.v = subExpr11.v % subExpr21.v; }
+
+subExpr2<v:int> ::=
+    subExpr3 { subExpr2.v = subExpr31.v; }
+    | '-' subExpr2 { subExpr2.v = -subExpr21.v; }
+    | '+' subExpr2 { subExpr2.v = subExpr21.v; }
+    | '!' subExpr2 { subExpr2.v = subExpr21.v == 0 ? 1 : 0; }
+
+subExpr3<v:int> ::=
+    operand { subExpr3.v = operand1.v; }
+    | operand '**' subExpr3 { subExpr3.v = (int) Math.pow(operand1.v, subExpr31.v); }
+
+operand<v:int> ::= ID {operand.v = variables.get(ID1.v); }
+    | INTEGER {operand.v = INTEGER1.v; }
+    | '(' relExpr ')' {operand.v = relExpr1.v; }
+
+ID <leftExtent:int rightExtent:int lexeme:String v:String>
+::= &ID {
+    ID.lexeme = artLexeme(ID.leftExtent, ID.rightExtent);
+    ID.v = artLexemeAsID(ID.leftExtent, ID.rightExtent);
+}
+
+INTEGER <leftExtent:int rightExtent:int v:int> ::= &INTEGER {
+    INTEGER.v = artLexemeAsInteger(INTEGER.leftExtent, INTEGER.rightExtent);
+}
+
+STRING_DQ <leftExtent:int rightExtent:int v:String> ::= &STRING_DQ {
+    STRING_DQ.v = artLexemeAsString(STRING_DQ.leftExtent, STRING_DQ.rightExtent);
+}
+
+
+
